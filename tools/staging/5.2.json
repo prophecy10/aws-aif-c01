@@ -29,16 +29,16 @@
   "q": "A company's policy says every S3 bucket holding training data must be encrypted and must not be public. It wants continuous checks and a history of configuration changes. Which service fits?",
   "options": [
    "AWS Config",
-   "Amazon Polly",
-   "AWS Artifact",
-   "Amazon Translate"
+   "AWS CloudTrail",
+   "Amazon Inspector",
+   "AWS Trusted Advisor"
   ],
   "answer": 0,
   "notes": [
-   "Correct. AWS Config records resource configurations over time and evaluates them against rules, flagging non-compliant resources.",
-   "Polly converts text to speech.",
-   "Artifact provides AWS's own compliance reports.",
-   "Translate converts text between languages."
+   "Correct. Config rules continuously evaluate resource settings and keep a configuration history for each resource.",
+   "CloudTrail records API calls, but it does not continuously evaluate settings against rules.",
+   "Inspector scans for software vulnerabilities and network exposure, not bucket encryption policies.",
+   "Trusted Advisor gives periodic best-practice checks, but not custom rules with a full configuration history."
   ],
   "explain": "Config is the governance tool for 'is my environment configured the way our policies require, and what changed?'. Rules can trigger automatic remediation.",
   "ref": "Exam guide skill 5.2.1 (AWS Config)"
@@ -51,16 +51,16 @@
   "q": "A team runs its model-serving application on Amazon EC2 and in container images. It wants continuous scanning for software vulnerabilities and unintended network exposure. Which service fits?",
   "options": [
    "Amazon Inspector",
-   "AWS Artifact",
-   "Amazon Bedrock Guardrails",
-   "AWS Glue DataBrew"
+   "AWS Trusted Advisor",
+   "AWS Config",
+   "Amazon Macie"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Amazon Inspector automatically scans EC2 instances, container images in Amazon ECR, and Lambda functions for vulnerabilities and exposure.",
-   "Artifact provides compliance reports.",
-   "Guardrails filter model inputs and outputs, not software vulnerabilities.",
-   "DataBrew prepares data."
+   "Correct. Inspector continuously scans EC2 instances, container images, and Lambda functions for vulnerabilities and network exposure.",
+   "Trusted Advisor gives account-level best-practice checks, not software vulnerability scanning.",
+   "Config evaluates resource configuration against rules. It does not scan software packages for CVEs.",
+   "Macie discovers sensitive data in S3, not software vulnerabilities."
   ],
   "explain": "Inspector covers the infrastructure and software layer of an AI application, which still needs patching and hardening.",
   "ref": "Exam guide skill 5.2.1 (Amazon Inspector)"
@@ -73,16 +73,16 @@
   "q": "Which AWS service inspects an account and recommends improvements across cost optimization, security, fault tolerance, performance, and service limits?",
   "options": [
    "AWS Trusted Advisor",
-   "Amazon Comprehend",
-   "Amazon Bedrock Knowledge Bases",
-   "Amazon Lex"
+   "AWS Config",
+   "Amazon Inspector",
+   "AWS Well-Architected Tool"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Trusted Advisor runs best-practice checks and gives recommendations, such as finding open security groups or idle resources.",
-   "Comprehend analyzes text.",
-   "Knowledge Bases provide RAG.",
-   "Lex builds chatbots."
+   "Correct. Trusted Advisor checks the account across cost optimization, security, fault tolerance, performance, and service limits.",
+   "Config evaluates resources against rules you define. It does not give cost or service-limit recommendations.",
+   "Inspector scans for software vulnerabilities only.",
+   "The Well-Architected Tool reviews a workload through a guided questionnaire. It does not automatically inspect the account or check service limits."
   ],
   "explain": "Trusted Advisor is a governance aid that surfaces risky or wasteful configurations across the account.",
   "ref": "Exam guide skill 5.2.1 (AWS Trusted Advisor)"
@@ -191,16 +191,16 @@
   "q": "An operations team wants alarms when error rates or latency for its Amazon Bedrock calls rise above normal. Which service provides metrics and alarms?",
   "options": [
    "Amazon CloudWatch",
-   "AWS Artifact",
-   "AWS Glue DataBrew",
-   "Amazon Polly"
+   "AWS CloudTrail",
+   "AWS Config",
+   "Amazon Bedrock model invocation logging"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Bedrock publishes metrics such as invocations, latency, and errors to CloudWatch, where you can create dashboards and alarms.",
-   "Artifact provides compliance reports.",
-   "DataBrew prepares data.",
-   "Polly converts text to speech."
+   "Correct. CloudWatch collects Bedrock metrics such as invocations, latency, and errors, and can raise alarms on them.",
+   "CloudTrail records who called which API. It does not alarm on latency or error rates.",
+   "Config tracks configuration changes, not runtime performance.",
+   "Invocation logging records prompts and responses. Alarms on error rates and latency come from CloudWatch metrics."
   ],
   "explain": "Monitoring is a data governance and operations practice. Combine CloudWatch metrics with model invocation logging and CloudTrail for full visibility.",
   "ref": "Exam guide skill 5.2.2 (monitoring)"
@@ -357,5 +357,82 @@
   ],
   "explain": "Skill 5.2.2 covers data lifecycles, logging, residency, monitoring, observation, and retention.",
   "ref": "Exam guide skill 5.2.2"
+ },
+ {
+  "id": "5.2-17",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "Employees use a third-party SaaS productivity suite whose vendor has added generative AI features. Under the Generative AI Security Scoping Matrix, which scope is this, and what does the company mainly control?",
+  "options": [
+   "Scope 2 (enterprise app); mainly its contract terms, data shared, and user access policies",
+   "Scope 3 (pretrained models); mainly the training data used to build the vendor's model",
+   "Scope 5 (self-trained models); the full model lifecycle, from data collection to deployment",
+   "Scope 4 (fine-tuned models); mainly the fine-tuning dataset and the customized model weights"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Using an enterprise SaaS application with GenAI features is scope 2. The company controls usage policies, data sharing, and vendor agreements.",
+   "Scope 3 is building your own application on a pretrained model, for example through Amazon Bedrock.",
+   "Scope 5 means training your own model from scratch.",
+   "Scope 4 means fine-tuning a model on your own data."
+  ],
+  "explain": "Scopes 1 (consumer app) and 2 (enterprise app) are buying; scopes 3 to 5 are building. Governance focus shifts from usage policies and contracts toward data, model, and infrastructure security as scope rises.",
+  "ref": "Exam guide skill 5.2.3; Generative AI Security Scoping Matrix"
+ },
+ {
+  "id": "5.2-18",
+  "task": "5.2",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each data governance requirement to the strategy it represents.",
+  "prompts": [
+   "Customer data must be stored and processed only in the EU",
+   "Prompt logs must be kept for one year and then deleted",
+   "Data moves from creation through active use and archive to deletion",
+   "Every access to training data must be recorded"
+  ],
+  "options": [
+   "Data residency",
+   "Data retention",
+   "Data lifecycle management",
+   "Logging",
+   "Model distillation"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Skill 5.2.2 lists data lifecycles, logging, residency, monitoring, observation, and retention as data governance strategies. Model distillation is a customization method, not a governance strategy.",
+  "ref": "Exam guide skill 5.2.2"
+ },
+ {
+  "id": "5.2-19",
+  "task": "5.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "An organization is setting up governance for its AI systems. Which actions are governance processes named in the exam guide? Select TWO.",
+  "options": [
+   "Train teams on AI policies and responsible use",
+   "Set a regular cadence to review AI systems for risk and compliance",
+   "Raise the temperature on production models",
+   "Remove audit logging to save storage",
+   "Let each team choose its own models without review"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Team training requirements are part of skill 5.2.3.",
+   "Correct. Review cadence and review strategies are part of skill 5.2.3.",
+   "Inference settings are not governance processes.",
+   "Removing audit logs weakens governance.",
+   "Unreviewed choices contradict governance policies."
+  ],
+  "explain": "Skill 5.2.3: policies, review cadence, review strategies, governance frameworks such as the Generative AI Security Scoping Matrix, transparency standards, and team training requirements.",
+  "ref": "Exam guide skill 5.2.3"
  }
 ]

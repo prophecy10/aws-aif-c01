@@ -139,16 +139,16 @@
   "q": "A company wants a managed way to compare several Amazon Bedrock models on its own prompts, using automatic metrics, human reviewers, or an LLM judge. Which capability fits?",
   "options": [
    "Amazon Bedrock Model Evaluation",
-   "Amazon Bedrock Provisioned Throughput",
-   "AWS Trusted Advisor",
-   "Amazon CloudWatch billing alarms"
+   "Amazon Bedrock Guardrails",
+   "Amazon SageMaker Model Monitor",
+   "Amazon Bedrock Prompt Management"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Bedrock model evaluation runs evaluation jobs with built-in or custom datasets and automatic, human, or LLM-as-a-judge scoring.",
-   "Provisioned Throughput reserves capacity.",
-   "Trusted Advisor checks account best practices.",
-   "Billing alarms track spend, not model quality."
+   "Correct. Bedrock evaluations compare models on your own prompts with automatic metrics, human workers, or an LLM judge.",
+   "Guardrails filters inputs and outputs at run time. It does not compare models' quality.",
+   "Model Monitor watches deployed SageMaker AI endpoints for drift. It does not run side-by-side FM comparisons.",
+   "Prompt Management versions prompts and can compare prompt variants, but it is not the model evaluation service."
   ],
   "explain": "Using Bedrock evaluations makes model selection evidence-based. It can also evaluate RAG pipelines built on Bedrock Knowledge Bases.",
   "ref": "Exam guide skill 3.4.1 (Amazon Bedrock Model Evaluation)"
@@ -479,16 +479,16 @@
   "q": "A company wants a managed way to evaluate its Amazon Bedrock Knowledge Base, scoring both retrieval quality and generated answers with metrics such as correctness and faithfulness. What should it use?",
   "options": [
    "Amazon Bedrock evaluations with RAG evaluation jobs",
-   "Amazon Inspector vulnerability scans",
-   "AWS Cost Explorer reports filtered by service",
-   "Amazon Polly speech marks and lexicons"
+   "Amazon Bedrock Guardrails contextual grounding checks",
+   "Amazon SageMaker Model Monitor",
+   "Amazon CloudWatch metrics for the knowledge base"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Bedrock evaluations include RAG evaluation for Knowledge Bases, using LLM-as-a-judge metrics for retrieval and generation.",
-   "Inspector scans workloads for software vulnerabilities.",
-   "Cost Explorer analyzes spending.",
-   "Polly speech marks are for timing metadata in speech."
+   "Correct. RAG evaluation jobs score retrieval (such as context relevance) and generation (such as correctness and faithfulness).",
+   "Grounding checks block ungrounded answers at run time. They do not produce an evaluation report across a test set.",
+   "Model Monitor checks drift on SageMaker AI endpoints. It does not score retrieval and answer quality for a knowledge base.",
+   "CloudWatch tracks operational metrics such as latency and errors, not answer correctness."
   ],
   "explain": "Evaluating RAG systematically is part of skill 3.4.4. Managed evaluation lets you compare configurations such as chunking, embedding model, or generator model.",
   "ref": "Exam guide skill 3.4.4; Amazon Bedrock evaluations"
@@ -541,5 +541,104 @@
   ],
   "explain": "Continuous evaluation combines user feedback, sampled human or LLM-judge reviews, business metrics, and logs (for example, Bedrock model invocation logging and CloudWatch).",
   "ref": "Exam guide skills 3.4.3 and 1.3.5"
+ },
+ {
+  "id": "3.4-25",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team uses an LLM-as-a-judge to grade answers. It notices that the judge prefers longer answers even when they are not better. What should the team do?",
+  "options": [
+   "Calibrate the judge against human ratings and refine the rubric",
+   "Stop evaluating, because automated judges are always reliable",
+   "Raise the judge model's temperature",
+   "Use the same model as both the answering model and the judge, with no rubric"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Judges have known biases, such as favoring length or position. Calibrate them against human labels and use clear rubrics.",
+   "No evaluation method is always reliable. Spot-checks are essential.",
+   "A higher temperature makes the judge's scores less consistent.",
+   "Self-judging without a rubric increases bias."
+  ],
+  "explain": "LLM-as-a-judge (new in skill 3.4.2) scales evaluation, but it needs a clear rubric, human calibration, and checks for biases such as verbosity and position bias.",
+  "ref": "Exam guide skills 3.4.1 and 3.4.2"
+ },
+ {
+  "id": "3.4-26",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team wants to know how well a new model performs on general reasoning before running its own tests. It looks at published results on standard question sets that many models are scored against. What are these called, and what is their main limitation?",
+  "options": [
+   "Benchmark datasets; they may not reflect the company's own data and tasks",
+   "Golden datasets; they are always built from the company's own data",
+   "Human-in-the-loop evaluations; they cannot be repeated",
+   "A/B tests; they require live production users"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Benchmarks allow comparison across models, but they may not match your use case, and some models may have seen them during training.",
+   "A golden dataset is the company's own curated evaluation set, not a public comparison set.",
+   "Human-in-the-loop evaluation uses human reviewers. It is not a published standard question set.",
+   "A/B tests compare variants with real users in production."
+  ],
+  "explain": "Skill 3.4.1 lists human-in-the-loop evaluation, benchmark datasets, and Amazon Bedrock Model Evaluation. Use public benchmarks to shortlist models, then test them on your own data.",
+  "ref": "Exam guide skill 3.4.1"
+ },
+ {
+  "id": "3.4-27",
+  "task": "3.4",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each FM-based application to the evaluation focus that matters most for it.",
+  "prompts": [
+   "A RAG assistant over company policies",
+   "An agent that books travel using several APIs",
+   "A fixed four-step document-processing workflow",
+   "A marketing copy generator"
+  ],
+  "options": [
+   "Retrieval relevance and answer faithfulness",
+   "Task completion and correct tool use",
+   "Per-step accuracy and end-to-end accuracy",
+   "Human review of brand voice and quality",
+   "Training loss"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Skill 3.4.4 asks how to evaluate applications built with FMs, such as RAG, agents, and workflows. Choose metrics that match how the application can fail. Training loss is a training signal, not an application evaluation.",
+  "ref": "Exam guide skill 3.4.4"
+ },
+ {
+  "id": "3.4-28",
+  "task": "3.4",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A company launched a GenAI support agent. Which metrics show alignment with business objectives? Select TWO.",
+  "options": [
+   "Share of conversations resolved without escalation to a human",
+   "User satisfaction (CSAT) scores after each chat",
+   "Number of transformer layers in the model",
+   "Size of the embedding vectors",
+   "Number of GPUs in the AWS Region"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. This is task completion rate, a listed alignment metric.",
+   "Correct. User satisfaction is a listed alignment metric.",
+   "Architecture details do not show business alignment.",
+   "Embedding size is a technical detail.",
+   "Infrastructure capacity is not a business metric."
+  ],
+  "explain": "New skill 3.4.5: business objective alignment metrics such as task completion rate, user satisfaction, and cost per interaction.",
+  "ref": "Exam guide skill 3.4.5"
  }
 ]

@@ -91,8 +91,8 @@
   },
   {
    "t": "v1.1 pipeline services",
-   "b": "Amazon Bedrock (FMs as a service), Amazon SageMaker AI (build/train/deploy custom models), Kiro (agentic IDE, spec-driven development), Amazon Quick (business analytics, research, and automation agents), Amazon Q (generative AI assistants such as Q Developer).",
-   "x": "Data Wrangler, Feature Store, and Model Monitor were dropped from this objective's examples in v1.1."
+   "b": "Amazon Bedrock (FMs as a service), Amazon SageMaker AI (build/train/deploy custom models), Kiro (agentic IDE, spec-driven development), Amazon Quick (business analytics, research, and automation agents).",
+   "x": "Data Wrangler, Feature Store, Model Registry, and Model Monitor left this objective's examples in v1.1, but they are still SageMaker AI features and still appear in scenarios."
   },
   {
    "t": "MLOps",
@@ -150,6 +150,11 @@
    "t": "FM lifecycle",
    "b": "Data selection → model selection → pretraining → fine-tuning → evaluation → deployment → feedback.",
    "x": "Feedback from production feeds the next round of improvement."
+  },
+  {
+   "t": "MCP vs A2A, and multi-agent patterns",
+   "b": "MCP connects an agent to tools and data sources. Agent2Agent (A2A) lets independent agents, even from different frameworks or companies, discover each other and exchange tasks. Patterns: supervisor (orchestrator and workers), sequential pipeline, graph, and swarm.",
+   "x": "'Agent needs a tool or data source' → MCP. 'Agent hands work to another agent' → A2A."
   }
  ],
  "2.2": [
@@ -196,9 +201,9 @@
    "x": "Build with Strands (or LangGraph, CrewAI); host and operate with AgentCore."
   },
   {
-   "t": "Kiro, Amazon Quick, Amazon Q, AWS Transform",
-   "b": "Kiro: agentic IDE with spec-driven development. Amazon Quick: an agentic workspace for business users (dashboards, research, automation). Amazon Q Developer: an AI assistant in IDEs and the console. AWS Transform: agentic modernization of legacy apps.",
-   "x": "Business analysts and dashboards → Amazon Quick. Developers writing code from specs → Kiro."
+   "t": "Kiro, Amazon Quick, AWS Transform",
+   "b": "Kiro: agentic IDE and CLI with spec-driven development, agent hooks, and MCP support. AWS named it the successor to the IDE features of Amazon Q Developer. Amazon Quick: an agentic workspace for business users (dashboards, research, automation). AWS Transform: agentic modernization of mainframe, .NET, and VMware workloads.",
+   "x": "Business analysts and dashboards → Amazon Quick. Developers writing code → Kiro. Developers building their own agents → Strands Agents. Legacy modernization → AWS Transform."
   },
   {
    "t": "Bedrock pricing options",
@@ -214,6 +219,11 @@
    "t": "Advantages and shared responsibility",
    "b": "Advantages: accessibility, lower barrier to entry, efficiency, cost-effectiveness, speed to market. AWS secures the cloud; customers secure their data, identities, access, and use.",
    "x": "Managed services never remove the customer's responsibility for data and access."
+  },
+  {
+   "t": "More cost and architecture levers",
+   "b": "Amazon Bedrock Intelligent Prompt Routing sends each prompt to the cheapest model in a family that can handle it. AWS Inferentia (inference) and AWS Trainium (training) chips lower cost per inference or training run. The AWS Well-Architected Tool with the Generative AI Lens reviews GenAI workloads. AWS Data Exchange supplies licensed third-party data.",
+   "x": "Trusted Advisor inspects the account automatically; the Well-Architected Tool runs a guided workload review."
   }
  ]
 }

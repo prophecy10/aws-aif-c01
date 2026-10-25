@@ -459,5 +459,98 @@
   ],
   "explain": "AI/ML is not always appropriate. Consider cost versus benefit, whether you have enough quality data, and whether a simpler non-ML solution meets the need. Sometimes the right answer is not to use ML.",
   "ref": "Exam guide skill 1.2.2 (cost-benefit analysis)"
+ },
+ {
+  "id": "1.2-21",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A manufacturer wants to run defect detection on cameras inside a factory that has an unreliable internet connection. Each prediction must take under 20 milliseconds and cost almost nothing. Which approach is most appropriate?",
+  "options": [
+   "A small, purpose-trained computer vision model deployed close to the cameras",
+   "A large multimodal foundation model called through a cloud API for every image",
+   "A text-generation model that writes a description of each part",
+   "A human inspector who checks a random sample of parts once a week"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Operational constraints such as latency, connectivity, and cost per prediction favor a small, specialized model running locally.",
+   "A large FM over the internet adds latency and cost and fails when the connection drops.",
+   "Generating text does not detect defects reliably or quickly.",
+   "Weekly sampling would miss most defects and does not meet the real-time need."
+  ],
+  "explain": "New objective 1.2.6: choose traditional ML over FMs when regulation, explainability, or operational constraints (latency, cost, offline operation, consistency) demand it. Choose FMs for open-ended language and content tasks.",
+  "ref": "Exam guide skill 1.2.6"
+ },
+ {
+  "id": "1.2-22",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A credit card company has very few confirmed fraud labels, and fraud patterns change often. It wants to flag transactions that look very different from a customer's normal behavior. Which ML approach fits best?",
+  "options": [
+   "Unsupervised anomaly detection",
+   "Linear regression on transaction amounts",
+   "A text-to-image diffusion model",
+   "Supervised classification trained only on the few existing labels"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Anomaly detection learns what normal looks like and flags outliers, so it works with few labels and catches new patterns.",
+   "Regression predicts a number. It does not flag unusual behavior.",
+   "Diffusion models generate images. They do not detect fraud.",
+   "With very few labels and changing patterns, a purely supervised model would miss new kinds of fraud."
+  ],
+  "explain": "Fraud detection is a listed real-world AI application. When labels are scarce or patterns shift, unsupervised anomaly detection (for example, Random Cut Forest in SageMaker AI) complements supervised classification.",
+  "ref": "Exam guide skills 1.2.3 and 1.2.4"
+ },
+ {
+  "id": "1.2-23",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An IT department wants an assistant that reads a ticket, looks up the user in the directory, resets the password through an API, and closes the ticket, asking a human only when something is unclear. Which kind of AI application is this?",
+  "options": [
+   "Agentic AI",
+   "Time-series forecasting",
+   "Image classification",
+   "Clustering"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The assistant pursues a goal across several steps, calls tools, and acts on systems, which is agentic AI.",
+   "Forecasting predicts future values from historical data. It does not take actions.",
+   "Image classification labels images. Nothing here involves images.",
+   "Clustering groups similar items. It does not carry out a workflow."
+  ],
+  "explain": "v1.1 adds knowledge bases and agentic AI to the real-world AI applications in skill 1.2.4. Agents suit multi-step, tool-using tasks with some judgment; keep humans involved where actions are risky or unclear.",
+  "ref": "Exam guide skill 1.2.4"
+ },
+ {
+  "id": "1.2-24",
+  "task": "1.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A company is deciding whether to use ML at all. Which situations suggest that an ML solution is NOT appropriate? Select TWO.",
+  "options": [
+   "A regulation requires one exact, auditable result for each input",
+   "The expected benefit is smaller than the cost of collecting data and running the model",
+   "There are millions of records with useful patterns that humans cannot review",
+   "The task involves understanding free-form customer messages",
+   "Decisions must scale far beyond what the current staff can handle"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. When a specific, deterministic outcome is required, rules or code are a better fit than probabilistic predictions.",
+   "Correct. A cost-benefit analysis can show that ML is not worth it.",
+   "Large volumes with hidden patterns are a classic reason to use ML.",
+   "Understanding free text is a strength of NLP and foundation models.",
+   "Scaling decision support is one of the main values of ML."
+  ],
+  "explain": "Skill 1.2.2 asks when AI/ML is not appropriate: when the cost outweighs the benefit, or when a specific outcome is needed instead of a prediction. Skill 1.2.1 lists where it adds value: decision support, scalability, and automation.",
+  "ref": "Exam guide skills 1.2.1 and 1.2.2"
  }
 ]

@@ -29,16 +29,16 @@
   "q": "A team wants to deploy an open-weight foundation model to its own endpoint with a few clicks, then fine-tune it on company data. It is comfortable managing an endpoint. Which option is designed for this?",
   "options": [
    "Amazon SageMaker JumpStart",
-   "Amazon Polly",
-   "AWS Artifact",
-   "Amazon SageMaker Ground Truth"
+   "Amazon Bedrock on-demand inference",
+   "Amazon SageMaker Canvas",
+   "Amazon Bedrock Knowledge Bases"
   ],
   "answer": 0,
   "notes": [
-   "Correct. SageMaker JumpStart is an ML hub of pretrained and foundation models that you can deploy to SageMaker AI endpoints and fine-tune.",
-   "Polly is text-to-speech.",
-   "Artifact provides compliance reports.",
-   "Ground Truth helps label training data; it is not a catalog of deployable foundation models."
+   "Correct. JumpStart deploys open-weight FMs to SageMaker AI endpoints you control and supports fine-tuning them.",
+   "Bedrock on-demand is serverless: you call an API and never run or size your own endpoint.",
+   "Canvas is a no-code ML tool for analysts, not the place to deploy and manage an open-weight FM endpoint.",
+   "Knowledge Bases adds RAG over your documents. It does not deploy or fine-tune a model."
   ],
   "explain": "JumpStart sits inside SageMaker AI. It trades some convenience for control: you choose the instance type and run the endpoint, unlike the serverless Amazon Bedrock API.",
   "ref": "Exam guide skill 2.3.1 (SageMaker JumpStart, added in v1.1)"
@@ -73,16 +73,16 @@
   "q": "A developer wants to build an AI agent in Python with a few lines of code: give it a model, a prompt, and some tools, and let the model plan which tools to call. Which open-source SDK from AWS is built for this?",
   "options": [
    "Strands Agents",
-   "AWS Glue DataBrew",
-   "Amazon Translate",
-   "AWS Trusted Advisor"
+   "Amazon Bedrock AgentCore Runtime",
+   "Kiro",
+   "Amazon Bedrock Prompt Management"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Strands Agents is an open-source SDK that takes a model-driven approach to building agents and supports tools, MCP, and multi-agent patterns.",
-   "DataBrew is a visual data-preparation tool.",
-   "Translate is a translation service.",
-   "Trusted Advisor recommends best-practice improvements for AWS accounts."
+   "Correct. Strands Agents is an open-source, model-driven SDK: define a model, a prompt, and tools, and the model plans the steps.",
+   "AgentCore Runtime hosts agents in production. You still need a framework, such as Strands, to write the agent.",
+   "Kiro is an IDE that helps developers write code. It is not an SDK that the agent itself is built with.",
+   "Prompt Management stores and versions prompts. It does not run an agent loop or call tools."
   ],
   "explain": "Strands Agents, new in v1.1, lets the model's reasoning drive the agent loop instead of hard-coded workflows. Agents built with it can run anywhere, including on Amazon Bedrock AgentCore Runtime.",
   "ref": "Exam guide skill 2.3.1 (Strands Agents, new in v1.1)"
@@ -95,16 +95,16 @@
   "q": "A company has built agents with several frameworks. It now needs secure, scalable hosting for them with session isolation, memory, identity controls, tool gateways, and observability, without managing infrastructure. Which service fits?",
   "options": [
    "Amazon Bedrock AgentCore",
-   "Amazon S3 Glacier",
-   "Amazon Polly",
-   "AWS Cost Explorer and AWS Budgets"
+   "Strands Agents",
+   "Amazon Bedrock Knowledge Bases",
+   "Amazon SageMaker JumpStart"
   ],
   "answer": 0,
   "notes": [
-   "Correct. AgentCore provides managed building blocks to deploy and operate agents at scale: Runtime, Memory, Gateway, Identity, Observability, and more. It works with any framework or model.",
-   "Glacier is archival storage.",
-   "Polly is text-to-speech.",
-   "Cost Explorer and Budgets analyze and limit AWS spending; they do not host agents."
+   "Correct. AgentCore provides Runtime, Memory, Gateway, Identity, Observability, and Policy for agents built with any framework.",
+   "Strands Agents is a framework for writing agents. It does not provide managed hosting, identity, or observability.",
+   "Knowledge Bases provides managed RAG. It does not host agents or manage their identities.",
+   "JumpStart deploys and fine-tunes models on SageMaker AI endpoints. It is not an agent hosting platform."
   ],
   "explain": "Amazon Bedrock AgentCore, new in v1.1, is framework-agnostic (Strands Agents, LangGraph, CrewAI, and others) and model-agnostic. It handles the operational problems of running agents in production.",
   "ref": "Exam guide skill 2.3.1 (Amazon Bedrock AgentCore, new in v1.1)"
@@ -144,22 +144,22 @@
   "task": "2.3",
   "type": "single",
   "difficulty": "medium",
-  "q": "Developers want a generative AI assistant inside their existing IDE and the AWS Management Console that suggests code, explains AWS resources, and answers questions about their account. Which service fits best?",
+  "q": "A development team wants an agentic AI coding assistant that works in the IDE, turns a feature request into requirements and a task list, writes the code, and connects to the team's internal tools through MCP servers. Which AWS offering is designed for this?",
   "options": [
-   "Amazon Q Developer",
-   "Amazon Rekognition",
-   "Amazon Personalize",
-   "Amazon Textract"
+   "Kiro",
+   "Strands Agents",
+   "Amazon Quick",
+   "Amazon Bedrock AgentCore Runtime"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Amazon Q Developer is a generative AI assistant for building on AWS, available in IDEs, the console, and the command line.",
-   "Rekognition analyzes images and video.",
-   "Personalize builds recommendation models.",
-   "Textract extracts text and data from documents."
+   "Correct. Kiro is AWS's agentic IDE: it uses spec-driven development (requirements, design, tasks), agent hooks, and MCP servers to help developers ship code.",
+   "Strands Agents is an open-source SDK for building your own agents in code. It is not a coding assistant for developers.",
+   "Amazon Quick is an agentic workspace for business users (dashboards, research, automation), not an IDE.",
+   "AgentCore Runtime hosts agents you have built in production. It does not help developers write code."
   ],
-  "explain": "Amazon Q is AWS's family of generative AI assistants. Q Developer helps developers write, explain, and transform code and work with AWS resources. Kiro, by contrast, is a standalone agentic IDE built around spec-driven development.",
-  "ref": "Exam guide in-scope services (Amazon Q, added in v1.1)"
+  "explain": "Know the v1.1 developer offerings apart: Kiro helps developers write software (agentic IDE and CLI); Strands Agents is an SDK to build agents; AgentCore runs agents in production; Amazon Quick serves business users. AWS has named Kiro the successor to the IDE features of Amazon Q Developer.",
+  "ref": "Exam guide skill 2.3.1 (Kiro); Kiro documentation"
  },
  {
   "id": "2.3-08",
@@ -169,16 +169,16 @@
   "q": "A company wants to use agentic AI to speed up modernizing legacy mainframe and .NET applications for the cloud. Which AWS service is built for this?",
   "options": [
    "AWS Transform",
-   "Amazon Lex",
-   "Amazon Comprehend",
-   "AWS Budgets"
+   "Kiro",
+   "Strands Agents",
+   "Amazon Bedrock AgentCore"
   ],
   "answer": 0,
   "notes": [
-   "Correct. AWS Transform uses AI agents to help migrate and modernize workloads such as mainframe, VMware, and .NET applications.",
-   "Lex builds chatbots.",
-   "Comprehend analyzes text.",
-   "Budgets tracks AWS spending against limits."
+   "Correct. AWS Transform uses specialized AI agents for large-scale modernization of mainframe, .NET, and VMware workloads.",
+   "Kiro helps developers write and change code in general. It is not a purpose-built migration and modernization service.",
+   "Strands Agents is an SDK for building your own agents, which would mean building a modernization tool yourself.",
+   "AgentCore runs agents you build. It does not itself modernize applications."
   ],
   "explain": "AWS Transform was added to the in-scope services in v1.1. It is an example of agentic AI applied to a specific, high-value enterprise task.",
   "ref": "Exam guide in-scope services (AWS Transform, added in v1.1)"
@@ -438,16 +438,16 @@
   "q": "A team needs full control to run its own open-weight model with custom inference code and a specific GPU instance type. Which AWS service fits better than Amazon Bedrock on-demand?",
   "options": [
    "Amazon SageMaker AI",
-   "Amazon Translate with custom terminology",
-   "AWS Config",
-   "Amazon Polly"
+   "Amazon Bedrock Provisioned Throughput",
+   "Amazon Comprehend custom models",
+   "AWS Lambda"
   ],
   "answer": 0,
   "notes": [
-   "Correct. SageMaker AI lets you bring your own model and container, choose instance types, and control how inference runs.",
-   "Translate is a fixed-purpose translation service.",
-   "Config records and evaluates AWS resource configurations.",
-   "Polly is text-to-speech."
+   "Correct. SageMaker AI endpoints let you choose the instance type, bring a custom inference container, and run any open-weight model.",
+   "Provisioned Throughput reserves Bedrock capacity, but you still cannot choose GPU instances or run custom inference code.",
+   "Comprehend custom models are NLP classifiers and entity recognizers, not general LLM hosting.",
+   "Lambda does not offer GPU instances and is not designed to host large models."
   ],
   "explain": "Rule of thumb: Bedrock for the fastest, fully managed FM access; SageMaker AI for maximum control over models, code, and infrastructure.",
   "ref": "Exam guide skills 2.3.1 and 1.3.3"
@@ -547,5 +547,120 @@
   ],
   "explain": "AWS infrastructure offers security, compliance, responsibility (the shared model), and safety benefits. Inherited controls reduce effort, but customer obligations remain.",
   "ref": "Exam guide skill 2.3.3 (compliance)"
+ },
+ {
+  "id": "2.3-25",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A chatbot gets a mix of simple and complex questions. The team wants Amazon Bedrock to send simple prompts to a smaller, cheaper model and harder prompts to a more capable model in the same family, without writing its own routing logic. Which feature fits?",
+  "options": [
+   "Amazon Bedrock Intelligent Prompt Routing",
+   "Amazon Bedrock cross-Region inference",
+   "Amazon Bedrock Provisioned Throughput",
+   "Amazon Bedrock model distillation"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Intelligent Prompt Routing predicts response quality for each prompt and routes it to the model that balances quality and cost.",
+   "Cross-Region inference spreads traffic across Regions for throughput. It does not choose between models by difficulty.",
+   "Provisioned Throughput reserves capacity for a model. It does not route between models.",
+   "Distillation creates a smaller model ahead of time. It does not route live prompts."
+  ],
+  "explain": "Cost trade-offs (skill 2.3.4) include picking the right model per request. Prompt routing, prompt caching, batch inference, and distillation are the main Bedrock cost levers to know.",
+  "ref": "Exam guide skill 2.3.4; Amazon Bedrock Intelligent Prompt Routing docs"
+ },
+ {
+  "id": "2.3-26",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An architecture team wants to review its generative AI workload against AWS best practices for security, reliability, cost, and responsible AI, using a structured set of questions. Which AWS offering supports this?",
+  "options": [
+   "The AWS Well-Architected Tool with the Generative AI Lens",
+   "AWS Trusted Advisor",
+   "AWS Artifact",
+   "Amazon Inspector"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The Well-Architected Tool runs workload reviews, and the Generative AI Lens adds GenAI-specific best practices.",
+   "Trusted Advisor checks account settings automatically. It does not run a guided architecture review of a GenAI workload.",
+   "Artifact provides AWS compliance reports, not architecture reviews.",
+   "Inspector scans for software vulnerabilities only."
+  ],
+  "explain": "The AWS Well-Architected Tool is in scope. Lenses extend the framework for specific workloads, and the Generative AI Lens covers areas such as model selection, responsible AI, and cost.",
+  "ref": "Exam guide in-scope services (AWS Well-Architected Tool); Generative AI Lens"
+ },
+ {
+  "id": "2.3-27",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team needs licensed third-party datasets, such as financial market data, to enrich a model. It wants to find, subscribe to, and load the data into its AWS account through a managed catalog. Which service fits?",
+  "options": [
+   "AWS Data Exchange",
+   "AWS Glue DataBrew",
+   "Amazon Macie",
+   "AWS Artifact"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AWS Data Exchange lets you find, subscribe to, and use third-party data in the cloud.",
+   "DataBrew cleans and prepares data you already have. It does not provide third-party data.",
+   "Macie discovers sensitive data in S3. It does not supply datasets.",
+   "Artifact provides compliance reports, not datasets."
+  ],
+  "explain": "AWS Data Exchange is an in-scope analytics service. It is a common answer when a scenario needs external, licensed data for analytics or ML.",
+  "ref": "Exam guide in-scope services (AWS Data Exchange)"
+ },
+ {
+  "id": "2.3-28",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A startup is comparing serving costs. It expects heavy, steady traffic to a self-hosted open-weight model 24 hours a day and wants the lowest cost per inference on AWS. Which option is designed for this?",
+  "options": [
+   "Amazon EC2 instances with AWS Inferentia chips",
+   "Amazon EC2 instances with the largest general-purpose CPUs",
+   "AWS Lambda functions with maximum memory",
+   "Amazon S3 Glacier Instant Retrieval"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Inferentia is AWS's purpose-built inference chip, designed for high performance at low cost per inference.",
+   "General-purpose CPUs are usually far slower and costlier per inference for large models.",
+   "Lambda has no accelerators and is not designed for continuously serving large models.",
+   "Glacier is archival storage. It does not serve inference."
+  ],
+  "explain": "AWS infrastructure benefits and cost trade-offs include purpose-built chips: Trainium for training and Inferentia for inference. They also support sustainability through better performance per watt.",
+  "ref": "Exam guide skills 2.3.3 and 2.3.4"
+ },
+ {
+  "id": "2.3-29",
+  "task": "2.3",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A company is comparing Amazon Bedrock pricing options for three workloads. Which pairings are correct? Select TWO.",
+  "options": [
+   "Overnight summarization of an archive, with results needed in a day: batch inference",
+   "Unpredictable, low traffic for a new prototype: on-demand pay-per-token",
+   "Unpredictable, low traffic for a new prototype: a 6-month Provisioned Throughput commitment",
+   "A chatbot where every user needs instant answers: batch inference",
+   "Overnight summarization of an archive: Provisioned Throughput reserved around the clock"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Batch inference suits large, non-urgent jobs and is priced lower than on-demand for supported models.",
+   "Correct. On-demand has no commitment, so it suits low or unpredictable traffic.",
+   "A commitment for unpredictable, low traffic means paying for idle capacity.",
+   "Batch jobs are asynchronous and cannot give instant answers.",
+   "Reserving capacity around the clock for a one-off overnight job wastes money."
+  ],
+  "explain": "Match the pricing model to the workload: on-demand for variable or low traffic, batch for bulk offline work, and Provisioned Throughput for steady, high, or guaranteed capacity (and for some custom models).",
+  "ref": "Exam guide skill 2.3.4; Amazon Bedrock pricing"
  }
 ]
