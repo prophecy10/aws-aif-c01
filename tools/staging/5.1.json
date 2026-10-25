@@ -73,16 +73,16 @@
   "q": "Before fine-tuning, a company wants to discover whether its training data buckets in Amazon S3 contain personal data such as names, addresses, or credit card numbers. Which service fits?",
   "options": [
    "Amazon Macie",
-   "Amazon Polly",
-   "AWS Cost Explorer",
-   "Amazon Lex"
+   "Amazon Bedrock Guardrails sensitive information filters",
+   "Amazon Inspector",
+   "AWS Config"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Macie uses ML and pattern matching to discover and report sensitive data in Amazon S3.",
-   "Polly converts text to speech.",
-   "Cost Explorer analyzes spending.",
-   "Lex builds chatbots."
+   "Correct. Macie uses ML and pattern matching to discover sensitive data, such as PII, stored in Amazon S3.",
+   "Guardrails sensitive information filters act on prompts and responses at run time, not on data stored in S3 buckets.",
+   "Inspector scans workloads for software vulnerabilities, not data contents.",
+   "Config checks resource settings, such as whether a bucket is encrypted, not what data the objects contain."
   ],
   "explain": "Finding and removing or masking sensitive data before training reduces the risk that a model memorizes and leaks it.",
   "ref": "Exam guide skill 5.1.1 (Amazon Macie)"
@@ -95,16 +95,16 @@
   "q": "An AI agent must access each user's third-party calendar on their behalf, using OAuth, without developers handling raw tokens in agent code. Which AWS capability is designed for this?",
   "options": [
    "Amazon Bedrock AgentCore Identity",
-   "Amazon Macie sensitive data discovery",
-   "SageMaker Model Cards",
-   "AWS Artifact agreements"
+   "AWS Secrets Manager",
+   "Policy in Amazon Bedrock AgentCore",
+   "Amazon Bedrock AgentCore Gateway"
   ],
   "answer": 0,
   "notes": [
-   "Correct. AgentCore Identity manages agent identities and credentials, including OAuth flows and secure token storage, for inbound and outbound access.",
-   "Macie finds sensitive data in S3.",
-   "Model Cards document models.",
-   "Artifact provides compliance reports."
+   "Correct. AgentCore Identity manages inbound and outbound authentication, including OAuth flows and a secure token vault, so agent code does not handle raw tokens.",
+   "Secrets Manager stores static secrets well, but it does not run per-user OAuth consent flows for agents.",
+   "Policy in AgentCore controls which actions an agent may take. It does not obtain OAuth tokens for users.",
+   "Gateway exposes APIs as tools. It relies on AgentCore Identity for the credentials used to call them."
   ],
   "explain": "Version 1.1 adds AgentCore Identity to the security services. Agents that act on users' behalf need proper authentication and authorization, not credentials pasted into prompts or code.",
   "ref": "Exam guide skill 5.1.1 (Amazon Bedrock AgentCore Identity, new in v1.1)"
@@ -117,16 +117,16 @@
   "q": "A company wants deterministic rules, enforced outside the model, that stop its customer service agent from calling the refund tool for amounts over $500, whatever the model decides. Which capability fits?",
   "options": [
    "Policy in Amazon Bedrock AgentCore",
-   "A higher temperature setting on the agent's model",
-   "A longer system prompt politely asking the agent not to do it",
-   "Amazon Polly speech synthesis markup"
+   "Amazon Bedrock Guardrails denied topics",
+   "Amazon Bedrock AgentCore Identity",
+   "A longer system prompt asking the agent not to do it"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Policy in AgentCore defines and enforces rules on which tools agents can use and under what conditions, outside the model's reasoning.",
-   "Temperature affects randomness and does not enforce rules.",
-   "Prompt instructions can be ignored or overridden through prompt injection; they are not enforcement.",
-   "Polly markup controls speech output."
+   "Correct. Policy in AgentCore evaluates agent tool calls against deterministic rules outside the model and blocks those that break them.",
+   "Denied topics filter what the model talks about. They do not enforce numeric limits on tool calls.",
+   "AgentCore Identity decides who the agent is and which services it can authenticate to, not the business limits on each call.",
+   "Prompt instructions are guidance the model can ignore or be tricked out of. They are not an enforced control."
   ],
   "explain": "Prompt instructions are guidance, while policy enforcement is a control. For high-impact agent actions, enforce limits at the tool or gateway level and log decisions.",
   "ref": "Exam guide skill 5.1.1 (Policy in AgentCore, new in v1.1)"
@@ -271,16 +271,16 @@
   "q": "A company keeps its training data in a data lake on Amazon S3. It needs fine-grained permissions so that each ML team can see only certain tables and columns. Which service helps?",
   "options": [
    "AWS Lake Formation",
-   "Amazon Polly",
-   "Amazon Rekognition",
-   "AWS Budgets"
+   "Amazon Macie",
+   "AWS Glue DataBrew",
+   "AWS Config"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Lake Formation provides centralized, fine-grained access control (down to columns and rows) for data lakes.",
-   "Polly converts text to speech.",
-   "Rekognition analyzes images.",
-   "Budgets tracks spending."
+   "Correct. Lake Formation centralizes fine-grained (table, column, row) permissions for data lakes on S3.",
+   "Macie finds sensitive data in S3. It does not grant table- or column-level access.",
+   "DataBrew cleans and profiles data. It does not manage who can see which columns.",
+   "Config tracks resource configuration compliance. It does not grant data access."
   ],
   "explain": "Access control is a core secure data engineering practice. Combine Lake Formation permissions with IAM and encryption.",
   "ref": "Exam guide skill 5.1.3 (access control); AWS Lake Formation"
@@ -293,16 +293,16 @@
   "q": "Before training, a team wants to profile and clean a messy dataset (missing values, duplicates, inconsistent formats) visually, without writing code. Which service fits?",
   "options": [
    "AWS Glue DataBrew",
-   "Amazon Lex",
-   "AWS PrivateLink",
-   "Amazon Polly"
+   "Amazon SageMaker Ground Truth",
+   "AWS Lake Formation",
+   "Amazon Macie"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Glue DataBrew is a visual data preparation tool for profiling, cleaning, and normalizing data.",
-   "Lex builds chatbots.",
-   "PrivateLink provides private network connectivity.",
-   "Polly converts text to speech."
+   "Correct. DataBrew is a visual, no-code data preparation tool with hundreds of built-in transformations and data profiling.",
+   "Ground Truth labels data with human workers. It does not clean missing values or duplicates.",
+   "Lake Formation governs access to a data lake. It does not clean or transform data.",
+   "Macie discovers sensitive data. It does not fix data quality problems."
   ],
   "explain": "Data quality is part of secure data engineering: poor-quality data produces poor and potentially unsafe models.",
   "ref": "Exam guide skill 5.1.3 (data quality); AWS Glue DataBrew"
@@ -359,16 +359,16 @@
   "q": "A security team needs to know which IAM principal called the Bedrock API to create a guardrail, and when. Which service records this?",
   "options": [
    "AWS CloudTrail",
-   "Amazon Polly",
-   "Amazon Translate",
-   "SageMaker JumpStart"
+   "Amazon Bedrock model invocation logging",
+   "AWS Config",
+   "Amazon CloudWatch metrics"
   ],
   "answer": 0,
   "notes": [
-   "Correct. CloudTrail records API calls made in an AWS account, including who made them, when, and from where.",
-   "Polly converts text to speech.",
-   "Translate converts text between languages.",
-   "JumpStart is a model hub."
+   "Correct. CloudTrail records API calls, including who made them, when, and from where, such as CreateGuardrail.",
+   "Invocation logging captures the prompts and responses of model calls, not management actions such as creating a guardrail.",
+   "Config records how resources are configured over time, but CloudTrail is the record of which principal made the API call.",
+   "CloudWatch metrics show numbers such as invocations and latency, not the identity of the caller."
   ],
   "explain": "CloudTrail provides governance, compliance, and audit evidence for AWS API activity. It also appears in governance services under skill 5.2.1.",
   "ref": "Exam guide skills 5.1.4 and 5.2.1 (AWS CloudTrail)"
@@ -588,5 +588,91 @@
   ],
   "explain": "Agents that act need identity, permission, policy, approval, and logging controls. AgentCore Identity and Policy in AgentCore help implement them.",
   "ref": "Exam guide skills 5.1.1 and 5.1.4"
+ },
+ {
+  "id": "5.1-27",
+  "task": "5.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "An agent built with Strands Agents must call a company's internal REST APIs as tools. The security team wants the APIs exposed through a managed, MCP-compatible endpoint with authentication handled outside the agent code. Which combination fits?",
+  "options": [
+   "Amazon Bedrock AgentCore Gateway with AgentCore Identity",
+   "Amazon CloudFront with S3 static website hosting",
+   "AWS Glue DataBrew with AWS Lake Formation",
+   "Amazon SageMaker Model Cards with AWS Artifact"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Gateway turns APIs and Lambda functions into MCP-compatible tools, and Identity manages the credentials used to call them.",
+   "CloudFront and S3 serve web content. They do not expose APIs as agent tools.",
+   "DataBrew and Lake Formation prepare and govern data, not agent tool access.",
+   "Model Cards and Artifact are documentation and compliance tools."
+  ],
+  "explain": "Securing agent tool access (skill 5.1.1): expose tools through a managed gateway, authenticate with AgentCore Identity, constrain actions with Policy in AgentCore, and log everything.",
+  "ref": "Exam guide skill 5.1.1; AgentCore Gateway and Identity docs"
+ },
+ {
+  "id": "5.1-28",
+  "task": "5.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A healthcare chatbot built on Amazon Bedrock must never reveal patient identifiers in its responses, even if they appear in retrieved documents. Which control addresses this data leakage risk at run time?",
+  "options": [
+   "Guardrails sensitive information filters that mask or block PII in responses",
+   "Amazon Inspector scans of the EC2 instances that host the chatbot application",
+   "AWS Trusted Advisor security checks run against the account every day",
+   "A higher maximum output token limit so that answers are never cut off mid-sentence"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Sensitive information filters detect PII in outputs and mask or block it before it reaches the user.",
+   "Inspector finds software vulnerabilities. It does not filter model responses.",
+   "Trusted Advisor checks account configuration, not response content.",
+   "Output length does nothing to prevent leakage."
+  ],
+  "explain": "Data leakage prevention and output filtering are v1.1 additions to skill 5.1.4. Combine run-time filters with data minimization in the knowledge base and least-privilege access.",
+  "ref": "Exam guide skill 5.1.4"
+ },
+ {
+  "id": "5.1-29",
+  "task": "5.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which statements about the AWS shared responsibility model for Amazon Bedrock are correct? Select TWO.",
+  "options": [
+   "AWS is responsible for the infrastructure that hosts the foundation models",
+   "The customer is responsible for IAM permissions, data classification, and how outputs are used",
+   "The customer must patch the servers that run the foundation models",
+   "AWS is responsible for deciding which users in the customer's company may call models",
+   "The model provider is responsible for the customer's application security"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. AWS secures the cloud: facilities, hardware, and managed service operations.",
+   "Correct. Customers secure what they do in the cloud: identities, data, configuration, and use.",
+   "Bedrock is fully managed, so customers do not patch model servers.",
+   "Access decisions are configured by the customer with IAM.",
+   "Application security is the customer's responsibility."
+  ],
+  "explain": "The shared responsibility model is listed in skill 5.1.1. The more managed the service, the more AWS operates, but identity, data, and application responsibilities always stay with the customer.",
+  "ref": "Exam guide skill 5.1.1"
+ },
+ {
+  "id": "5.1-30",
+  "task": "5.1",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put these steps of a grounded, validated answer flow in a RAG application in order.",
+  "options": [
+   "Retrieve relevant passages from approved sources",
+   "Generate an answer using only those passages",
+   "Run a contextual grounding check on the answer",
+   "Validate the output format and route low-confidence answers to a human"
+  ],
+  "explain": "Skill 5.1.5 covers hallucination detection and grounding: RAG grounding, output validation, and confidence scoring. Layering these checks catches more errors than any single one.",
+  "ref": "Exam guide skill 5.1.5"
  }
 ]

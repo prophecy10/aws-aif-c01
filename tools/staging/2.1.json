@@ -670,5 +670,148 @@
   ],
   "explain": "On AWS, vector storage options include Amazon OpenSearch Service, Amazon Aurora PostgreSQL and Amazon RDS for PostgreSQL with pgvector, and Amazon Neptune. Amazon Bedrock Knowledge Bases can manage the vector store for you.",
   "ref": "Exam guide skills 2.1.1 and 3.1.4"
+ },
+ {
+  "id": "2.1-31",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "An application sends 500 input tokens and receives 2,000 output tokens per request. The model charges 5 times more per output token than per input token. Which change will reduce cost the most?",
+  "options": [
+   "Ask for shorter answers and set a lower maximum output token limit",
+   "Shorten the 500-token prompt to 400 tokens",
+   "Move the application to a larger model in the same family",
+   "Turn on prompt caching for the 500-token prompt"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Output tokens dominate this bill (2,000 tokens at 5 times the price), so trimming output saves the most.",
+   "Saving 100 input tokens is small next to 2,000 expensive output tokens.",
+   "Larger models usually cost more per token.",
+   "Caching helps when a long shared prefix repeats. Here the input is short and output is the main cost."
+  ],
+  "explain": "Token-based pricing charges input and output tokens separately, and output tokens usually cost more. Look at where the tokens are before optimizing. Output length also drives latency, because tokens are generated one at a time.",
+  "ref": "Exam guide skill 2.1.4"
+ },
+ {
+  "id": "2.1-32",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An agent calls a search tool that returns about 30,000 tokens of raw web pages for every query. The agent becomes slow and expensive, and its answers drift off-topic. Which context engineering practice helps most?",
+  "options": [
+   "Trim or summarize tool results so only the relevant parts enter the context",
+   "Raise the model's temperature to handle the extra text",
+   "Append every tool result from every earlier turn to each new prompt",
+   "Switch off the system prompt to make room for the search results"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Context engineering selects and compresses what enters the window, including tool outputs.",
+   "Temperature affects randomness, not how much irrelevant text the model must read.",
+   "Accumulating every tool result makes the context even larger and noisier.",
+   "The system prompt carries essential instructions. Removing it makes behavior worse."
+  ],
+  "explain": "Context engineering (skill 2.1.5) manages everything in the window: instructions, retrieved documents, tool results, conversation history, and memory. More context is not always better: irrelevant tokens add cost, latency, and distraction.",
+  "ref": "Exam guide skill 2.1.5"
+ },
+ {
+  "id": "2.1-33",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A company's travel agent, built with one framework, must hand off a task to a partner's hotel-booking agent, built by another team with a different framework, and get the result back. Which open standard is designed for this agent-to-agent communication?",
+  "options": [
+   "The Agent2Agent (A2A) protocol",
+   "The Model Context Protocol (MCP)",
+   "Amazon Bedrock Prompt Management",
+   "Retrieval-augmented generation (RAG)"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A2A is an open protocol for agents to discover each other, exchange tasks, and return results across frameworks and vendors.",
+   "MCP connects an agent to tools and data sources. It is not designed for one autonomous agent to delegate to another.",
+   "Prompt Management stores and versions prompts. It does not connect agents.",
+   "RAG retrieves documents for a model. It is not an agent communication standard."
+  ],
+  "explain": "Multi-agent communication patterns are part of skill 2.1.6. Remember the split: MCP connects agents to tools and data; A2A connects agents to other agents. Amazon Bedrock AgentCore Runtime supports both.",
+  "ref": "Exam guide skill 2.1.6; Amazon Bedrock AgentCore docs"
+ },
+ {
+  "id": "2.1-34",
+  "task": "2.1",
+  "type": "match",
+  "difficulty": "hard",
+  "q": "Match each multi-agent pattern to its description.",
+  "prompts": [
+   "One agent receives the request, delegates subtasks to specialist agents, and combines their results",
+   "Agents run in a fixed order, each passing its output to the next",
+   "Peer agents share a task and hand off to whichever agent is best suited, with no central controller",
+   "Agents are connected as nodes with defined edges and conditions that decide the next step"
+  ],
+  "options": [
+   "Supervisor (orchestrator-worker)",
+   "Sequential pipeline",
+   "Swarm",
+   "Graph",
+   "Single agent"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Skill 2.1.6 covers multi-agent system patterns. Supervisor patterns centralize control, sequential pipelines suit fixed processes, swarms let peers collaborate, and graphs give explicit, conditional control flow. Strands Agents supports these patterns.",
+  "ref": "Exam guide skill 2.1.6; Strands Agents docs"
+ },
+ {
+  "id": "2.1-35",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A shopping agent needs to remember what the customer said three messages ago in the current chat, and also the customer's shoe size from a conversation last month. Which memory design fits?",
+  "options": [
+   "Short-term memory for the current session and long-term memory for durable facts across sessions",
+   "Long-term memory only, storing every token of every conversation permanently for all users",
+   "No memory at all, relying on the model's pretraining knowledge to recall customer details",
+   "A larger context window only, with nothing stored between separate conversations"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Short-term memory keeps the current conversation; long-term memory extracts and keeps lasting facts and preferences.",
+   "Storing every token forever is costly and noisy. Long-term memory should keep extracted, useful facts.",
+   "Pretraining knowledge does not include this customer's details.",
+   "A context window holds only the current request. Without stored memory, last month's shoe size is gone."
+  ],
+  "explain": "Memory management is part of skill 2.1.6. Amazon Bedrock AgentCore Memory provides both short-term memory (session events) and long-term memory (extracted facts, preferences, and summaries).",
+  "ref": "Exam guide skill 2.1.6; AgentCore Memory docs"
+ },
+ {
+  "id": "2.1-36",
+  "task": "2.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which statements about tokens and embeddings are correct? Select TWO.",
+  "options": [
+   "An embedding is a numeric vector that captures the meaning of content",
+   "Texts with similar meaning tend to have embeddings that are close together",
+   "A token is always exactly one complete English word",
+   "Embeddings are used only for image generation",
+   "Chunking means converting text into tokens"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Embedding models map text, images, or other data to vectors.",
+   "Correct. Distance between vectors reflects semantic similarity, which powers semantic search.",
+   "Tokens are often parts of words, and punctuation can be its own token.",
+   "Embeddings power search, RAG, recommendations, and clustering.",
+   "Chunking splits documents into passages. Tokenization converts text into tokens."
+  ],
+  "explain": "Skill 2.1.1 defines tokens, chunking, embeddings, and vectors. Don't mix up tokenization (text to tokens), chunking (documents to passages), and embedding (content to vectors).",
+  "ref": "Exam guide skill 2.1.1"
  }
 ]

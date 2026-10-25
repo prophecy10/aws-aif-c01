@@ -7,16 +7,16 @@
   "q": "A company wants to block hateful, violent, and sexual content in both user prompts and model responses for its Amazon Bedrock chatbot, with configurable strength. Which feature fits?",
   "options": [
    "Amazon Bedrock Guardrails content filters",
-   "Amazon Bedrock Provisioned Throughput with a commitment",
-   "Amazon S3 Object Lock",
-   "AWS Cost Explorer"
+   "Amazon Bedrock Guardrails contextual grounding check",
+   "Amazon Comprehend PII detection",
+   "Amazon SageMaker Clarify"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Guardrails content filters detect harmful categories (such as hate, insults, sexual content, violence, and misconduct) in inputs and outputs, with adjustable filter strength.",
-   "Provisioned Throughput reserves capacity; it does not filter content.",
-   "Object Lock prevents objects from being deleted or overwritten.",
-   "Cost Explorer analyzes spending."
+   "Correct. Content filters detect hate, insults, sexual content, violence, and misconduct in prompts and responses, with adjustable strength.",
+   "Grounding checks catch answers not supported by source documents. They do not filter harmful categories.",
+   "Comprehend PII detection finds personal data. It does not filter hateful or violent content in a chatbot.",
+   "Clarify measures bias and explains ML predictions. It does not filter chatbot content at run time."
   ],
   "explain": "Amazon Bedrock Guardrails is the main responsible AI tool named in skill 4.1.2. One guardrail can combine content filters, denied topics, word filters, sensitive information filters, and contextual grounding checks.",
   "ref": "Exam guide skill 4.1.2 (Amazon Bedrock Guardrails)"
@@ -487,16 +487,16 @@
   "q": "Which AWS tool can measure bias in a dataset before training (for example, class imbalance between groups) and in a trained model's predictions?",
   "options": [
    "Amazon SageMaker Clarify",
-   "Amazon Polly",
-   "AWS Secrets Manager with rotation",
-   "Amazon CloudFront"
+   "Amazon SageMaker Model Cards",
+   "Amazon Bedrock Guardrails",
+   "Amazon SageMaker Ground Truth"
   ],
   "answer": 0,
   "notes": [
-   "Correct. SageMaker Clarify computes pre-training and post-training bias metrics and also explains predictions with feature attributions.",
-   "Polly converts text to speech.",
-   "Secrets Manager stores credentials.",
-   "CloudFront delivers content."
+   "Correct. Clarify computes pre-training bias metrics on data and post-training bias metrics on predictions.",
+   "Model Cards document a model. They record bias results but do not calculate them.",
+   "Guardrails filters FM inputs and outputs. It does not measure class imbalance in a training dataset.",
+   "Ground Truth labels data. It does not measure bias in the data or the model."
   ],
   "explain": "Clarify supports fairness (bias detection) and explainability (feature importance with SHAP). It can also be used with model monitoring to detect bias drift in production.",
   "ref": "Exam guide skills 4.1.7 and 4.2.2 (SageMaker Clarify)"
@@ -593,5 +593,93 @@
   ],
   "explain": "Skill 4.1.1 lists bias, fairness, inclusivity, robustness, safety, and veracity as features of responsible AI systems.",
   "ref": "Exam guide skill 4.1.1"
+ },
+ {
+  "id": "4.1-27",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants the same safety policy (content filters, denied topics, and PII masking) applied to an Amazon Bedrock agent and to a model it hosts on Amazon SageMaker AI. Which approach requires the least effort?",
+  "options": [
+   "Create one guardrail in Amazon Bedrock Guardrails and apply it to the agent and, through the ApplyGuardrail API, to the SageMaker AI model",
+   "Write separate filtering code inside each application, maintained by each application team independently",
+   "Fine-tune both models to refuse harmful content, and then skip run-time safety checks entirely to save latency",
+   "Rely on each model provider's default safety behavior, since the providers already filter harmful content"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A guardrail can be attached to Bedrock agents and models, and ApplyGuardrail evaluates text for any model.",
+   "Separate code duplicates effort and drifts out of sync.",
+   "Fine-tuning alone is not a dependable safety control, and it does not mask PII at run time.",
+   "Default behavior varies by model and does not enforce your policies."
+  ],
+  "explain": "Amazon Bedrock Guardrails is the responsible AI tool named in skill 4.1.2. Because it is model-independent, one policy can cover many applications.",
+  "ref": "Exam guide skill 4.1.2; ApplyGuardrail API docs"
+ },
+ {
+  "id": "4.1-28",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An online marketplace lets sellers upload product images that a GenAI assistant describes. The company must block sexually explicit and violent images as well as harmful text. Which Amazon Bedrock Guardrails capability supports this?",
+  "options": [
+   "Content filters configured for both text and image inputs",
+   "Word filters with a list of banned image file names",
+   "Contextual grounding checks on the image files",
+   "Prompt caching of the uploaded images"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Guardrails content filters can evaluate images as well as text for categories such as sexual content and violence.",
+   "File names say nothing about what an image contains.",
+   "Grounding checks compare text answers with source text. They do not classify images.",
+   "Caching affects cost and latency, not safety."
+  ],
+  "explain": "Safety in multimodal applications needs filters for every modality the system accepts. Guardrails content filters support image content as well as text.",
+  "ref": "Exam guide skills 4.1.1 and 4.1.2; Bedrock Guardrails docs"
+ },
+ {
+  "id": "4.1-29",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Two models meet a company's quality bar. One is much smaller and needs far less compute per request. Which responsible model selection consideration favors the smaller model?",
+  "options": [
+   "Environmental impact and sustainability",
+   "Intellectual property risk",
+   "Data labeling quality",
+   "Prompt injection risk"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Less compute means lower energy use, which skill 4.1.3 lists as a responsible selection factor.",
+   "IP risk depends on training data and outputs, not model size.",
+   "Labeling quality concerns training data, not this choice.",
+   "Model size does not determine resistance to prompt injection."
+  ],
+  "explain": "Responsible model selection includes environmental considerations and sustainability: right-size models, reuse pretrained models, and use efficient infrastructure.",
+  "ref": "Exam guide skill 4.1.3"
+ },
+ {
+  "id": "4.1-30",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company uses Amazon Textract to extract fields from loan documents. Low-confidence extractions must be checked by a person before they are used. Which AWS service provides a managed human review workflow for this?",
+  "options": [
+   "Amazon Augmented AI (Amazon A2I)",
+   "Amazon SageMaker Clarify",
+   "AWS Config",
+   "Amazon Bedrock Prompt Management"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon A2I routes low-confidence predictions to human reviewers and integrates with Textract and Rekognition.",
+   "Clarify detects bias and explains models. It does not run human review workflows.",
+   "Config audits resource configuration.",
+   "Prompt Management stores and versions prompts."
+  ],
+  "explain": "Human oversight supports trustworthiness and veracity. A2I implements human-in-the-loop review based on confidence thresholds, which complements automated checks.",
+  "ref": "Exam guide skills 4.1.7 and 5.1.5; Amazon A2I docs"
  }
 ]

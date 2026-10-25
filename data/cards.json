@@ -92,8 +92,8 @@
    },
    {
     "t": "v1.1 pipeline services",
-    "b": "Amazon Bedrock (FMs as a service), Amazon SageMaker AI (build/train/deploy custom models), Kiro (agentic IDE, spec-driven development), Amazon Quick (business analytics, research, and automation agents), Amazon Q (generative AI assistants such as Q Developer).",
-    "x": "Data Wrangler, Feature Store, and Model Monitor were dropped from this objective's examples in v1.1."
+    "b": "Amazon Bedrock (FMs as a service), Amazon SageMaker AI (build/train/deploy custom models), Kiro (agentic IDE, spec-driven development), Amazon Quick (business analytics, research, and automation agents).",
+    "x": "Data Wrangler, Feature Store, Model Registry, and Model Monitor left this objective's examples in v1.1, but they are still SageMaker AI features and still appear in scenarios."
    },
    {
     "t": "MLOps",
@@ -151,6 +151,11 @@
     "t": "FM lifecycle",
     "b": "Data selection → model selection → pretraining → fine-tuning → evaluation → deployment → feedback.",
     "x": "Feedback from production feeds the next round of improvement."
+   },
+   {
+    "t": "MCP vs A2A, and multi-agent patterns",
+    "b": "MCP connects an agent to tools and data sources. Agent2Agent (A2A) lets independent agents, even from different frameworks or companies, discover each other and exchange tasks. Patterns: supervisor (orchestrator and workers), sequential pipeline, graph, and swarm.",
+    "x": "'Agent needs a tool or data source' → MCP. 'Agent hands work to another agent' → A2A."
    }
   ],
   "2.2": [
@@ -197,9 +202,9 @@
     "x": "Build with Strands (or LangGraph, CrewAI); host and operate with AgentCore."
    },
    {
-    "t": "Kiro, Amazon Quick, Amazon Q, AWS Transform",
-    "b": "Kiro: agentic IDE with spec-driven development. Amazon Quick: an agentic workspace for business users (dashboards, research, automation). Amazon Q Developer: an AI assistant in IDEs and the console. AWS Transform: agentic modernization of legacy apps.",
-    "x": "Business analysts and dashboards → Amazon Quick. Developers writing code from specs → Kiro."
+    "t": "Kiro, Amazon Quick, AWS Transform",
+    "b": "Kiro: agentic IDE and CLI with spec-driven development, agent hooks, and MCP support. AWS named it the successor to the IDE features of Amazon Q Developer. Amazon Quick: an agentic workspace for business users (dashboards, research, automation). AWS Transform: agentic modernization of mainframe, .NET, and VMware workloads.",
+    "x": "Business analysts and dashboards → Amazon Quick. Developers writing code → Kiro. Developers building their own agents → Strands Agents. Legacy modernization → AWS Transform."
    },
    {
     "t": "Bedrock pricing options",
@@ -215,6 +220,11 @@
     "t": "Advantages and shared responsibility",
     "b": "Advantages: accessibility, lower barrier to entry, efficiency, cost-effectiveness, speed to market. AWS secures the cloud; customers secure their data, identities, access, and use.",
     "x": "Managed services never remove the customer's responsibility for data and access."
+   },
+   {
+    "t": "More cost and architecture levers",
+    "b": "Amazon Bedrock Intelligent Prompt Routing sends each prompt to the cheapest model in a family that can handle it. AWS Inferentia (inference) and AWS Trainium (training) chips lower cost per inference or training run. The AWS Well-Architected Tool with the Generative AI Lens reviews GenAI workloads. AWS Data Exchange supplies licensed third-party data.",
+    "x": "Trusted Advisor inspects the account automatically; the Well-Architected Tool runs a guided workload review."
    }
   ],
   "3.1": [
@@ -252,6 +262,16 @@
     "t": "AI agents",
     "b": "Agents plan steps, call tools and APIs, use memory, and act toward a goal. Business uses include end-to-end customer service, back-office processing, IT operations, and research.",
     "x": "Because agents act on real systems, they need permissions, policies, guardrails, and often human approval."
+   },
+   {
+    "t": "Choosing a vector store",
+    "b": "Amazon OpenSearch Service: hybrid keyword and vector search at scale. Aurora PostgreSQL or RDS for PostgreSQL with pgvector: reuse an existing PostgreSQL database. Neptune: graph relationships plus vectors (GraphRAG). Amazon S3 Vectors: the lowest-cost storage for very large, infrequently queried vector sets. ElastiCache: in-memory, the lowest latency.",
+    "x": "'Already runs Aurora PostgreSQL' → pgvector. 'Keyword plus semantic' → OpenSearch. 'Billions of vectors, lowest cost' → S3 Vectors."
+   },
+   {
+    "t": "Three ways to build agents on AWS",
+    "b": "Amazon Bedrock Agents: configure instructions, knowledge bases, and Lambda action groups with little code. Strands Agents: open-source, code-first SDK. Amazon Bedrock AgentCore: host and operate agents from any framework with Runtime, Memory, Gateway, Identity, Observability, and Policy.",
+    "x": "'Least code, fully managed' → Bedrock Agents. 'Any framework in production' → AgentCore."
    }
   ],
   "3.2": [
@@ -311,6 +331,11 @@
     "t": "Data preparation",
     "b": "Curation (remove duplicates, errors, toxic content), governance (rights, consent, PII), size (quality over volume), labeling (SageMaker Ground Truth), and representativeness (cover all user groups).",
     "x": "A model trained on one region's customers performs poorly elsewhere → the data was not representative."
+   },
+   {
+    "t": "Reinforcement fine-tuning",
+    "b": "Instead of thousands of labeled answers, the model attempts tasks and a reward function (an automated grader or human feedback) scores each attempt. Amazon Bedrock supports reinforcement fine-tuning for some models.",
+    "x": "'Few examples, but correctness can be checked automatically' → reinforcement fine-tuning, not supervised fine-tuning."
    }
   ],
   "3.4": [
@@ -338,6 +363,11 @@
     "t": "Offline and online evaluation",
     "b": "Before release: a fixed, representative evaluation set used as a regression test. After release: A/B tests, user feedback, sampled reviews, and monitoring.",
     "x": "Quality can drift after launch as questions, documents, and models change."
+   },
+   {
+    "t": "LLM-as-a-judge pitfalls",
+    "b": "Judges can favor longer answers, the first answer shown, or their own style. Use a clear rubric, calibrate against human ratings, and spot-check regularly.",
+    "x": "An LLM judge supplements human evaluation; it does not replace calibration."
    }
   ],
   "4.1": [
@@ -375,6 +405,11 @@
     "t": "Detecting and monitoring bias",
     "b": "Subgroup analysis, label quality analysis, and human audits. SageMaker Clarify measures pre- and post-training bias; bias drift can be monitored in production.",
     "x": "Overall accuracy can hide poor performance for a subgroup; break metrics down by group."
+   },
+   {
+    "t": "Human review with Amazon A2I",
+    "b": "Amazon Augmented AI (A2I) sends low-confidence predictions, for example from Textract or Rekognition, to human reviewers before they are used.",
+    "x": "Labeling training data → SageMaker Ground Truth. Reviewing live predictions → A2I."
    }
   ],
   "4.2": [

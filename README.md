@@ -4,10 +4,11 @@
 
 A free practice site for the **AWS Certified AI Practitioner (AIF-C01)** exam, built on **exam guide version 1.1** (published 30 April 2026). It works on phone and desktop, installs as an app, and works offline. No sign-up, no ads, and your progress stays in your own browser.
 
-- **302 questions** covering all 14 task statements, weighted like the exam (20 / 24 / 28 / 14 / 14 %).
+- **358 questions** covering all 14 task statements, weighted like the exam (20 / 24 / 28 / 14 / 14 %).
 - **All four exam question types:** multiple choice, multiple response ("Select TWO"), ordering, and matching.
 - **Every option explained:** why the right answer is right and why each wrong answer is wrong, with a pointer to the exam guide skill or AWS doc to verify it.
-- **v1.1 content included:** agentic AI and MCP, context engineering, token-based pricing, Amazon Bedrock AgentCore (Identity, Policy), Strands Agents, Kiro, Amazon Quick, Prompt Management, LLM-as-a-judge, model distillation, and hallucination grounding.
+- **v1.1 content included:** agentic AI, MCP and A2A, multi-agent patterns, context engineering, token-based pricing, Amazon Bedrock AgentCore (Gateway, Identity, Policy), Strands Agents, Kiro, Amazon Quick, AWS Transform, Prompt Management, LLM-as-a-judge, model distillation, reinforcement fine-tuning, and hallucination grounding.
+- **Exam-style distractors:** wrong options are services the exam actually confuses (Config vs CloudTrail vs Inspector, Model Cards vs AI Service Cards vs Clarify, Macie vs Guardrails PII filters), not obviously unrelated ones.
 
 > Built with [Claude Code](https://claude.com/claude-code), guided and reviewed by the repo owner. Independent study site, not affiliated with or endorsed by Amazon Web Services.
 
@@ -17,7 +18,7 @@ A free practice site for the **AWS Certified AI Practitioner (AIF-C01)** exam, b
 |---|---|
 | 🗓️ **Today's 10** | 10 questions a day across all five domains, the same set for everyone that day, with a day streak. |
 | 🎯 **Exam readiness** | Your last full mocks plotted against the 700 pass mark. It says "ready to book" after two mocks in a row at 800+. |
-| 📖 **Study cards** | 86 cards grouped by task statement: the fact, why it matters, and the exam trap to watch for. |
+| 📖 **Study cards** | 93 cards grouped by task statement: the fact, why it matters, and the exam trap to watch for. |
 | 📚 **Practice by topic** | Pick a task statement and get up to 20 questions with instant explanations. New questions are served first, so sets do not repeat. |
 | ⚡ **Quick test** | 20 questions in 28 minutes, weighted by domain. |
 | 📝 **Full mock exam** | 65 questions in 90 minutes, like the real exam. Flag questions, jump around with the question palette, and resume later if you leave. |

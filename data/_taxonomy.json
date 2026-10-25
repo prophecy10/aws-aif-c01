@@ -1,5 +1,5 @@
 {
-  "note": "AWS Certified AI Practitioner (AIF-C01) content outline, exam guide version 1.1 (published 30 April 2026). Every question's `task` must be one of the task keys below. `target` is the number of questions this bank aims for per task (about 300 in total, weighted like the exam).",
+  "note": "AWS Certified AI Practitioner (AIF-C01) content outline, exam guide version 1.1 (published 30 April 2026). Every question's `task` must be one of the task keys below. `target` is the number of questions this bank aims for per task (about 360 in total, weighted like the exam).",
   "exam": {
     "code": "AIF-C01",
     "guide_version": "1.1",
@@ -21,20 +21,20 @@
     "5": {"name": "Security, Compliance, and Governance for AI Solutions", "short": "Security & governance", "weight": 14}
   },
   "tasks": {
-    "1.1": {"domain": "1", "name": "Basic AI concepts and terminology", "target": 22},
-    "1.2": {"domain": "1", "name": "Practical use cases for AI", "target": 20},
-    "1.3": {"domain": "1", "name": "The AI/ML development lifecycle", "target": 18},
-    "2.1": {"domain": "2", "name": "Basic concepts of GenAI", "target": 30},
-    "2.2": {"domain": "2", "name": "GenAI capabilities and limits for business", "target": 18},
-    "2.3": {"domain": "2", "name": "AWS services and infrastructure for GenAI", "target": 24},
-    "3.1": {"domain": "3", "name": "Design considerations for FM applications", "target": 26},
-    "3.2": {"domain": "3", "name": "Prompt engineering techniques", "target": 20},
-    "3.3": {"domain": "3", "name": "Training and fine-tuning FMs", "target": 14},
-    "3.4": {"domain": "3", "name": "Evaluating FM performance", "target": 24},
-    "4.1": {"domain": "4", "name": "Developing responsible AI systems", "target": 26},
-    "4.2": {"domain": "4", "name": "Transparent and explainable models", "target": 16},
-    "5.1": {"domain": "5", "name": "Securing AI systems", "target": 26},
-    "5.2": {"domain": "5", "name": "Governance and compliance for AI", "target": 16}
+    "1.1": {"domain": "1", "name": "Basic AI concepts and terminology", "target": 26},
+    "1.2": {"domain": "1", "name": "Practical use cases for AI", "target": 24},
+    "1.3": {"domain": "1", "name": "The AI/ML development lifecycle", "target": 24},
+    "2.1": {"domain": "2", "name": "Basic concepts of GenAI", "target": 36},
+    "2.2": {"domain": "2", "name": "GenAI capabilities and limits for business", "target": 21},
+    "2.3": {"domain": "2", "name": "AWS services and infrastructure for GenAI", "target": 29},
+    "3.1": {"domain": "3", "name": "Design considerations for FM applications", "target": 31},
+    "3.2": {"domain": "3", "name": "Prompt engineering techniques", "target": 23},
+    "3.3": {"domain": "3", "name": "Training and fine-tuning FMs", "target": 18},
+    "3.4": {"domain": "3", "name": "Evaluating FM performance", "target": 28},
+    "4.1": {"domain": "4", "name": "Developing responsible AI systems", "target": 30},
+    "4.2": {"domain": "4", "name": "Transparent and explainable models", "target": 19},
+    "5.1": {"domain": "5", "name": "Securing AI systems", "target": 30},
+    "5.2": {"domain": "5", "name": "Governance and compliance for AI", "target": 19}
   },
   "out_of_scope_watch": {
     "note": "Names that the v1.1 guide no longer lists or never listed as in scope. The validator warns when a question's correct answer depends on one of these.",

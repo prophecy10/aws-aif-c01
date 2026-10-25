@@ -409,5 +409,76 @@
   ],
   "explain": "Let the requirements drive selection. For short, frequent answers, cost and latency usually dominate. Capabilities the app will never use should not drive the choice.",
   "ref": "Exam guide skill 2.2.3"
+ },
+ {
+  "id": "2.2-19",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company must choose a model for a narrow, high-volume classification task. The largest model is only 1% more accurate than a much smaller one but costs 15 times more and is 4 times slower. Which selection factor should drive the decision?",
+  "options": [
+   "Model complexity relative to the task, weighed against cost and latency",
+   "Always the highest benchmark accuracy, whatever the cost",
+   "The size of each model's marketing website",
+   "Whether the model can also generate images"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. v1.1 adds cost, latency, and model complexity to the selection factors. A simpler model that meets the bar is usually the better business choice.",
+   "Maximizing accuracy alone ignores cost and latency, which also matter to the business.",
+   "Marketing material is not a selection factor.",
+   "Image generation is irrelevant to a text classification task."
+  ],
+  "explain": "Right-size the model: complex models are worth it only when the task needs them. For simple, high-volume tasks, smaller models usually give the best business value.",
+  "ref": "Exam guide skill 2.2.3"
+ },
+ {
+  "id": "2.2-20",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A GenAI assistant usually answers correctly but sometimes gives slightly wrong figures when it summarizes financial reports. Which disadvantage of generative AI is this?",
+  "options": [
+   "Inaccuracy",
+   "Adaptability",
+   "Responsiveness",
+   "Conversational capability"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Inaccuracy, along with hallucinations, interpretability, and nondeterminism, is a listed disadvantage of GenAI.",
+   "Adaptability is an advantage: one model handles many tasks.",
+   "Responsiveness is an advantage: fast, on-demand answers.",
+   "Conversational capability is an advantage of GenAI."
+  ],
+  "explain": "Know the lists: advantages are adaptability, responsiveness, conversational capabilities, and the ability to generate content; disadvantages are hallucinations, interpretability, inaccuracy, and nondeterminism. For figures, validate outputs against the source data.",
+  "ref": "Exam guide skills 2.2.1 and 2.2.2"
+ },
+ {
+  "id": "2.2-21",
+  "task": "2.2",
+  "type": "multi",
+  "difficulty": "hard",
+  "q": "An e-commerce company wants to prove that its new GenAI shopping assistant creates business value. Which metrics measure business value rather than model quality? Select TWO.",
+  "options": [
+   "Conversion rate of sessions that used the assistant",
+   "Change in average revenue per user (ARPU)",
+   "BERTScore of the assistant's answers",
+   "Perplexity on a held-out text set",
+   "ROUGE-L compared with reference answers"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Conversion rate is a listed business metric for GenAI.",
+   "Correct. ARPU shows whether the assistant increases spend per user.",
+   "BERTScore measures semantic similarity of text, a model quality metric.",
+   "Perplexity measures how well a model predicts text, not business outcomes.",
+   "ROUGE-L measures text overlap, not business value."
+  ],
+  "explain": "Skill 2.2.4 lists cross-domain performance, ROI, efficiency, conversion rate, ARPU, accuracy, and customer lifetime value. Pair model metrics with business metrics to justify investment.",
+  "ref": "Exam guide skill 2.2.4"
  }
 ]

@@ -132,17 +132,17 @@
   "difficulty": "easy",
   "q": "A developer wants an AI-powered IDE that turns a feature request into requirements, a design, and a task list, and then helps implement the code. Which AWS offering is built for this spec-driven style of development?",
   "options": [
-   "Amazon Quick",
    "Kiro",
-   "Amazon Polly",
-   "AWS Glue DataBrew"
+   "Amazon Quick",
+   "Strands Agents",
+   "Amazon Bedrock AgentCore"
   ],
   "answer": 1,
   "notes": [
-   "Amazon Quick is an agentic workspace for business users, covering analytics, research, and automation.",
-   "Correct. Kiro is an agentic IDE that supports spec-driven development: requirements, design, and tasks, then implementation with AI agents.",
-   "Polly converts text to speech.",
-   "Glue DataBrew is a visual data-preparation tool."
+   "Correct. Kiro is an agentic IDE built around spec-driven development: requirements, design, and tasks before code.",
+   "Amazon Quick is for business users (analytics, research, automation), not for writing software.",
+   "Strands Agents is an SDK for coding your own agents. It is not an IDE that turns feature requests into specs.",
+   "AgentCore hosts and operates agents in production. It does not write application code for developers."
   ],
   "explain": "Kiro, added to the exam guide in v1.1, is an AI development environment. It uses specs, steering files, and agent hooks to help developers go from prompt to production code in a structured way.",
   "ref": "Exam guide skills 1.3.4 and 2.3.1 (v1.1); Kiro documentation"
@@ -180,14 +180,15 @@
    "Build, train, and deploy custom ML models with full control",
    "Agentic IDE that helps developers write code from specs",
    "Analytics, dashboards, and AI agents for business users",
-   "Generative AI assistant for answering questions and helping with code"
+   "Modernize legacy .NET, mainframe, and VMware workloads with AI agents"
   ],
   "options": [
    "Amazon Bedrock",
    "Amazon SageMaker AI",
    "Kiro",
    "Amazon Quick",
-   "Amazon Q"
+   "AWS Transform",
+   "Amazon Comprehend"
   ],
   "answer": [
    0,
@@ -196,7 +197,7 @@
    3,
    4
   ],
-  "explain": "These are the services the v1.1 guide lists for the AI/ML pipeline: Bedrock (FMs as a service), SageMaker AI (the full ML platform), Kiro (AI-assisted development), Amazon Quick (business analytics and agents), and Amazon Q (generative AI assistants, such as Q Developer for coding).",
+  "explain": "Bedrock gives managed access to FMs, SageMaker AI is the full ML platform, Kiro is the agentic IDE, Amazon Quick serves business users with analytics and agents, and AWS Transform applies agentic AI to modernization. Amazon Comprehend is a task-specific NLP service and fits none of these.",
   "ref": "Exam guide skill 1.3.4 (v1.1 service list)"
  },
  {
@@ -431,19 +432,110 @@
   "difficulty": "easy",
   "q": "A data science team needs managed notebooks, distributed training jobs, automatic model tuning, and one-click deployment of its own custom models. Which AWS service provides all of these?",
   "options": [
-   "Amazon Comprehend",
    "Amazon SageMaker AI",
-   "Amazon Lex",
-   "AWS Artifact"
+   "Amazon Bedrock",
+   "Amazon SageMaker Canvas",
+   "AWS Glue"
   ],
   "answer": 1,
   "notes": [
-   "Comprehend is a pretrained NLP service; you cannot train arbitrary custom models with it.",
-   "Correct. SageMaker AI covers the whole ML lifecycle: data preparation, notebooks, training, tuning, deployment, and MLOps.",
-   "Lex builds chatbots.",
-   "Artifact provides AWS compliance reports."
+   "Correct. SageMaker AI covers notebooks, training jobs, automatic model tuning, and deployment of custom models.",
+   "Bedrock gives API access to foundation models. It does not run distributed training of your own model code.",
+   "Canvas is a no-code tool for analysts. It does not give data scientists notebooks and distributed training jobs.",
+   "AWS Glue prepares and moves data (ETL). It does not train or deploy models."
   ],
   "explain": "Amazon SageMaker AI is AWS's end-to-end platform for building, training, and deploying ML models. It also hosts foundation models (SageMaker JumpStart) and tools for responsible AI such as Clarify and Model Cards.",
   "ref": "Exam guide skills 1.2.5 and 1.3.4"
+ },
+ {
+  "id": "1.3-21",
+  "task": "1.3",
+  "type": "match",
+  "difficulty": "hard",
+  "q": "Match each ML pipeline need to the Amazon SageMaker AI capability built for it.",
+  "prompts": [
+   "Prepare and transform data visually, with built-in data quality insights",
+   "Store curated features and reuse them for both training and inference",
+   "Catalog model versions and record approval before deployment",
+   "Detect data drift and quality drift on a deployed endpoint",
+   "Let business analysts build models without writing code"
+  ],
+  "options": [
+   "SageMaker Data Wrangler",
+   "SageMaker Feature Store",
+   "SageMaker Model Registry",
+   "SageMaker Model Monitor",
+   "SageMaker Canvas",
+   "SageMaker Ground Truth"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "Map tools to pipeline stages: Data Wrangler (data preparation), Feature Store (feature reuse), training and tuning jobs, Model Registry (versioning and approval), endpoints (deployment), and Model Monitor (monitoring). Canvas offers no-code ML. Ground Truth labels data, which none of these prompts describes.",
+  "ref": "Exam guide skill 1.3.4; Amazon SageMaker AI docs"
+ },
+ {
+  "id": "1.3-22",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company must make sure that only models reviewed by the risk team are deployed to production, and it must be able to roll back to an earlier approved version. Which MLOps capability supports this most directly?",
+  "options": [
+   "A model registry with versioning and approval status",
+   "A larger training instance type",
+   "Raising the number of training epochs on every run",
+   "Deleting earlier model versions after each deployment"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A model registry, such as SageMaker Model Registry, tracks versions, metadata, and approval status, and supports rollback.",
+   "Instance size affects training speed, not deployment governance.",
+   "More epochs change training, not which version is approved for production.",
+   "Deleting old versions removes the ability to roll back."
+  ],
+  "explain": "Production readiness in MLOps includes versioned, approved, reproducible models. Pipelines can deploy automatically only after a model is approved in the registry.",
+  "ref": "Exam guide skill 1.3.5"
+ },
+ {
+  "id": "1.3-23",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A retail company wants a generative AI chat feature quickly. It is choosing between calling a model through Amazon Bedrock and hosting an open-weight model on its own endpoints. What is the main trade-off?",
+  "options": [
+   "A managed API means less operational work but less control; self-hosting means more control and more operational work",
+   "A managed API always gives more accurate answers than any self-hosted model, whatever the task",
+   "Self-hosting removes every security responsibility from the customer and shifts it to AWS",
+   "There is no real difference in effort or control between the two options for production use"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. This is the core trade-off between using a managed API service and running a self-hosted API.",
+   "Accuracy depends on the model, not on whether it is managed or self-hosted.",
+   "Self-hosting adds security responsibilities, such as patching and network configuration.",
+   "The options differ a lot in operational effort and in control over models and infrastructure."
+  ],
+  "explain": "Skill 1.3.3 contrasts methods to use a model in production: a managed API service (Amazon Bedrock) and a self-hosted API (for example, a SageMaker AI endpoint or Amazon EC2).",
+  "ref": "Exam guide skill 1.3.3"
+ },
+ {
+  "id": "1.3-24",
+  "task": "1.3",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put these MLOps activities in the order they usually occur for a model that is already in production.",
+  "options": [
+   "Monitor the deployed model's inputs and predictions",
+   "Detect drift above an agreed threshold",
+   "Retrain the model on recent data",
+   "Evaluate the new model against the current one",
+   "Deploy the new version after approval"
+  ],
+  "explain": "Production MLOps is a loop: monitor, detect drift, retrain, evaluate against the current model, and redeploy only after approval. Automating this loop with pipelines is what makes it repeatable.",
+  "ref": "Exam guide skill 1.3.5"
  }
 ]

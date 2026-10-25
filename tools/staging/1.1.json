@@ -500,5 +500,104 @@
   ],
   "explain": "LLMs are a type of foundation model specialized in language. They are pretrained on vast text, typically with a transformer architecture, and can be adapted to many tasks through prompting, retrieval-augmented generation (RAG), or fine-tuning.",
   "ref": "Exam guide skills 1.1.1 and 2.1.1"
+ },
+ {
+  "id": "1.1-23",
+  "task": "1.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each system to the category that describes it most precisely.",
+  "prompts": [
+   "A spam filter trained on labeled emails using gradient-boosted trees",
+   "An image classifier built from a 50-layer convolutional neural network",
+   "A model that writes a product description from a short list of features",
+   "An assistant that plans a trip, books flights through APIs, and adjusts when a booking fails"
+  ],
+  "options": [
+   "Traditional machine learning",
+   "Deep learning (non-generative)",
+   "Generative AI",
+   "Agentic AI",
+   "Rules-based automation"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Each category narrows the one before it: ML learns from data, deep learning uses many-layered neural networks, generative AI creates new content, and agentic AI adds planning, tool use, and actions toward a goal. Rules-based automation does not learn from data at all.",
+  "ref": "Exam guide skills 1.1.1 and 1.1.2"
+ },
+ {
+  "id": "1.1-24",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company stores customer support emails, scanned contracts, and call recordings. Its finance system holds transactions in database tables with fixed columns. How should the two groups of data be classified?",
+  "options": [
+   "Emails, scans, and recordings are unstructured; the transaction tables are structured",
+   "All of it is structured, because every file is stored in Amazon S3 or a database",
+   "Emails, scans, and recordings are structured; the transaction tables are unstructured",
+   "All of it is time-series data, because every record has a timestamp"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Free text, images, and audio have no fixed schema; rows and columns with defined types are structured data.",
+   "Where data is stored does not decide its structure. Files in S3 can be completely unstructured.",
+   "This reverses the definitions. Tables with fixed columns are the classic example of structured data.",
+   "Having a timestamp does not make data time-series. Time-series data is ordered measurements of the same variable over time."
+  ],
+  "explain": "Structured data fits a schema (tables, typed columns) and suits traditional ML. Unstructured data (text, images, audio, video) usually needs deep learning or foundation models. The exam also asks about labeled vs unlabeled, tabular, time-series, image, and text data.",
+  "ref": "Exam guide skill 1.1.4"
+ },
+ {
+  "id": "1.1-25",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team fine-tunes a model by having it attempt tasks and scoring each attempt with an automated grader that checks whether the final answer is correct, instead of providing a large set of labeled example answers. Which type of learning does this use?",
+  "options": [
+   "Reinforcement learning, guided by a reward signal",
+   "Unsupervised learning, because no labels are provided",
+   "Supervised learning, because the grader is a kind of label",
+   "Transfer learning without any further training"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The model learns from rewards for its own attempts, which is reinforcement learning. RLHF uses human preferences as the reward; other methods use automated graders.",
+   "Unsupervised learning finds structure in unlabeled data. Here the model is clearly optimized toward a reward.",
+   "Supervised learning needs the correct output for each input. A grader that scores attempts gives a reward, not a target answer.",
+   "Transfer learning reuses knowledge from pretraining, but the scenario describes further training driven by rewards."
+  ],
+  "explain": "v1.1 widens 1.1.5 to 'reinforcement learning methods'. Know the family: classic RL (an agent and an environment), RLHF (a reward model trained on human preferences), and reinforcement fine-tuning with automated reward functions, which Amazon Bedrock supports for some models.",
+  "ref": "Exam guide skill 1.1.5; Amazon Bedrock reinforcement fine-tuning docs"
+ },
+ {
+  "id": "1.1-26",
+  "task": "1.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which statements about large language models (LLMs) are true? Select TWO.",
+  "options": [
+   "They are foundation models pretrained on very large amounts of text",
+   "They generate output one token at a time by predicting likely next tokens",
+   "They look up every answer in a database of verified facts",
+   "They must be retrained before they can do any new task",
+   "They always return the same answer for the same prompt"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. LLMs are a kind of foundation model, pretrained on broad text corpora.",
+   "Correct. Generation is next-token prediction, repeated until a stop condition.",
+   "LLMs generate from learned patterns. Without grounding such as RAG, they can state false facts.",
+   "Prompting, few-shot examples, and RAG adapt LLMs to new tasks without retraining.",
+   "With sampling (temperature above zero), outputs vary between runs. This nondeterminism is a known limitation."
+  ],
+  "explain": "v1.1 adds LLM, GenAI, and agentic AI to the basic terms. An LLM is a transformer-based foundation model for language; it adapts to tasks through prompting, RAG, or fine-tuning, and its sampled outputs are nondeterministic.",
+  "ref": "Exam guide skill 1.1.1"
  }
 ]

@@ -210,16 +210,16 @@
   "q": "A company stores its HR policies as PDFs in Amazon S3. It wants a managed way to build RAG on them, including chunking, embeddings, a vector store, and retrieval, with minimal code. Which AWS capability fits?",
   "options": [
    "Amazon Bedrock Knowledge Bases",
-   "Amazon Rekognition Custom Labels",
-   "AWS Glue DataBrew recipes",
-   "Amazon Polly lexicons"
+   "Amazon Bedrock Agents",
+   "Amazon SageMaker JumpStart",
+   "Amazon Bedrock Prompt Management"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Bedrock Knowledge Bases connects to data sources such as S3, then chunks, embeds, stores, and retrieves content for RAG, and returns source citations.",
-   "Rekognition Custom Labels trains image models.",
-   "DataBrew cleans tabular data and does not build RAG.",
-   "Polly lexicons control speech pronunciation."
+   "Correct. Knowledge Bases ingests from S3, chunks, embeds, stores vectors, and retrieves them, all managed.",
+   "Agents orchestrate multi-step tasks and tools. They can use a knowledge base, but they do not build the RAG pipeline.",
+   "JumpStart deploys models to endpoints. You would still have to build chunking, embedding, and retrieval yourself.",
+   "Prompt Management stores and versions prompts. It does not ingest or retrieve documents."
   ],
   "explain": "Knowledge Bases is the fully managed RAG capability in Amazon Bedrock. You choose the data source, embedding model, chunking strategy, and vector store (or let it create one).",
   "ref": "Exam guide skill 3.1.3 (Amazon Bedrock Knowledge Bases)"
@@ -263,16 +263,16 @@
   "q": "A team already runs its application on Amazon Aurora PostgreSQL. It wants to add vector search for RAG without adopting a new database engine. What should it use?",
   "options": [
    "The pgvector extension on Aurora PostgreSQL",
-   "Amazon S3 Glacier Deep Archive",
-   "Amazon CloudFront edge caching",
-   "AWS Config rules that evaluate resource settings"
+   "A new Amazon OpenSearch Service domain",
+   "Migrating the data to Amazon Neptune",
+   "Amazon DynamoDB global tables"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Aurora PostgreSQL (and RDS for PostgreSQL) support pgvector for storing embeddings and running similarity search.",
-   "Glacier is archival storage with retrieval delays.",
-   "CloudFront is a content delivery network.",
-   "Config evaluates resource configurations."
+   "Correct. Aurora PostgreSQL supports vector storage and similarity search through pgvector, so the team keeps its current engine.",
+   "OpenSearch Service is a strong vector store, but it is a new engine to run, which the team wants to avoid.",
+   "Neptune is a graph database. Moving to it means adopting a new engine.",
+   "DynamoDB global tables replicate key-value data across Regions. They are not the vector search option here."
   ],
   "explain": "Vector stores listed in the guide include Amazon OpenSearch Service, Amazon Aurora, Amazon Neptune, and Amazon RDS for PostgreSQL. Reusing a familiar database can reduce operational overhead.",
   "ref": "Exam guide skill 3.1.4 (vector stores)"
@@ -285,16 +285,16 @@
   "q": "A company needs a vector store that also supports full-text keyword search, so it can combine both in hybrid search across millions of documents. Which service is the strongest fit?",
   "options": [
    "Amazon OpenSearch Service",
-   "Amazon Polly",
-   "AWS Secrets Manager with rotation",
-   "Amazon Transcribe"
+   "Amazon Neptune",
+   "Amazon DynamoDB",
+   "Amazon Redshift"
   ],
   "answer": 0,
   "notes": [
-   "Correct. OpenSearch Service offers k-NN vector search alongside full-text search, which enables hybrid retrieval at scale. OpenSearch Serverless is a common Knowledge Bases vector store.",
-   "Polly is text-to-speech.",
-   "Secrets Manager stores credentials.",
-   "Transcribe converts speech to text."
+   "Correct. OpenSearch Service combines full-text (keyword) search with k-NN vector search, so it supports hybrid search at scale.",
+   "Neptune is best when relationships between entities matter (graph data), not for keyword-plus-vector hybrid search.",
+   "DynamoDB is a key-value and document database without built-in full-text or vector similarity search.",
+   "Redshift is a data warehouse for analytics, not a search engine for hybrid retrieval."
   ],
   "explain": "Hybrid search (keyword plus semantic) often improves retrieval quality, for example when queries include product codes or exact names.",
   "ref": "Exam guide skill 3.1.4"
@@ -308,15 +308,15 @@
   "options": [
    "Amazon Neptune",
    "Amazon Redshift",
-   "Amazon ElastiCache for session caching",
-   "Amazon S3 Glacier"
+   "Amazon OpenSearch Service",
+   "Amazon ElastiCache"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Neptune is AWS's graph database, and Neptune Analytics supports vector search, enabling graph-based RAG (GraphRAG).",
-   "Redshift is a data warehouse for analytics.",
-   "Session caching is not a graph database use case.",
-   "Glacier is archival storage."
+   "Correct. Neptune stores graph relationships and supports vector search, which enables GraphRAG.",
+   "Redshift is a data warehouse. It does not model graph relationships for retrieval.",
+   "OpenSearch Service handles vector and keyword search well, but it does not model explicit graph relationships.",
+   "ElastiCache is an in-memory cache. It is not a graph database."
   ],
   "explain": "GraphRAG combines relationships between entities with semantic search, which helps when answers depend on how facts connect.",
   "ref": "Exam guide skill 3.1.4 (Amazon Neptune)"
@@ -565,5 +565,120 @@
   ],
   "explain": "RAG quality depends on both retrieval and generation. Diagnose which stage fails. Retrieval fixes include chunk size and strategy, embedding model choice, metadata filters, hybrid search, and reranking.",
   "ref": "Exam guide skills 3.1.3 and 3.4.4"
+ },
+ {
+  "id": "3.1-27",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A company wants to add RAG over 2 billion document chunks. Queries are infrequent, sub-second latency is acceptable, and the main goal is the lowest possible cost to store and query vectors with Amazon Bedrock Knowledge Bases. Which vector store fits best?",
+  "options": [
+   "Amazon S3 Vectors",
+   "Amazon ElastiCache with vector search",
+   "A provisioned Amazon OpenSearch Service cluster sized for peak load",
+   "Amazon Neptune Analytics"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. S3 Vectors is purpose-built, low-cost vector storage in Amazon S3 with sub-second queries, and it integrates with Bedrock Knowledge Bases.",
+   "ElastiCache keeps vectors in memory for the lowest latency, which is expensive at billions of vectors and not needed here.",
+   "A provisioned OpenSearch cluster suits high query rates and hybrid search, but it costs more to keep running for infrequent queries.",
+   "Neptune Analytics fits graph-plus-vector use cases. It is not the cheapest store for very large, infrequently queried vectors."
+  ],
+  "explain": "Vector store choice trades latency, features, and cost: in-memory (ElastiCache) for the lowest latency, OpenSearch for rich search and hybrid queries, Aurora or RDS with pgvector to reuse PostgreSQL, Neptune for graphs, and S3 Vectors for very large, cost-sensitive collections.",
+  "ref": "Exam guide skill 3.1.4; Amazon S3 Vectors docs"
+ },
+ {
+  "id": "3.1-28",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A RAG assistant for a global company returns policies from the wrong country. Each document already has a 'country' attribute. Which change improves retrieval precision most directly?",
+  "options": [
+   "Apply metadata filtering on the country attribute at retrieval time",
+   "Raise the temperature of the generation model so it considers more options",
+   "Double the chunk size so each chunk carries more of the surrounding policy text",
+   "Remove the country attribute so that retrieval relies only on semantic similarity"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Metadata filters limit retrieval to matching documents before or during similarity search, which Bedrock Knowledge Bases supports.",
+   "Temperature affects generation randomness, not which documents are retrieved.",
+   "Bigger chunks do not stop documents from the wrong country being retrieved.",
+   "Removing the attribute throws away the information needed to filter."
+  ],
+  "explain": "Retrieval quality levers include chunking strategy, embedding model choice, metadata filtering, hybrid search, and reranking. Fix retrieval before blaming the generator.",
+  "ref": "Exam guide skill 3.1.3; Bedrock Knowledge Bases docs"
+ },
+ {
+  "id": "3.1-29",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team has four ways to make a general model answer questions about its 10,000 internal documents, which change weekly. Which option gives current, citable answers with the LOWEST ongoing cost and effort?",
+  "options": [
+   "RAG with Amazon Bedrock Knowledge Bases",
+   "Fine-tune the model every week on the latest documents",
+   "Continued pretraining every week on all the documents",
+   "Paste all 10,000 documents into every prompt"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. RAG keeps answers current through re-sync, supports citations, and needs no retraining.",
+   "Weekly fine-tuning is costly, slow to update, and does not give citations.",
+   "Continued pretraining is even more expensive and still cannot cite sources.",
+   "The documents would not fit in the context window, and the token cost would be huge."
+  ],
+  "explain": "Cost trade-offs of customization (skill 3.1.5): in-context learning is cheapest per change, RAG adds retrieval infrastructure but stays current, fine-tuning and distillation need training runs, and pretraining is the most expensive.",
+  "ref": "Exam guide skill 3.1.5"
+ },
+ {
+  "id": "3.1-30",
+  "task": "3.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A bank deploys an AI agent that helps customers dispute card transactions. Which business applications of AI agents does this show? Select TWO.",
+  "options": [
+   "Automating a multi-step customer service process across several systems",
+   "Taking actions, such as opening a dispute case, rather than only answering questions",
+   "Guaranteeing that every decision is correct without oversight",
+   "Replacing the need for any access controls on the systems it uses",
+   "Training a new foundation model from scratch"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Agents coordinate steps across systems, such as card records, case management, and notifications.",
+   "Correct. Agents act through tools, which is what distinguishes them from chatbots.",
+   "Agents can make mistakes, so oversight and controls remain necessary.",
+   "Agents need least-privilege access, identity, and policy controls.",
+   "Agents use existing FMs. They do not involve pretraining a new one."
+  ],
+  "explain": "Skill 3.1.6 asks for the role of AI agents and their business applications: customer service automation, IT and operations tasks, back-office processing, and research assistance.",
+  "ref": "Exam guide skill 3.1.6"
+ },
+ {
+  "id": "3.1-31",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants to build an agent on Amazon Bedrock with the least code: define instructions, connect a knowledge base, and add action groups backed by AWS Lambda functions. Which capability fits?",
+  "options": [
+   "Amazon Bedrock Agents",
+   "Amazon Bedrock batch inference",
+   "Amazon SageMaker Ground Truth",
+   "Amazon Bedrock Prompt Management"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock Agents is a managed way to configure agents with instructions, knowledge bases, and Lambda-backed action groups.",
+   "Batch inference runs bulk offline jobs. It does not orchestrate tools.",
+   "Ground Truth labels data.",
+   "Prompt Management stores prompts. It does not orchestrate tools or knowledge bases."
+  ],
+  "explain": "AWS offers several levels of agent tooling: Bedrock Agents (configured, fully managed), Strands Agents (open-source SDK, code-first), and AgentCore (enterprise hosting and operations for agents from any framework).",
+  "ref": "Exam guide skill 3.1.6; Amazon Bedrock Agents docs"
  }
 ]

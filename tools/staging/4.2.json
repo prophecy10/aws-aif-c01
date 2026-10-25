@@ -51,16 +51,16 @@
   "q": "A lender must tell each declined applicant which factors most influenced the model's decision. Which AWS capability provides per-prediction feature attributions?",
   "options": [
    "Amazon SageMaker Clarify",
-   "Amazon Bedrock Provisioned Throughput",
-   "Amazon Polly",
-   "AWS Budgets"
+   "Amazon SageMaker Model Cards",
+   "Amazon SageMaker Model Monitor",
+   "Amazon Bedrock Guardrails"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Clarify uses SHAP-based feature attribution to show how much each input contributed to a prediction.",
-   "Provisioned Throughput reserves model capacity.",
-   "Polly converts text to speech.",
-   "Budgets tracks spending."
+   "Correct. Clarify uses SHAP-based feature attribution to explain individual predictions as well as the model overall.",
+   "Model Cards document a model's purpose and evaluation. They do not compute per-prediction explanations.",
+   "Model Monitor detects drift in production. On its own it does not explain a single decision.",
+   "Guardrails filters FM content. It does not explain tabular model decisions."
   ],
   "explain": "SageMaker Clarify provides both bias detection and explainability (global and per-prediction feature importance). The v1.1 guide lists it as a transparency and explainability tool.",
   "ref": "Exam guide skill 4.2.2 (SageMaker Clarify, added in v1.1)"
@@ -73,16 +73,16 @@
   "q": "A governance team wants a standard document for each model that records its intended use, risk rating, training details, and evaluation results. Which AWS feature is designed for this?",
   "options": [
    "Amazon SageMaker Model Cards",
-   "Amazon Bedrock Knowledge Bases",
-   "Amazon CloudFront",
-   "AWS Glue crawlers"
+   "AWS AI Service Cards",
+   "Amazon SageMaker Clarify",
+   "AWS Artifact"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Model Cards capture model documentation such as intended uses, risks, training, and evaluation in one place for governance and audits.",
-   "Knowledge Bases provide RAG, not model documentation.",
-   "CloudFront delivers web content.",
-   "Glue crawlers catalog data schemas."
+   "Correct. Model Cards record intended use, risk rating, training details, and evaluation results for your own models.",
+   "AI Service Cards are written by AWS about AWS's own AI services. They do not document your custom models.",
+   "Clarify produces bias and explainability reports, which you can attach to a model card, but it is not the documentation record.",
+   "Artifact provides AWS's compliance reports. It does not document your models."
   ],
   "explain": "Model Cards support transparency (4.2.2) and documentation of data origin and lineage (5.1.2). They create a single source of truth about each model.",
   "ref": "Exam guide skills 4.2.2 and 5.1.2 (SageMaker Model Cards)"
@@ -249,16 +249,16 @@
   "q": "A team wants to share evidence of how its chosen foundation model performs on accuracy, robustness, and toxicity, so stakeholders can trust the choice. Which capability helps produce this evidence?",
   "options": [
    "Amazon Bedrock Model Evaluations",
-   "Amazon S3 Lifecycle rules",
-   "AWS Lambda reserved concurrency",
-   "Amazon Route 53 health checks"
+   "AWS AI Service Cards",
+   "Amazon Bedrock Guardrails",
+   "AWS Artifact"
   ],
   "answer": 0,
   "notes": [
-   "Correct. Bedrock model evaluations generate comparable results on dimensions such as accuracy, robustness, and toxicity, which supports transparency.",
-   "Lifecycle rules manage storage tiers.",
-   "Reserved concurrency controls Lambda scaling.",
-   "Health checks monitor endpoints, not model quality."
+   "Correct. Bedrock evaluations produce documented results for accuracy, robustness, toxicity, and other measures on chosen models.",
+   "AI Service Cards describe AWS AI services. They do not produce evaluation results for the model you chose.",
+   "Guardrails enforces safety at run time. It does not generate comparative quality evidence.",
+   "Artifact holds AWS compliance reports, not model quality results."
   ],
   "explain": "The v1.1 guide adds Amazon Bedrock Model Evaluations to the transparency and explainability tools. Documented evaluation results, together with model cards, make model choices auditable.",
   "ref": "Exam guide skill 4.2.2 (Amazon Bedrock Model Evaluations, added in v1.1)"
@@ -360,5 +360,76 @@
   ],
   "explain": "Technical explainability (feature attributions) becomes useful only when translated into explanations that fit the audience.",
   "ref": "Exam guide skill 4.2.4 (human-centered explainable AI)"
+ },
+ {
+  "id": "4.2-17",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What is the difference between a transparent model and an explainable model?",
+  "options": [
+   "A transparent model's inner logic can be understood directly; an explainable model may be opaque but its outputs can be explained with tools",
+   "They are the same thing; the two terms can always be used interchangeably in any regulatory context",
+   "A transparent model is always open source, while an explainable model is always a proprietary commercial model",
+   "A transparent model has no learned parameters at all, while an explainable model has billions of them"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Transparency is interpretability by design, such as a small decision tree. Explainability can come after the fact, for example with SHAP feature attributions.",
+   "They are related but different. A deep network can be explainable with tools without being transparent.",
+   "Licensing is a separate dimension from transparency and explainability.",
+   "All learned models have parameters. Transparency is about how understandable they are, not how many there are."
+  ],
+  "explain": "Skill 4.2.1 asks you to tell transparent and explainable models from models that are neither. Simpler models trade some performance for interpretability; complex models need explanation tools and documentation.",
+  "ref": "Exam guide skill 4.2.1"
+ },
+ {
+  "id": "4.2-18",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A customer service app shows an AI-generated answer. Which design best reflects human-centered explainable AI?",
+  "options": [
+   "Show the sources used, label the answer as AI-generated, and offer an easy way to flag problems or reach a human",
+   "Hide that the answer came from AI, so that users trust it more and do not question it",
+   "Show the model's raw probability score for every generated token next to the answer text",
+   "Disable feedback and contact options so that users cannot complain about any answers"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. It combines decision transparency, source visibility, and user-feedback mechanisms.",
+   "Hiding AI use undermines trust and transparency.",
+   "Raw token probabilities do not help most users understand an answer.",
+   "Removing feedback blocks improvement and recourse."
+  ],
+  "explain": "Skill 4.2.4 names user-feedback mechanisms and AI decision transparency as principles of human-centered design for explainable AI.",
+  "ref": "Exam guide skill 4.2.4"
+ },
+ {
+  "id": "4.2-19",
+  "task": "4.2",
+  "type": "multi",
+  "difficulty": "hard",
+  "q": "A company must choose a foundation model and show stakeholders evidence that the choice is transparent. Which resources help? Select TWO.",
+  "options": [
+   "Amazon Bedrock Model Evaluations results for the candidate models",
+   "The model provider's documentation and license terms, including training data disclosures",
+   "The AWS Cost Explorer forecast for next month",
+   "The CloudFront cache hit ratio",
+   "Amazon EC2 Auto Scaling policies"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Evaluation results give comparable evidence of quality and safety.",
+   "Correct. Documentation, data disclosures, and licensing are listed transparency considerations.",
+   "Cost forecasts are not transparency evidence about a model.",
+   "Cache metrics are irrelevant to model transparency.",
+   "Scaling policies do not describe model behavior."
+  ],
+  "explain": "Skill 4.2.2 lists SageMaker Model Cards, Amazon Bedrock Model Evaluations, open source models, data, and licensing as tools and considerations for transparency.",
+  "ref": "Exam guide skill 4.2.2"
  }
 ]
