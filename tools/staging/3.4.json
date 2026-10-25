@@ -1,0 +1,545 @@
+[
+ {
+  "id": "3.4-01",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team compares model-generated summaries of news articles with human-written reference summaries by measuring overlapping words and phrases. Which metric is designed for this?",
+  "options": [
+   "ROUGE",
+   "BLEU",
+   "F1 score for binary classification",
+   "Root mean squared error (RMSE)"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. ROUGE (Recall-Oriented Understudy for Gisting Evaluation) measures n-gram overlap with reference summaries and is the standard summarization metric.",
+   "BLEU is mainly used for machine translation.",
+   "Binary-classification F1 does not compare generated text with references.",
+   "RMSE measures numeric regression error."
+  ],
+  "explain": "ROUGE variants include ROUGE-N (n-gram overlap) and ROUGE-L (longest common subsequence). Like BLEU, it rewards word overlap, so it can miss correct answers phrased differently.",
+  "ref": "Exam guide skill 3.4.2 (ROUGE)"
+ },
+ {
+  "id": "3.4-02",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which metric is traditionally used to evaluate machine translation by comparing a model's output with reference translations?",
+  "options": [
+   "BLEU",
+   "ROUGE",
+   "Recall",
+   "Perplexity"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. BLEU (Bilingual Evaluation Understudy) measures precision of n-gram overlap with reference translations, with a penalty for overly short output.",
+   "ROUGE is mainly associated with summarization.",
+   "Recall is a classification metric.",
+   "Perplexity measures how well a language model predicts text, not translation quality against references."
+  ],
+  "explain": "Memory aid: BLEU = Bilingual (translation), ROUGE = Gisting (summaries). Both compare against human references.",
+  "ref": "Exam guide skill 3.4.2 (BLEU)"
+ },
+ {
+  "id": "3.4-03",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A model's answers are often correct but worded very differently from the reference answers, so ROUGE scores are low. Which metric better captures whether the meaning matches?",
+  "options": [
+   "BERTScore",
+   "BLEU",
+   "Word count difference",
+   "Accuracy of exact string matches"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. BERTScore compares contextual embeddings of the candidate and reference text, so it rewards matching meaning even with different words.",
+   "BLEU relies on n-gram overlap, the same weakness as ROUGE.",
+   "Word count says nothing about meaning.",
+   "Exact matching is even stricter than n-gram overlap."
+  ],
+  "explain": "Embedding-based metrics such as BERTScore measure semantic similarity. For open-ended answers, combine them with LLM-as-a-judge or human evaluation.",
+  "ref": "Exam guide skill 3.4.2 (BERTScore)"
+ },
+ {
+  "id": "3.4-04",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team needs to score 20,000 chatbot responses for helpfulness and correctness against a written rubric. Human review is too slow and costly. Which approach fits?",
+  "options": [
+   "LLM-as-a-judge: a strong model grades each response against the rubric",
+   "Count the number of words in each response",
+   "Use BLEU against a single reference answer written for each of the responses",
+   "Measure inference latency for each response"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. LLM-as-a-judge uses an evaluator model to rate outputs against criteria, which scales to large volumes at low cost.",
+   "Length is not a measure of helpfulness or correctness.",
+   "BLEU measures word overlap, not helpfulness, and needs good references.",
+   "Latency measures speed, not quality."
+  ],
+  "explain": "LLM-as-a-judge was added in v1.1. Amazon Bedrock evaluations support it for both model and RAG evaluation. Spot-check the judge against human ratings to make sure it is reliable.",
+  "ref": "Exam guide skill 3.4.2 (LLM-as-a-judge, new in v1.1)"
+ },
+ {
+  "id": "3.4-05",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A luxury brand wants to judge whether generated product copy matches its subtle brand voice before launch. Which evaluation approach is most appropriate?",
+  "options": [
+   "Human-in-the-loop evaluation by brand experts",
+   "BLEU score against a dictionary",
+   "Measuring the tokens per second of the model",
+   "Counting how many adjectives each description contains"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Subjective qualities such as tone and brand fit are best judged by people who know the brand.",
+   "BLEU against a dictionary is meaningless for brand voice.",
+   "Speed says nothing about tone.",
+   "Adjective counts are a crude proxy for style, not a judgment of brand fit."
+  ],
+  "explain": "Human-in-the-loop evaluation is slower and more expensive but captures nuance that automatic metrics miss. Teams often combine human review of samples with automated metrics at scale.",
+  "ref": "Exam guide skill 3.4.1 (human-in-the-loop evaluation)"
+ },
+ {
+  "id": "3.4-06",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team picks a model because it tops a well-known public benchmark, but it performs poorly on the company's own customer emails. What is the key lesson?",
+  "options": [
+   "Public benchmarks may not reflect your task, so also test on your own use-case data",
+   "Benchmarks are always wrong and should never be used when choosing between models",
+   "The model must have been deployed in the wrong Region",
+   "Higher temperature would have fixed the problem by making the answers more varied"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Benchmark datasets are useful for broad comparison, but your own representative test set decides real fitness.",
+   "Benchmarks are a useful starting point, just not the whole story.",
+   "The Region does not affect answer quality in this way.",
+   "Temperature does not fix a mismatch between model and task."
+  ],
+  "explain": "Evaluation approaches in the guide include benchmark datasets, human-in-the-loop evaluation, and Amazon Bedrock Model Evaluation. Build a custom evaluation set from real examples.",
+  "ref": "Exam guide skill 3.4.1 (benchmark datasets)"
+ },
+ {
+  "id": "3.4-07",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A company wants a managed way to compare several Amazon Bedrock models on its own prompts, using automatic metrics, human reviewers, or an LLM judge. Which capability fits?",
+  "options": [
+   "Amazon Bedrock Model Evaluation",
+   "Amazon Bedrock Provisioned Throughput",
+   "AWS Trusted Advisor",
+   "Amazon CloudWatch billing alarms"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock model evaluation runs evaluation jobs with built-in or custom datasets and automatic, human, or LLM-as-a-judge scoring.",
+   "Provisioned Throughput reserves capacity.",
+   "Trusted Advisor checks account best practices.",
+   "Billing alarms track spend, not model quality."
+  ],
+  "explain": "Using Bedrock evaluations makes model selection evidence-based. It can also evaluate RAG pipelines built on Bedrock Knowledge Bases.",
+  "ref": "Exam guide skill 3.4.1 (Amazon Bedrock Model Evaluation)"
+ },
+ {
+  "id": "3.4-08",
+  "task": "3.4",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each evaluation metric to its typical use.",
+  "prompts": [
+   "Overlap between a generated summary and a reference summary",
+   "Overlap between a machine translation and reference translations",
+   "Semantic similarity using contextual embeddings",
+   "A strong model grades outputs against a rubric"
+  ],
+  "options": [
+   "ROUGE",
+   "BLEU",
+   "BERTScore",
+   "LLM-as-a-judge"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "These are the four FM metrics named in skill 3.4.2. Overlap metrics need reference answers; LLM-as-a-judge can work from a rubric alone.",
+  "ref": "Exam guide skill 3.4.2"
+ },
+ {
+  "id": "3.4-09",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "When evaluating a RAG application, which pair of checks covers both of its stages?",
+  "options": [
+   "Whether retrieved context is relevant, and whether the answer is faithful to it",
+   "The model's parameter count and the GPU type used to serve the model",
+   "Only the BLEU score of the final answer compared with a reference answer",
+   "Only how quickly the vector store returns its search results to the application"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. RAG can fail at retrieval (wrong chunks) or at generation (answer not supported by the chunks), so evaluate both.",
+   "Model size and hardware do not measure quality.",
+   "BLEU on the final answer cannot tell you which stage failed.",
+   "Speed is one factor, but not quality."
+  ],
+  "explain": "Typical RAG metrics include context relevance and coverage for retrieval, and faithfulness (groundedness), answer relevance, and citation quality for generation. Amazon Bedrock offers RAG evaluation for Knowledge Bases.",
+  "ref": "Exam guide skill 3.4.4 (evaluating RAG applications)"
+ },
+ {
+  "id": "3.4-10",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "In RAG evaluation, what does 'faithfulness' (groundedness) measure?",
+  "options": [
+   "Whether the answer's claims are supported by the retrieved context",
+   "How fast the answer is generated",
+   "How many documents and chunks are stored in the knowledge base in total",
+   "Whether the user returns to the app the next day to ask another question"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A faithful answer does not add claims beyond what the retrieved sources support.",
+   "Speed is latency, not faithfulness.",
+   "Corpus size is not a quality measure.",
+   "Return visits measure engagement."
+  ],
+  "explain": "Low faithfulness means the model is hallucinating beyond its sources. Amazon Bedrock Guardrails contextual grounding checks can also block ungrounded answers at run time.",
+  "ref": "Exam guide skills 3.4.4 and 5.1.5"
+ },
+ {
+  "id": "3.4-11",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team is evaluating an AI agent that books meetings using calendar and email tools. Which measures best show whether the agent works well?",
+  "options": [
+   "Task completion rate, correct tool selection, and steps or cost per task",
+   "The ROUGE score of the agent's final confirmation message only",
+   "Number of tools defined in its configuration",
+   "The size of the model's context window and its maximum output tokens"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Agents should be judged on outcomes (was the task done?) and process (right tools, efficient steps, reasonable cost).",
+   "The final message's wording says little about whether the meeting was booked correctly.",
+   "Having more tools does not mean better performance.",
+   "Context window size is a model property, not an evaluation result."
+  ],
+  "explain": "Agent evaluation looks at the whole trajectory: goal success, tool choice and arguments, error recovery, safety, latency, and cost. Amazon Bedrock AgentCore includes observability (and evaluation tooling) for agents.",
+  "ref": "Exam guide skill 3.4.4 (evaluating agents)"
+ },
+ {
+  "id": "3.4-12",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A document-processing workflow has four steps: extract fields, classify the document, check policy, and draft a reply. End-to-end accuracy is poor. How should the team evaluate it?",
+  "options": [
+   "Measure each step separately as well as end to end, to find where errors start",
+   "Only measure the final reply's length",
+   "Replace the whole workflow with one larger model without measuring",
+   "Only check the cost of the final step, since it produces the reply customers see"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Step-level evaluation shows which stage causes errors, while end-to-end metrics show overall success.",
+   "Length is not a quality measure.",
+   "Replacing without measuring may not fix, or may hide, the real problem.",
+   "Cost alone does not explain poor accuracy."
+  ],
+  "explain": "Evaluating FM-based applications (RAG, agents, workflows) needs component-level and system-level measurement.",
+  "ref": "Exam guide skill 3.4.4 (evaluating workflows)"
+ },
+ {
+  "id": "3.4-13",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An IT helpdesk assistant is meant to resolve requests without a human. Which business alignment metric shows most directly whether it achieves this?",
+  "options": [
+   "Task completion rate",
+   "BLEU score",
+   "Number of tokens in the system prompt",
+   "Model parameter count"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Task completion rate measures the share of requests the assistant fully resolves.",
+   "BLEU is a translation metric.",
+   "Prompt length is an implementation detail.",
+   "Model size is not a business outcome."
+  ],
+  "explain": "Version 1.1 adds business objective alignment metrics such as task completion rate, user satisfaction, and cost per interaction.",
+  "ref": "Exam guide skill 3.4.5 (new in v1.1)"
+ },
+ {
+  "id": "3.4-14",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Finance wants to compare the GenAI support assistant with human agents on economics. Which metric is most useful?",
+  "options": [
+   "Cost per interaction",
+   "ROUGE-L",
+   "Top-k value",
+   "Embedding dimension"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Cost per interaction (model tokens, infrastructure, and any human escalation) compares directly with the cost of a human-handled contact.",
+   "ROUGE-L is a text overlap metric.",
+   "Top-k is a sampling parameter.",
+   "Embedding dimension is a model detail."
+  ],
+  "explain": "Business alignment metrics translate model performance into business terms, which is how GenAI projects are justified and prioritized.",
+  "ref": "Exam guide skill 3.4.5 (cost per interaction)"
+ },
+ {
+  "id": "3.4-15",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "After every chat, users can give a thumbs up or down and an optional comment. Which business alignment metric does this feed?",
+  "options": [
+   "User satisfaction",
+   "Inference latency",
+   "Training loss",
+   "Chunk size"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Ratings and feedback measure how satisfied users are with the assistant.",
+   "Latency is measured automatically, not through ratings.",
+   "Training loss is measured during training.",
+   "Chunk size is a RAG configuration setting."
+  ],
+  "explain": "User feedback is both a business metric and a source of improvement data. The v1.1 guide also lists user-feedback mechanisms under human-centered design.",
+  "ref": "Exam guide skills 3.4.5 and 4.2.4"
+ },
+ {
+  "id": "3.4-16",
+  "task": "3.4",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which of these are business objective alignment metrics for an FM application? Select TWO.",
+  "options": [
+   "Task completion rate",
+   "Cost per interaction",
+   "ROUGE-L score",
+   "BLEU score",
+   "BERTScore"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. It measures whether users' goals are achieved.",
+   "Correct. It measures the economics of each interaction.",
+   "ROUGE-L is a text overlap metric.",
+   "BLEU is a text overlap metric.",
+   "BERTScore is a semantic similarity metric."
+  ],
+  "explain": "Model metrics (ROUGE, BLEU, BERTScore) judge output text. Business alignment metrics (task completion, user satisfaction, cost per interaction) judge whether the application meets business goals.",
+  "ref": "Exam guide skills 3.4.2 and 3.4.5"
+ },
+ {
+  "id": "3.4-17",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A consulting firm deploys an FM to draft reports. Which measurement best shows whether it meets its productivity objective?",
+  "options": [
+   "Average time consultants spend per report, before and after",
+   "The model's BLEU score on a translation benchmark",
+   "The number of GPUs available in the AWS Region where the model runs",
+   "How many prompts are stored in Prompt Management"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Time saved per report directly measures the productivity gain.",
+   "A translation benchmark does not reflect report drafting productivity.",
+   "Infrastructure size is not a business outcome.",
+   "Stored prompts measure activity, not productivity."
+  ],
+  "explain": "Skill 3.4.3 asks whether an FM meets business objectives such as productivity and user engagement. Measure the real outcome, ideally against a baseline.",
+  "ref": "Exam guide skill 3.4.3 (productivity)"
+ },
+ {
+  "id": "3.4-18",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A learning app adds an AI tutor. Product managers want to know if students find it valuable enough to keep using it. Which measure fits?",
+  "options": [
+   "User engagement, such as weekly active users and repeat sessions",
+   "Model inference cost per million tokens",
+   "The temperature setting used by the tutor",
+   "The number of chunks stored in the tutor's knowledge base and their sizes"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Engagement shows whether users choose to keep using the feature.",
+   "Cost matters, but it does not show whether students value the tutor.",
+   "Temperature is a configuration setting.",
+   "Chunk count is a technical detail."
+  ],
+  "explain": "User engagement is one of the business objectives listed in skill 3.4.3.",
+  "ref": "Exam guide skill 3.4.3 (user engagement)"
+ },
+ {
+  "id": "3.4-19",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team has two candidate prompts that score similarly in offline tests. What is the best way to find out which performs better with real users?",
+  "options": [
+   "Run an A/B test in production and compare business metrics",
+   "Pick the longer prompt, because more detail is always better",
+   "Pick the prompt that was written first",
+   "Average the two prompts' text into one"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A/B testing splits real traffic between variants and compares outcomes such as task completion or satisfaction.",
+   "Longer prompts cost more and are not always better.",
+   "The order of writing says nothing about quality.",
+   "Merging prompt text can make instructions contradictory."
+  ],
+  "explain": "Combine offline evaluation (before release) with online evaluation (A/B tests and monitoring after release).",
+  "ref": "Exam guide skills 3.4.1 and 3.4.3"
+ },
+ {
+  "id": "3.4-20",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A summary scores a high ROUGE score against its reference, yet a reviewer finds it states the wrong conclusion. Why can this happen?",
+  "options": [
+   "ROUGE rewards word overlap, so a summary can share many words and still get the facts wrong",
+   "ROUGE measures factual accuracy perfectly, so the reviewer must be mistaken",
+   "ROUGE scores are only valid when evaluating image generation models, not text summaries",
+   "ROUGE always penalizes long summaries to zero, so the high score must be a reporting error"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Overlap metrics do not check meaning or truth, so they should be paired with human review, LLM-as-a-judge, or faithfulness checks.",
+   "ROUGE does not measure factual accuracy.",
+   "ROUGE is a text metric.",
+   "ROUGE does not zero out long summaries."
+  ],
+  "explain": "Automatic overlap metrics are cheap and repeatable but shallow. Use them alongside semantic metrics and qualitative evaluation.",
+  "ref": "Exam guide skills 3.4.1 and 3.4.2"
+ },
+ {
+  "id": "3.4-21",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which practice gives the most reliable evidence that a new model version is better before it reaches users?",
+  "options": [
+   "Run both versions on the same representative evaluation set and compare the agreed metrics",
+   "Ask the new model version itself whether it is better than the previous version and why",
+   "Release it to all users and wait for complaints",
+   "Choose the version with the larger number of parameters"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A fixed, representative evaluation set and consistent metrics give a fair comparison.",
+   "Self-assessment by the model is not evidence.",
+   "Releasing first exposes all users to possible regressions.",
+   "Larger models are not always better for a given task."
+  ],
+  "explain": "Keep a version-controlled evaluation set (golden dataset) and rerun it for every model or prompt change, as a regression test.",
+  "ref": "Exam guide skill 3.4.1"
+ },
+ {
+  "id": "3.4-22",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A company wants a managed way to evaluate its Amazon Bedrock Knowledge Base, scoring both retrieval quality and generated answers with metrics such as correctness and faithfulness. What should it use?",
+  "options": [
+   "Amazon Bedrock evaluations with RAG evaluation jobs",
+   "Amazon Inspector vulnerability scans",
+   "AWS Cost Explorer reports filtered by service",
+   "Amazon Polly speech marks and lexicons"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock evaluations include RAG evaluation for Knowledge Bases, using LLM-as-a-judge metrics for retrieval and generation.",
+   "Inspector scans workloads for software vulnerabilities.",
+   "Cost Explorer analyzes spending.",
+   "Polly speech marks are for timing metadata in speech."
+  ],
+  "explain": "Evaluating RAG systematically is part of skill 3.4.4. Managed evaluation lets you compare configurations such as chunking, embedding model, or generator model.",
+  "ref": "Exam guide skill 3.4.4; Amazon Bedrock evaluations"
+ },
+ {
+  "id": "3.4-23",
+  "task": "3.4",
+  "type": "multi",
+  "difficulty": "hard",
+  "q": "A team needs to evaluate open-ended chatbot answers for correctness and helpfulness. No single reference answer exists for most questions. Which approaches are suitable? Select TWO.",
+  "options": [
+   "LLM-as-a-judge with a clear rubric",
+   "Human evaluation of a representative sample",
+   "BLEU against one fixed reference per question",
+   "Counting characters in each answer",
+   "Measuring how often the model is called per hour"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. An evaluator model can grade against criteria without needing a reference answer.",
+   "Correct. People can judge correctness and helpfulness directly, especially on samples.",
+   "BLEU needs good references and measures overlap, not helpfulness.",
+   "Length is not quality.",
+   "Call volume measures usage, not answer quality."
+  ],
+  "explain": "Reference-free evaluation suits open-ended generation. Use LLM judges for scale and human review to calibrate them and catch subtle issues.",
+  "ref": "Exam guide skills 3.4.1 and 3.4.2"
+ },
+ {
+  "id": "3.4-24",
+  "task": "3.4",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Why should a team keep monitoring a GenAI application's quality after launch, not just evaluate it before release?",
+  "options": [
+   "Real user questions, data, and model versions change over time, so quality can drift",
+   "Because deployed models retrain themselves automatically after every request they receive",
+   "Because evaluation results are deleted after 24 hours",
+   "Because pre-launch evaluation is not allowed on AWS"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. New topics, changed documents, and updated models can all change quality, so ongoing monitoring catches regressions.",
+   "Deployed FMs do not retrain on each request.",
+   "Teams keep evaluation results for as long as they choose.",
+   "Pre-launch evaluation is standard practice and fully supported."
+  ],
+  "explain": "Continuous evaluation combines user feedback, sampled human or LLM-judge reviews, business metrics, and logs (for example, Bedrock model invocation logging and CloudWatch).",
+  "ref": "Exam guide skills 3.4.3 and 1.3.5"
+ }
+]

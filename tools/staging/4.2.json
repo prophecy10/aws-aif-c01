@@ -1,0 +1,364 @@
+[
+ {
+  "id": "4.2-01",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which model is generally the most transparent, meaning a person can follow how it reaches a decision?",
+  "options": [
+   "A shallow decision tree with a few readable rules",
+   "A deep neural network with hundreds of millions of parameters",
+   "A large language model with billions of parameters",
+   "A large ensemble of hundreds of deep neural networks"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A shallow decision tree's rules can be read and followed step by step.",
+   "Deep networks are opaque; their reasoning is spread across many parameters.",
+   "LLMs are among the least interpretable models.",
+   "Ensembles of deep models are even harder to interpret."
+  ],
+  "explain": "Transparent (interpretable) models, such as linear models and small trees, are understandable by design. Opaque models need post-hoc explanation tools, such as feature attribution with SageMaker Clarify.",
+  "ref": "Exam guide skill 4.2.1"
+ },
+ {
+  "id": "4.2-02",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What does explainability mean for an ML model?",
+  "options": [
+   "Being able to describe why the model produced a particular output",
+   "Being able to run the model on any type of hardware without changes",
+   "Being able to train the model without any labeled data",
+   "Being able to make the model respond in under 100 milliseconds"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Explainability is about understanding the reasons behind predictions, for example which inputs mattered most.",
+   "Hardware portability is unrelated to explainability.",
+   "Training without labels is unsupervised learning.",
+   "Speed is latency."
+  ],
+  "explain": "Explainability builds trust, supports regulatory compliance, and helps debug models. It matters most for high-stakes decisions such as credit, hiring, and healthcare.",
+  "ref": "Exam guide skill 4.2.1"
+ },
+ {
+  "id": "4.2-03",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A lender must tell each declined applicant which factors most influenced the model's decision. Which AWS capability provides per-prediction feature attributions?",
+  "options": [
+   "Amazon SageMaker Clarify",
+   "Amazon Bedrock Provisioned Throughput",
+   "Amazon Polly",
+   "AWS Budgets"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Clarify uses SHAP-based feature attribution to show how much each input contributed to a prediction.",
+   "Provisioned Throughput reserves model capacity.",
+   "Polly converts text to speech.",
+   "Budgets tracks spending."
+  ],
+  "explain": "SageMaker Clarify provides both bias detection and explainability (global and per-prediction feature importance). The v1.1 guide lists it as a transparency and explainability tool.",
+  "ref": "Exam guide skill 4.2.2 (SageMaker Clarify, added in v1.1)"
+ },
+ {
+  "id": "4.2-04",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A governance team wants a standard document for each model that records its intended use, risk rating, training details, and evaluation results. Which AWS feature is designed for this?",
+  "options": [
+   "Amazon SageMaker Model Cards",
+   "Amazon Bedrock Knowledge Bases",
+   "Amazon CloudFront",
+   "AWS Glue crawlers"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Model Cards capture model documentation such as intended uses, risks, training, and evaluation in one place for governance and audits.",
+   "Knowledge Bases provide RAG, not model documentation.",
+   "CloudFront delivers web content.",
+   "Glue crawlers catalog data schemas."
+  ],
+  "explain": "Model Cards support transparency (4.2.2) and documentation of data origin and lineage (5.1.2). They create a single source of truth about each model.",
+  "ref": "Exam guide skills 4.2.2 and 5.1.2 (SageMaker Model Cards)"
+ },
+ {
+  "id": "4.2-05",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A customer wants to read AWS's own documentation on the intended uses, limitations, and responsible AI design choices of Amazon Rekognition face matching. Where should they look?",
+  "options": [
+   "AWS AI Service Cards",
+   "AWS Cost and Usage Reports",
+   "Amazon CloudWatch Logs Insights",
+   "AWS Trusted Advisor checks"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AI Service Cards are AWS's transparency documents for its AI services, covering intended use cases, limitations, and best practices.",
+   "Cost reports show spending.",
+   "CloudWatch Logs Insights queries your own logs.",
+   "Trusted Advisor checks your account against best practices."
+  ],
+  "explain": "AI Service Cards are AWS's equivalent of model cards for its managed AI services. They help customers understand where a service works well and where to take care.",
+  "ref": "Exam guide skill 4.2.2 (transparency documentation); AWS AI Service Cards"
+ },
+ {
+  "id": "4.2-06",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A research team prefers an open-weight model whose training data sources and architecture are documented publicly. Which benefit does this mainly provide?",
+  "options": [
+   "Greater transparency, because the model can be inspected and evaluated by others",
+   "Guaranteed higher accuracy than any proprietary model on every business task",
+   "No need to review the model's license terms",
+   "Automatic protection from all prompt injection and jailbreak attempts by users"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Open models and documented data allow outside inspection, research, and auditing.",
+   "Openness does not guarantee better accuracy.",
+   "Open models still come with licenses that must be checked.",
+   "Openness does not stop prompt attacks."
+  ],
+  "explain": "Skill 4.2.2 lists open-source models, data, and licensing as transparency considerations. Openness helps scrutiny, but license terms and safety controls still matter.",
+  "ref": "Exam guide skill 4.2.2 (open source models, data)"
+ },
+ {
+  "id": "4.2-07",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Before deploying an open-weight model from SageMaker JumpStart in a commercial product, what must the team check?",
+  "options": [
+   "That the model's license permits its intended commercial use",
+   "That the model was released on a weekday",
+   "That the model has the most parameters of any model in the catalog",
+   "That the model has no documentation at all"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Open models come with licenses that may restrict commercial use, user counts, or certain applications.",
+   "The release day is irrelevant.",
+   "Size is not a legal requirement.",
+   "Documentation is helpful; its absence is a red flag, not a requirement."
+  ],
+  "explain": "Licensing is part of responsible and transparent model use. Review license terms for every third-party model before production use.",
+  "ref": "Exam guide skill 4.2.2 (licensing)"
+ },
+ {
+  "id": "4.2-08",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A deep neural network predicts hospital readmissions 4% more accurately than a logistic regression model, but clinicians cannot see why it makes each prediction. What trade-off is the team facing?",
+  "options": [
+   "Interpretability versus performance",
+   "Latency versus throughput",
+   "Storage cost versus durability",
+   "Chunk size versus embedding dimension"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. More complex models often perform better but are harder to interpret; the right choice depends on the stakes and on regulation.",
+   "The scenario is about understanding predictions, not speed.",
+   "Storage trade-offs do not apply here.",
+   "Chunk and embedding settings are RAG design choices."
+  ],
+  "explain": "Skill 4.2.3 covers trade-offs between model safety and transparency, such as measuring interpretability against performance. Options include choosing the simpler model, or keeping the complex one and adding explanation tools plus human review.",
+  "ref": "Exam guide skill 4.2.3 (interpretability vs performance)"
+ },
+ {
+  "id": "4.2-09",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A company debates publishing the exact rules its guardrails use to block harmful requests. What is the main safety concern with full disclosure?",
+  "options": [
+   "Attackers could use the details to craft prompts that slip past the guardrails",
+   "Publishing the rules would make the model generate every response more slowly",
+   "Disclosure would automatically delete the guardrails",
+   "Publishing the rules would raise the on-demand price charged for every token"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Too much detail about safety mechanisms can help adversaries bypass them, which is a tension between transparency and safety.",
+   "Publishing documentation does not affect model speed.",
+   "Disclosure does not change the guardrail configuration.",
+   "Documentation does not change pricing."
+  ],
+  "explain": "Transparency and safety sometimes pull in different directions. A common balance is to explain policies and intent publicly while keeping exact detection logic private.",
+  "ref": "Exam guide skill 4.2.3 (safety and transparency trade-offs)"
+ },
+ {
+  "id": "4.2-10",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An AI writing assistant lets users rate each suggestion and report problems, and the team reviews that feedback regularly. Which human-centered design principle does this support?",
+  "options": [
+   "User-feedback mechanisms",
+   "Model distillation",
+   "Provisioned Throughput",
+   "Data residency"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Feedback mechanisms give users a voice and give the team signals to improve the system.",
+   "Distillation is a training technique.",
+   "Provisioned Throughput is a capacity option.",
+   "Data residency concerns where data is stored."
+  ],
+  "explain": "Version 1.1 adds user-feedback mechanisms and AI decision transparency as examples of human-centered explainable AI.",
+  "ref": "Exam guide skill 4.2.4 (user-feedback mechanisms, added in v1.1)"
+ },
+ {
+  "id": "4.2-11",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An insurer uses AI to help decide claims. Which practice best reflects AI decision transparency toward customers?",
+  "options": [
+   "Disclose that AI assisted, give the main reasons in plain language, and explain how to get human review",
+   "Hide the use of AI from customers so that they are less likely to question or appeal any decisions",
+   "Send customers the model's raw weights and full source code so they can work out the reasons",
+   "Give no reasons at all, so that each decision is delivered as quickly as possible"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Disclosure, understandable reasons, and a route to human review are core to transparent, human-centered AI.",
+   "Hiding AI use undermines trust and may break regulations.",
+   "Raw weights are not understandable to customers.",
+   "Unexplained decisions reduce trust and accountability."
+  ],
+  "explain": "Human-centered explainable AI means explanations designed for the people affected: clear, relevant, and actionable, with a way to contest the outcome.",
+  "ref": "Exam guide skill 4.2.4 (AI decision transparency)"
+ },
+ {
+  "id": "4.2-12",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team wants to share evidence of how its chosen foundation model performs on accuracy, robustness, and toxicity, so stakeholders can trust the choice. Which capability helps produce this evidence?",
+  "options": [
+   "Amazon Bedrock Model Evaluations",
+   "Amazon S3 Lifecycle rules",
+   "AWS Lambda reserved concurrency",
+   "Amazon Route 53 health checks"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock model evaluations generate comparable results on dimensions such as accuracy, robustness, and toxicity, which supports transparency.",
+   "Lifecycle rules manage storage tiers.",
+   "Reserved concurrency controls Lambda scaling.",
+   "Health checks monitor endpoints, not model quality."
+  ],
+  "explain": "The v1.1 guide adds Amazon Bedrock Model Evaluations to the transparency and explainability tools. Documented evaluation results, together with model cards, make model choices auditable.",
+  "ref": "Exam guide skill 4.2.2 (Amazon Bedrock Model Evaluations, added in v1.1)"
+ },
+ {
+  "id": "4.2-13",
+  "task": "4.2",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each tool to the transparency need it serves.",
+  "prompts": [
+   "Document a custom model's intended use, risks, and evaluation results",
+   "Explain which features drove an individual prediction",
+   "Read AWS's guidance on an AWS AI service's intended uses and limits",
+   "Compare foundation models' quality and toxicity with published results"
+  ],
+  "options": [
+   "SageMaker Model Cards",
+   "SageMaker Clarify",
+   "AWS AI Service Cards",
+   "Amazon Bedrock Model Evaluations"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Model Cards document your models, Clarify explains predictions (and detects bias), AI Service Cards document AWS's own AI services, and Bedrock Model Evaluations produce comparable quality evidence.",
+  "ref": "Exam guide skill 4.2.2"
+ },
+ {
+  "id": "4.2-14",
+  "task": "4.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which practices reflect human-centered explainable AI? Select TWO.",
+  "options": [
+   "Clearly labeling content and decisions that are AI-generated",
+   "Giving users a simple way to give feedback or contest a decision",
+   "Hiding the use of AI to avoid user concern",
+   "Removing appeal options to reduce support costs",
+   "Showing users raw model weights as the explanation"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Disclosure helps users understand what they are dealing with.",
+   "Correct. Feedback and contest options keep humans in control.",
+   "Hiding AI use erodes trust.",
+   "Removing appeals reduces accountability.",
+   "Raw weights are not a meaningful explanation for people."
+  ],
+  "explain": "Human-centered design puts the affected person first: transparency about AI use, understandable explanations, and channels for feedback and recourse.",
+  "ref": "Exam guide skill 4.2.4"
+ },
+ {
+  "id": "4.2-15",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An auditor asks where the data used to train a company's model came from and how it was processed. Which practice makes this easy to answer?",
+  "options": [
+   "Documenting data sources, processing steps, and lineage alongside the model",
+   "Deleting training data right after training to save storage",
+   "Keeping the training process undocumented for security",
+   "Only recording the model's final accuracy score and the date it was deployed"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Documented data sources and lineage, for example in Model Cards and a data catalog, provide traceability.",
+   "Deleting data may make audits impossible, depending on retention rules.",
+   "Undocumented processes cannot be audited.",
+   "Accuracy alone says nothing about data origin."
+  ],
+  "explain": "Transparency covers the data as well as the model. Source citation and data origin documentation also appear under security and governance (skill 5.1.2).",
+  "ref": "Exam guide skills 4.2.2 (data) and 5.1.2"
+ },
+ {
+  "id": "4.2-16",
+  "task": "4.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A declined loan applicant asks why. The model produced SHAP values for 40 features. What is the most human-centered way to explain the decision?",
+  "options": [
+   "Give the top few reasons in plain language and explain what could change the outcome",
+   "Send the full table of all 40 SHAP values, with no further context or explanation",
+   "Tell the applicant that the model's decisions cannot be explained to anyone",
+   "Send the model's training code repository"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Explanations should be understandable, relevant, and actionable for the person affected.",
+   "Raw numbers without context are not meaningful to most people.",
+   "Refusing to explain undermines trust and may break regulations.",
+   "Code does not explain an individual decision."
+  ],
+  "explain": "Technical explainability (feature attributions) becomes useful only when translated into explanations that fit the audience.",
+  "ref": "Exam guide skill 4.2.4 (human-centered explainable AI)"
+ }
+]

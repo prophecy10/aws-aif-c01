@@ -1,0 +1,597 @@
+[
+ {
+  "id": "4.1-01",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A company wants to block hateful, violent, and sexual content in both user prompts and model responses for its Amazon Bedrock chatbot, with configurable strength. Which feature fits?",
+  "options": [
+   "Amazon Bedrock Guardrails content filters",
+   "Amazon Bedrock Provisioned Throughput with a commitment",
+   "Amazon S3 Object Lock",
+   "AWS Cost Explorer"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Guardrails content filters detect harmful categories (such as hate, insults, sexual content, violence, and misconduct) in inputs and outputs, with adjustable filter strength.",
+   "Provisioned Throughput reserves capacity; it does not filter content.",
+   "Object Lock prevents objects from being deleted or overwritten.",
+   "Cost Explorer analyzes spending."
+  ],
+  "explain": "Amazon Bedrock Guardrails is the main responsible AI tool named in skill 4.1.2. One guardrail can combine content filters, denied topics, word filters, sensitive information filters, and contextual grounding checks.",
+  "ref": "Exam guide skill 4.1.2 (Amazon Bedrock Guardrails)"
+ },
+ {
+  "id": "4.1-02",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A bank's customer assistant must never give personalized investment advice, even if users ask indirectly. Which Amazon Bedrock Guardrails policy is designed for this?",
+  "options": [
+   "Denied topics",
+   "Contextual grounding check",
+   "Prompt caching",
+   "Model distillation for a smaller assistant"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Denied topics let you describe subjects the application must avoid; matching prompts or responses are blocked with a custom message.",
+   "Grounding checks catch answers unsupported by source content, not off-limits topics.",
+   "Prompt caching is a cost feature.",
+   "Distillation creates a smaller model and does not restrict topics."
+  ],
+  "explain": "Denied topics are defined in natural language with a description and example phrases, so the guardrail can catch indirect requests too, not just exact keywords.",
+  "ref": "Exam guide skill 4.1.2; Bedrock Guardrails denied topics"
+ },
+ {
+  "id": "4.1-03",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A healthcare chatbot must not repeat phone numbers, email addresses, or ID numbers in its responses. Which Guardrails feature handles this?",
+  "options": [
+   "Sensitive information filters that block or mask PII",
+   "Word filters for profanity",
+   "Denied topics for competitor products",
+   "Increasing the model's maximum output tokens for every response"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Sensitive information filters detect PII types (and custom regex patterns) and can block the content or mask it in responses.",
+   "Profanity word filters do not detect personal data formats.",
+   "Denied topics block subjects, not data patterns such as phone numbers.",
+   "Output length has nothing to do with PII."
+  ],
+  "explain": "Guardrails sensitive information filters help prevent data leakage. Amazon Macie (for data in S3) and Amazon Comprehend (PII detection in text) are related tools.",
+  "ref": "Exam guide skills 4.1.2 and 5.1.4 (data leakage prevention)"
+ },
+ {
+  "id": "4.1-04",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A retailer's assistant must never mention specific competitor brand names or certain offensive words. Which Guardrails policy is simplest for this?",
+  "options": [
+   "Word filters",
+   "Contextual grounding check",
+   "Sensitive information filters for PII",
+   "Automatic model evaluation jobs"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Word filters block exact words and phrases you list, plus a managed profanity list.",
+   "Grounding checks compare answers with source material.",
+   "PII filters detect personal data patterns, not brand names.",
+   "Evaluation jobs measure quality; they do not block words at run time."
+  ],
+  "explain": "Choose the guardrail policy that fits the problem: word filters for exact terms, denied topics for subjects, content filters for harmful categories, and PII filters for personal data.",
+  "ref": "Exam guide skill 4.1.2"
+ },
+ {
+  "id": "4.1-05",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "Which statement about Amazon Bedrock Guardrails is correct?",
+  "options": [
+   "Guardrails check both inputs and outputs, and can also protect models outside Bedrock via the ApplyGuardrail API",
+   "Guardrails can only inspect the responses a model generates; they never look at what users type into the application",
+   "Guardrails work only with one specific model family on Bedrock and must be rebuilt for every other model",
+   "Guardrails permanently retrain the foundation model to remove harmful knowledge from its weights"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Guardrails check prompts and responses, and the ApplyGuardrail API lets you use the same policies with any model or application.",
+   "Guardrails inspect inputs as well, for example to catch prompt attacks.",
+   "Guardrails are model-agnostic.",
+   "Guardrails filter at run time; they do not change model weights."
+  ],
+  "explain": "Because guardrails sit outside the model, one consistent safety policy can cover many models and applications.",
+  "ref": "Exam guide skill 4.1.2; Bedrock Guardrails ApplyGuardrail"
+ },
+ {
+  "id": "4.1-06",
+  "task": "4.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each Amazon Bedrock Guardrails policy to the problem it solves.",
+  "prompts": [
+   "Block hate, violence, and sexual content",
+   "Stop the assistant from discussing legal advice",
+   "Mask customers' phone numbers and email addresses",
+   "Block a list of exact banned terms",
+   "Catch answers not supported by the retrieved source documents"
+  ],
+  "options": [
+   "Content filters",
+   "Denied topics",
+   "Sensitive information filters",
+   "Word filters",
+   "Contextual grounding check"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "Guardrails policies can be combined in one guardrail and applied to inputs, outputs, or both. Automated reasoning checks are a further policy that verifies responses against formal rules.",
+  "ref": "Exam guide skills 4.1.2 and 5.1.5"
+ },
+ {
+  "id": "4.1-07",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A hiring model recommends male candidates more often than equally qualified female candidates. Which responsible AI dimension is most clearly violated?",
+  "options": [
+   "Fairness",
+   "Robustness",
+   "Latency",
+   "Veracity"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Treating equally qualified groups differently is a fairness and bias problem.",
+   "Robustness is about reliable behavior under unexpected inputs.",
+   "Latency is about speed, not a responsible AI dimension.",
+   "Veracity is about truthfulness of outputs."
+  ],
+  "explain": "Responsible AI features listed in skill 4.1.1 include bias, fairness, inclusivity, robustness, safety, and veracity. Bias in hiring can also create legal risk.",
+  "ref": "Exam guide skill 4.1.1 (fairness)"
+ },
+ {
+  "id": "4.1-08",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A model works well on clean test data but behaves unpredictably when users type with spelling mistakes or unusual phrasing. Which responsible AI dimension needs improvement?",
+  "options": [
+   "Robustness",
+   "Inclusivity of training data sources",
+   "Transparency",
+   "Sustainability"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Robustness means performing reliably when inputs are noisy, unexpected, or adversarial.",
+   "The issue described is reliability under noisy input, not who is represented in data.",
+   "Transparency is about explaining how the system works.",
+   "Sustainability concerns environmental impact."
+  ],
+  "explain": "Improve robustness with varied and noisy training data, adversarial testing, input validation, and guardrails.",
+  "ref": "Exam guide skill 4.1.1 (robustness)"
+ },
+ {
+  "id": "4.1-09",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which responsible AI dimension is most concerned with whether a model's outputs are truthful and accurate?",
+  "options": [
+   "Veracity",
+   "Inclusivity",
+   "Sustainability",
+   "Controllability of tone"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Veracity means the system produces correct, truthful outputs.",
+   "Inclusivity concerns serving diverse users well.",
+   "Sustainability concerns environmental impact.",
+   "Tone control is a style concern."
+  ],
+  "explain": "Hallucinations directly threaten veracity. Grounding with RAG, contextual grounding checks, and human review support it.",
+  "ref": "Exam guide skill 4.1.1 (veracity)"
+ },
+ {
+  "id": "4.1-10",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A voice assistant understands some accents far better than others, so many customers cannot use it reliably. Which responsible AI feature is lacking?",
+  "options": [
+   "Inclusivity",
+   "Prompt caching",
+   "Provisioned Throughput",
+   "Low latency"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Inclusive AI works well for the full range of people who use it, including different accents, languages, and abilities.",
+   "Prompt caching is a cost optimization.",
+   "Provisioned Throughput is a capacity option.",
+   "Speed does not fix poor understanding of accents."
+  ],
+  "explain": "Inclusivity starts with diverse, representative training and test data, plus testing results for each user group.",
+  "ref": "Exam guide skills 4.1.1 and 4.1.5 (inclusivity, diversity)"
+ },
+ {
+  "id": "4.1-11",
+  "task": "4.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which actions support the safety dimension of responsible AI for a public chatbot? Select TWO.",
+  "options": [
+   "Filter harmful content in inputs and outputs with guardrails",
+   "Red-team the system with adversarial prompts before launch",
+   "Disable all logging to save storage costs",
+   "Raise the temperature to make answers more varied",
+   "Remove human escalation paths to reduce costs"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Guardrails reduce the chance of harmful outputs.",
+   "Correct. Adversarial testing (red teaming) finds safety gaps before users do.",
+   "Logs are needed to detect and investigate safety incidents.",
+   "More randomness can increase unsafe or off-topic outputs.",
+   "Human escalation is an important safety net."
+  ],
+  "explain": "Safety means preventing harmful outputs and misuse. It combines guardrails, testing, monitoring, and human oversight.",
+  "ref": "Exam guide skill 4.1.1 (safety)"
+ },
+ {
+  "id": "4.1-12",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants to reduce the environmental impact of its GenAI solution while keeping quality acceptable. Which choice helps most?",
+  "options": [
+   "Use the smallest model that meets the need, and reuse pretrained models rather than training from scratch",
+   "Always choose the largest and newest model available, for every task, so quality is never at risk",
+   "Retrain a brand-new foundation model from scratch every month so it always has the latest knowledge",
+   "Run every request several times on different models, then keep whichever answer looks best"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Smaller models and reuse of existing models need far less energy for training and inference.",
+   "The largest models use the most compute per request.",
+   "Repeated pretraining consumes huge amounts of energy.",
+   "Running requests several times multiplies compute and energy use."
+  ],
+  "explain": "Responsible model selection includes environmental impact and sustainability (skill 4.1.3). Efficient hardware such as AWS Inferentia and AWS Trainium, and right-sized models, also help.",
+  "ref": "Exam guide skill 4.1.3 (environmental considerations, sustainability)"
+ },
+ {
+  "id": "4.1-13",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A marketing team publishes an AI-generated image that closely resembles a famous copyrighted illustration. What legal risk does this create?",
+  "options": [
+   "Intellectual property infringement claims",
+   "Data residency violation in the EU Region",
+   "Underfitting of the image model",
+   "Higher token prices on future requests"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Generated content that copies protected work can lead to IP infringement claims.",
+   "Data residency concerns where data is stored or processed.",
+   "Underfitting is a model training problem, not a legal risk.",
+   "Token prices are unrelated to legal exposure."
+  ],
+  "explain": "GenAI legal risks in skill 4.1.4 include IP infringement claims, biased outputs, loss of customer trust, end-user risk, and hallucinations. Mitigate with review processes, provenance tracking, and content policies.",
+  "ref": "Exam guide skill 4.1.4 (intellectual property)"
+ },
+ {
+  "id": "4.1-14",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A telecom's chatbot gives a customer confidently wrong information about contract cancellation fees, and the story spreads on social media. Which risks does this mainly illustrate?",
+  "options": [
+   "Hallucination leading to loss of customer trust",
+   "Overprovisioned throughput leading to higher cost",
+   "Model drift caused by a new instance type",
+   "Poor chunk overlap leading to slower retrieval"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. An invented answer (hallucination) damages trust and can create legal and financial exposure.",
+   "Throughput settings do not cause wrong answers.",
+   "Instance types do not cause drift or wrong policy answers.",
+   "Chunk overlap affects retrieval quality, not the reputational impact described."
+  ],
+  "explain": "Hallucinations are listed as a legal and business risk. Ground answers in official documents, cite sources, and route policy questions to verified content or people.",
+  "ref": "Exam guide skill 4.1.4 (loss of customer trust, hallucinations)"
+ },
+ {
+  "id": "4.1-15",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A wellness app's AI assistant suggests a dangerous dosage to a user who asks about medication. Which GenAI risk category does this best represent?",
+  "options": [
+   "End-user risk",
+   "Data lineage gap",
+   "Model distillation risk",
+   "Prompt caching risk"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Harm to the people using the system is end-user risk.",
+   "Data lineage concerns tracking where data came from.",
+   "Distillation is a training technique, not a risk category.",
+   "Prompt caching does not cause harmful advice."
+  ],
+  "explain": "High-risk domains such as health, finance, and law need strict guardrails (for example, denied topics), clear disclaimers, and escalation to qualified humans.",
+  "ref": "Exam guide skill 4.1.4 (end-user risk)"
+ },
+ {
+  "id": "4.1-16",
+  "task": "4.1",
+  "type": "multi",
+  "difficulty": "easy",
+  "q": "Which are legal or business risks of using generative AI? Select TWO.",
+  "options": [
+   "Intellectual property infringement claims",
+   "Biased outputs that harm certain groups",
+   "Lower inference cost per token",
+   "Faster time to market",
+   "Smaller model size"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Generated content may infringe others' IP.",
+   "Correct. Biased outputs can lead to discrimination claims and reputational damage.",
+   "Lower cost is a benefit, not a risk.",
+   "Speed to market is a benefit.",
+   "Model size is a design choice, not a legal risk."
+  ],
+  "explain": "The full list in skill 4.1.4 is IP infringement claims, biased model outputs, loss of customer trust, end-user risk, and hallucinations.",
+  "ref": "Exam guide skill 4.1.4"
+ },
+ {
+  "id": "4.1-17",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A face-verification model was trained mostly on photos of people with lighter skin, and it has much higher error rates for people with darker skin. Which dataset problem caused this?",
+  "options": [
+   "The dataset was not diverse or balanced across groups",
+   "The dataset was stored in too many S3 buckets",
+   "The images were too high in resolution",
+   "The model was trained for too many epochs on the same photos"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Under-represented groups get worse performance when training data lacks diversity and balance.",
+   "Storage layout has no effect on model fairness.",
+   "High resolution does not cause group-specific errors.",
+   "Epoch count does not explain a systematic gap between groups."
+  ],
+  "explain": "Skill 4.1.5 lists inclusivity, diversity, curated data sources, and balanced datasets as important characteristics. Measure performance per subgroup to detect such gaps.",
+  "ref": "Exam guide skill 4.1.5 (diversity, balanced datasets)"
+ },
+ {
+  "id": "4.1-18",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A team is building a dataset to fine-tune a medical Q&A model. Which source choice best supports responsible AI?",
+  "options": [
+   "Curated, vetted sources such as peer-reviewed material and approved clinical guidelines",
+   "Any medical-sounding text scraped from random online forums and comment threads",
+   "Only marketing pages published by supplement sellers and wellness brands",
+   "Synthetic answers generated by another model and used without any human review"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Curated, trustworthy sources improve accuracy and reduce harmful misinformation.",
+   "Unvetted forum text can contain dangerous misinformation.",
+   "Marketing pages are biased and often inaccurate.",
+   "Unreviewed synthetic data can spread errors."
+  ],
+  "explain": "Curated data sources are listed in skill 4.1.5. In high-stakes domains, data provenance and expert review are essential.",
+  "ref": "Exam guide skill 4.1.5 (curated data sources)"
+ },
+ {
+  "id": "4.1-19",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A model scores 98% on training data and 70% on test data. In bias-variance terms, what is happening?",
+  "options": [
+   "High variance (overfitting)",
+   "High bias (underfitting)",
+   "Low bias and low variance (an ideal fit)",
+   "Data poisoning"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. High variance means the model is too sensitive to the training data and does not generalize.",
+   "High bias shows as poor performance on training data too.",
+   "An ideal fit would perform well on both datasets.",
+   "Poisoning is malicious data tampering, which nothing in the scenario suggests."
+  ],
+  "explain": "Bias-variance trade-off: high bias leads to underfitting (too simple), and high variance leads to overfitting (too complex). Both cause inaccuracy, and both can affect demographic groups unevenly.",
+  "ref": "Exam guide skill 4.1.6 (bias and variance, overfitting, underfitting)"
+ },
+ {
+  "id": "4.1-20",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A model performs poorly on both training and test data. What is the most likely issue, and one way to address it?",
+  "options": [
+   "Underfitting; use a more capable model or better features",
+   "Overfitting; add more regularization and stop training earlier",
+   "Data leakage; delete the test set and evaluate on training data",
+   "Model drift; lower the temperature and redeploy the same model"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Poor results everywhere suggest the model is too simple or lacks informative features (high bias).",
+   "Regularization reduces overfitting and would make underfitting worse.",
+   "Deleting the test set removes the ability to measure anything.",
+   "Temperature applies to generative sampling, not to this training problem."
+  ],
+  "explain": "Underfitting fixes: more expressive models, better feature engineering, more training time, and less regularization.",
+  "ref": "Exam guide skill 4.1.6"
+ },
+ {
+  "id": "4.1-21",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A loan model's overall accuracy is 92%, but the team suspects it is less accurate for applicants over 60. What should it do to check?",
+  "options": [
+   "Run a subgroup analysis comparing metrics across age groups",
+   "Look only at the overall 92% accuracy figure, since it is already high",
+   "Increase the size of the model",
+   "Train for more epochs and check overall accuracy again"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Subgroup analysis breaks metrics down by group to reveal hidden performance gaps.",
+   "Overall accuracy can hide poor performance for a minority group.",
+   "A bigger model does not show whether a gap exists.",
+   "Overall accuracy again hides the subgroup issue."
+  ],
+  "explain": "Tools and methods in skill 4.1.7 include label quality analysis, human audits, and subgroup analysis. SageMaker Clarify computes bias metrics across groups.",
+  "ref": "Exam guide skill 4.1.7 (subgroup analysis)"
+ },
+ {
+  "id": "4.1-22",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which AWS tool can measure bias in a dataset before training (for example, class imbalance between groups) and in a trained model's predictions?",
+  "options": [
+   "Amazon SageMaker Clarify",
+   "Amazon Polly",
+   "AWS Secrets Manager with rotation",
+   "Amazon CloudFront"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. SageMaker Clarify computes pre-training and post-training bias metrics and also explains predictions with feature attributions.",
+   "Polly converts text to speech.",
+   "Secrets Manager stores credentials.",
+   "CloudFront delivers content."
+  ],
+  "explain": "Clarify supports fairness (bias detection) and explainability (feature importance with SHAP). It can also be used with model monitoring to detect bias drift in production.",
+  "ref": "Exam guide skills 4.1.7 and 4.2.2 (SageMaker Clarify)"
+ },
+ {
+  "id": "4.1-23",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "While reviewing a sentiment dataset, a team finds that different annotators labeled the same reviews very differently. What should it investigate?",
+  "options": [
+   "Label quality, for example agreement between annotators and clarity of the labeling guidelines",
+   "The model's maximum output tokens and its temperature setting during inference",
+   "The number of AWS Regions in which the labeling data is currently stored",
+   "The index type and the distance metric used by the knowledge base's vector store"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Inconsistent labels teach the model noise and can embed annotators' biases; label quality analysis finds and fixes this.",
+   "Output length is unrelated to labeling.",
+   "Region count does not affect label quality.",
+   "Vector indexing is unrelated to supervised labels."
+  ],
+  "explain": "Label quality analysis is one of the methods listed in skill 4.1.7. Clear guidelines, annotator training, and consensus labeling (supported in SageMaker Ground Truth) improve it.",
+  "ref": "Exam guide skill 4.1.7 (label quality analysis)"
+ },
+ {
+  "id": "4.1-24",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company has independent reviewers regularly examine a sample of its AI system's decisions for fairness and correctness. What is this practice called?",
+  "options": [
+   "Human audit",
+   "Prompt caching",
+   "Batch transform",
+   "Chunking"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Human audits review real outputs to catch bias, errors, and trust issues that metrics may miss.",
+   "Prompt caching is a cost feature.",
+   "Batch transform is an offline inference method.",
+   "Chunking splits documents for retrieval."
+  ],
+  "explain": "Human audits complement automated metrics. They are listed in skill 4.1.7 as a way to monitor bias, trustworthiness, and truthfulness.",
+  "ref": "Exam guide skill 4.1.7 (human audits)"
+ },
+ {
+  "id": "4.1-25",
+  "task": "4.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A credit model passed fairness checks at launch. The team wants to be alerted if its predictions become biased over time as the applicant population changes. What should it set up?",
+  "options": [
+   "Ongoing bias drift monitoring in production, for example SageMaker Model Monitor with Clarify bias metrics",
+   "A one-time bias report generated at launch and archived in Amazon S3 Glacier for audits",
+   "A higher temperature setting for the credit model so its predictions vary more over time",
+   "A new prompt template for the credit model's inputs, reviewed by the compliance team once"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Monitoring bias metrics on live predictions detects drift so the team can retrain or adjust.",
+   "A one-time report cannot detect later changes.",
+   "Temperature does not apply to this kind of model or problem.",
+   "Prompt templates do not monitor bias."
+  ],
+  "explain": "Fairness is not one-and-done. Monitor deployed models for data, quality, and bias drift, and act on alerts.",
+  "ref": "Exam guide skill 4.1.7 (monitor bias)"
+ },
+ {
+  "id": "4.1-26",
+  "task": "4.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each responsible AI dimension to the scenario that most clearly tests it.",
+  "prompts": [
+   "A model gives equal outcomes to equally qualified applicants from all groups",
+   "A model keeps working correctly when inputs contain typos or odd phrasing",
+   "A model's statements are true and accurate",
+   "A speech model works well for users with many different accents"
+  ],
+  "options": [
+   "Fairness",
+   "Robustness",
+   "Veracity",
+   "Inclusivity"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Skill 4.1.1 lists bias, fairness, inclusivity, robustness, safety, and veracity as features of responsible AI systems.",
+  "ref": "Exam guide skill 4.1.1"
+ }
+]

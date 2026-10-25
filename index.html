@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#3730a3">
+<meta name="description" content="Free AWS Certified AI Practitioner (AIF-C01, guide v1.1) practice: 300 questions with explanations, 65-question timed mocks, daily 10, study cards. Works offline.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AIF-C01">
+<title>AIF-C01 Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+<div id="app">
+  <header class="app-header">
+    <h1>AIF-C01 Practice</h1>
+    <p class="tagline">AWS Certified AI Practitioner · exam guide v1.1</p>
+  </header>
+
+  <main id="home" class="screen active">
+    <div id="resume-banner" style="display:none"></div>
+
+    <button class="daily-card" id="daily-card">
+      <span class="daily-left">
+        <span class="daily-title">🗓️ Today's 10</span>
+        <span class="daily-sub" id="daily-sub"></span>
+      </span>
+      <span class="daily-right" id="daily-streak"></span>
+    </button>
+
+    <section id="readiness" class="readiness"></section>
+
+    <div class="mode-grid">
+      <button class="mode-card" data-mode="learn">
+        <span class="mode-icon">📖</span>
+        <span class="mode-title">Study cards</span>
+        <span class="mode-sub">Every task statement · key facts, services and traps</span>
+      </button>
+      <button class="mode-card" data-mode="study">
+        <span class="mode-icon">📚</span>
+        <span class="mode-title">Practice by topic</span>
+        <span class="mode-sub">Pick a task statement · instant explanations</span>
+      </button>
+      <button class="mode-card" data-mode="quick">
+        <span class="mode-icon">⚡</span>
+        <span class="mode-title">Quick test</span>
+        <span class="mode-sub">20 questions · 28 minutes · weighted by domain</span>
+      </button>
+      <button class="mode-card" data-mode="full">
+        <span class="mode-icon">📝</span>
+        <span class="mode-title">Full mock exam</span>
+        <span class="mode-sub">65 questions · 90 minutes · scaled score out of 1000</span>
+      </button>
+    </div>
+
+    <div class="review-grid">
+      <button class="review-card" id="review-wrong">
+        <span class="rev-icon">🔁</span>
+        <span class="rev-title">Practise mistakes</span>
+        <span class="rev-count"><span id="review-wrong-count">0</span> questions</span>
+      </button>
+      <button class="review-card" id="review-marks">
+        <span class="rev-icon">★</span>
+        <span class="rev-title">Bookmarks</span>
+        <span class="rev-count"><span id="review-mark-count">0</span> questions</span>
+      </button>
+    </div>
+
+    <section id="dashboard" class="dashboard"></section>
+
+    <button class="install-card" id="install-btn" style="display:none">
+      <span>📲</span><span>Install as an app · works offline</span>
+    </button>
+
+    <section class="history-section">
+      <h2>📊 Previous scores</h2>
+      <div id="history-list" class="history-list"></div>
+    </section>
+
+    <section class="settings">
+      <h2>⚙️ Settings</h2>
+      <label class="setting-row">
+        <span>My exam date</span>
+        <input type="date" id="exam-date">
+      </label>
+      <div class="setting-actions">
+        <button class="btn-ghost btn-small" id="backup-btn">⬇ Back up progress</button>
+        <button class="btn-ghost btn-small" id="restore-btn">⬆ Restore</button>
+        <input type="file" id="restore-file" accept="application/json" hidden>
+      </div>
+    </section>
+
+    <footer class="site-foot">
+      <p>Independent, free study site. Not affiliated with or endorsed by Amazon Web Services. AWS and related names are trademarks of Amazon.com, Inc. or its affiliates.</p>
+      <p>Your answers stay in this browser. <a href="https://github.com/prophecy10/aws-aif-c01" target="_blank" rel="noopener">Source &amp; corrections on GitHub</a></p>
+    </footer>
+  </main>
+
+  <section id="topic-picker" class="screen">
+    <button class="back-btn" data-back="home">← Home</button>
+    <h2>Choose a task statement</h2>
+    <div id="topic-list" class="topic-list"></div>
+  </section>
+
+  <section id="learn-topics" class="screen">
+    <button class="back-btn" data-back="home">← Home</button>
+    <h2>Study cards</h2>
+    <p class="learn-intro">Grouped exactly like the official exam guide v1.1. Each card is a fact, why it matters, and the exam trap to watch for.</p>
+    <div id="learn-list" class="topic-list"></div>
+  </section>
+
+  <section id="learn-cards" class="screen">
+    <div class="quiz-topbar">
+      <button class="back-btn" id="learn-back">← Topics</button>
+      <div class="progress-wrap"><div id="fc-progress" class="progress-bar"></div></div>
+      <span id="fc-counter" class="q-counter"></span>
+    </div>
+    <div id="fc-meta" class="q-meta"></div>
+    <div id="fc-card" class="fc-card"></div>
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="fc-prev">← Previous</button>
+      <button class="btn-primary" id="fc-next">Next →</button>
+    </div>
+  </section>
+
+  <section id="quiz" class="screen">
+    <div class="quiz-topbar">
+      <button class="back-btn" id="quiz-exit">← Exit</button>
+      <div class="progress-wrap"><div id="progress-bar" class="progress-bar"></div></div>
+      <span id="timer" class="timer" style="display:none"></span>
+      <button id="palette-btn" class="q-counter palette-btn" title="Jump to question">1 / 20</button>
+    </div>
+    <div id="palette" class="palette" hidden></div>
+    <div id="question-area" class="question-area"></div>
+    <div id="quiz-footer" class="quiz-footer"></div>
+  </section>
+
+  <section id="score" class="screen">
+    <div id="score-card" class="score-card"></div>
+    <div id="explanations" class="explanations"></div>
+    <div class="score-actions">
+      <button class="btn-share" id="share-btn">📤 Share score</button>
+      <button class="btn-ghost" id="back-topics" style="display:none">📚 Topics</button>
+      <button class="btn-primary" data-back="home">🏠 Home</button>
+    </div>
+  </section>
+</div>
+
+<script src="js/config.js?v=1"></script>
+<script src="js/storage.js?v=1"></script>
+<script src="js/bank.js?v=1"></script>
+<script src="js/share.js?v=1"></script>
+<script src="js/app.js?v=1"></script>
+</body>
+</html>

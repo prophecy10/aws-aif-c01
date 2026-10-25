@@ -1,0 +1,674 @@
+[
+ {
+  "id": "2.1-01",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "In the context of large language models, what is a token?",
+  "options": [
+   "A unit of text, such as a word or part of a word, that the model reads and generates",
+   "A password-like secret string that grants an application access to a model's API endpoint",
+   "A single complete document stored in a vector database",
+   "A security credential that encrypts every prompt before it is sent to the model"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Models split text into tokens (whole words, sub-words, or characters) and both read and produce text one token at a time.",
+   "An API key is a credential, not a token in the language-model sense.",
+   "Documents are made of many tokens; a token is far smaller.",
+   "Encryption keys protect data; they are unrelated to how models process text."
+  ],
+  "explain": "Tokens are the basic units an LLM works with. In English, one token is roughly three-quarters of a word on average. Context windows, limits, and pricing are all measured in tokens.",
+  "ref": "Exam guide skill 2.1.1 (tokens)"
+ },
+ {
+  "id": "2.1-02",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A chatbot sends about 2,000 input tokens and receives about 500 output tokens per request. The model costs $0.003 per 1,000 input tokens and $0.015 per 1,000 output tokens. What is the cost of 10,000 requests?",
+  "options": [
+   "$60",
+   "$75",
+   "$135",
+   "$180"
+  ],
+  "answer": 2,
+  "notes": [
+   "$60 counts only input tokens: 20 million × $0.003 / 1,000.",
+   "$75 counts only output tokens: 5 million × $0.015 / 1,000.",
+   "Correct. Per request: (2 × $0.003) + (0.5 × $0.015) = $0.006 + $0.0075 = $0.0135. Times 10,000 = $135.",
+   "$180 would mean pricing all 25 million tokens at an average that does not match these rates."
+  ],
+  "explain": "With on-demand, token-based pricing you pay separately for input and output tokens, and output tokens usually cost more. Total cost = input tokens × input price + output tokens × output price. Shorter prompts and capped output lengths cut cost directly.",
+  "ref": "Exam guide skill 2.1.4 (token-based pricing, new in v1.1)"
+ },
+ {
+  "id": "2.1-03",
+  "task": "2.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A company's Amazon Bedrock bill is high because every request repeats a 6,000-token instruction block. Which actions reduce cost per request? Select TWO.",
+  "options": [
+   "Use prompt caching for the repeated instruction block",
+   "Trim the instructions and cap the maximum output tokens",
+   "Raise the temperature so answers are more creative",
+   "Switch from on-demand to a larger, more capable model",
+   "Add more few-shot examples to every prompt"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Prompt caching lets the model reuse a repeated prompt prefix, which cuts the cost and latency of those cached input tokens.",
+   "Correct. Fewer input tokens and a sensible output cap directly reduce billed tokens.",
+   "Temperature changes randomness, not the number of tokens billed.",
+   "Larger models usually cost more per token, not less.",
+   "Extra examples add input tokens and raise cost."
+  ],
+  "explain": "Token-based pricing rewards lean prompts. Prompt caching (for repeated context), shorter instructions, output limits, smaller models for simple tasks, and batch inference for non-urgent work all reduce cost.",
+  "ref": "Exam guide skills 2.1.4 and 3.1.1 (prompt caching)"
+ },
+ {
+  "id": "2.1-04",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Users complain that a generative AI assistant takes a long time to finish long answers. Why does output length affect latency so strongly?",
+  "options": [
+   "The model generates output tokens one after another, so more tokens take longer",
+   "Longer answers are always stored in Amazon S3 before being returned",
+   "The model re-reads its entire training data for every extra word",
+   "Output length has no effect on latency at all; only the length of the input prompt matters"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Generation is sequential: each new token depends on the ones before it, so total time grows with the number of output tokens.",
+   "Responses are streamed or returned directly; they are not saved to S3 first.",
+   "The model uses its learned weights; it never re-reads its training data during inference.",
+   "Both input and output length affect latency, and output length usually matters most."
+  ],
+  "explain": "LLMs generate text token by token, so response time grows with output length. Limiting maximum output tokens, asking for concise answers, and streaming responses all improve the user experience.",
+  "ref": "Exam guide skills 2.1.4 and 3.1.2"
+ },
+ {
+  "id": "2.1-05",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is an embedding?",
+  "options": [
+   "A compressed ZIP file of a document stored in Amazon S3",
+   "A vector of numbers that represents the meaning of text, images, or other data",
+   "A short summary of each document, written by a human editor to make it easier to search",
+   "A filtering rule that blocks harmful or offensive words from appearing in model output"
+  ],
+  "answer": 1,
+  "notes": [
+   "Compression saves space but does not capture meaning.",
+   "Correct. An embedding model maps content to a vector so that items with similar meaning end up close together.",
+   "A human-written summary is text, not a numeric representation.",
+   "Blocking words is a guardrail feature, not an embedding."
+  ],
+  "explain": "Embeddings turn content into vectors in a high-dimensional space where distance reflects similarity of meaning. They power semantic search, RAG retrieval, recommendations, and clustering. Amazon Titan Text Embeddings is one embedding model available on Amazon Bedrock.",
+  "ref": "Exam guide skill 2.1.1 (embeddings, vectors)"
+ },
+ {
+  "id": "2.1-06",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A customer searches a help center for 'get my money back', and the top result is the article titled 'Refund policy', even though the words do not match. Which technique makes this possible?",
+  "options": [
+   "Keyword matching that looks for the exact words of the query in each article's title",
+   "Semantic search that compares embeddings of the query and the articles",
+   "Sorting all of the help articles alphabetically by their title, then by publication date",
+   "Using a higher temperature for the search engine's results"
+  ],
+  "answer": 1,
+  "notes": [
+   "Exact keyword matching would miss this, because no words overlap.",
+   "Correct. Embeddings capture meaning, so 'money back' and 'refund' sit close together in vector space and the search finds the match.",
+   "Alphabetical order has nothing to do with relevance.",
+   "Temperature is a generation setting for FMs, not a search ranking method."
+  ],
+  "explain": "Semantic (vector) search embeds both the query and the documents, then returns the documents whose vectors are nearest to the query vector, for example by cosine similarity. This is the retrieval step behind RAG.",
+  "ref": "Exam guide skill 2.1.1 (embeddings, vectors)"
+ },
+ {
+  "id": "2.1-07",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Before loading 500-page manuals into a knowledge base, a team splits them into smaller passages. What is this step called, and why is it done?",
+  "options": [
+   "Tokenization, so the manuals can be encrypted before they are stored in Amazon S3",
+   "Chunking, so retrieval returns focused passages that fit in the model's context",
+   "Fine-tuning, so the model memorizes every page of each manual",
+   "Distillation, so the manuals become smaller and cheaper to store in the knowledge base"
+  ],
+  "answer": 1,
+  "notes": [
+   "Tokenization splits text into tokens for the model; it is unrelated to encryption.",
+   "Correct. Chunking breaks documents into passages that are embedded separately, so the system can retrieve just the relevant parts.",
+   "Fine-tuning changes model weights; it is not how documents are prepared for retrieval.",
+   "Distillation trains a smaller model from a larger one; it does not shrink documents."
+  ],
+  "explain": "Chunking splits documents into pieces before they are embedded and stored in a vector database. Good chunks are small enough to be specific and to fit the context window, yet large enough to keep their meaning. Overlap between chunks helps preserve context.",
+  "ref": "Exam guide skill 2.1.1 (chunking)"
+ },
+ {
+  "id": "2.1-08",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A RAG system uses very large chunks of about 8,000 tokens. Answers often include irrelevant details, and costs are high. What is the most likely fix?",
+  "options": [
+   "Use smaller, more focused chunks, possibly with some overlap",
+   "Remove the vector database and send all documents in every prompt",
+   "Increase the chunk size further so each chunk holds more context",
+   "Set the temperature to 1.0 so the model chooses words more freely"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Smaller chunks make retrieval more precise and reduce the tokens passed to the model, which cuts noise and cost.",
+   "Sending every document in every prompt multiplies tokens and cost.",
+   "Even bigger chunks add more irrelevant text and cost.",
+   "Higher temperature adds randomness; it does not improve relevance."
+  ],
+  "explain": "Chunk size is a trade-off. Chunks that are too large dilute relevance and waste tokens. Chunks that are too small lose surrounding context. Amazon Bedrock Knowledge Bases supports fixed-size, hierarchical, and semantic chunking to help balance this.",
+  "ref": "Exam guide skill 2.1.1 (chunking); Bedrock Knowledge Bases chunking"
+ },
+ {
+  "id": "2.1-09",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which mechanism lets transformer-based LLMs weigh how strongly each word in a passage relates to every other word?",
+  "options": [
+   "Recurrent loops that read text strictly one word at a time",
+   "Self-attention",
+   "Decision-tree splitting on word frequency",
+   "K-means clustering of sentences by length"
+  ],
+  "answer": 1,
+  "notes": [
+   "Recurrent networks read text sequentially; transformers replaced them largely because of attention.",
+   "Correct. Self-attention scores the relationships between all tokens in the input, which captures context and allows parallel processing.",
+   "Decision trees are a classic ML method, not how transformers model language.",
+   "Clustering groups data points; it is not part of the transformer architecture."
+  ],
+  "explain": "The transformer architecture, introduced in 2017, uses self-attention to model relationships between tokens regardless of their distance in the text. It is the basis of most modern LLMs and many multimodal models.",
+  "ref": "Exam guide skill 2.1.1 (transformer-based LLMs)"
+ },
+ {
+  "id": "2.1-10",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "How do diffusion models generate images?",
+  "options": [
+   "By copying and stitching together pieces of existing images from their training data",
+   "By starting from random noise and removing noise step by step until an image emerges",
+   "By predicting the next word in a caption and drawing each word as it is written",
+   "By clustering pixels into groups and recoloring each group to match the prompt"
+  ],
+  "answer": 1,
+  "notes": [
+   "Diffusion models learn patterns; they do not retrieve and stitch training images.",
+   "Correct. During training the model learns to reverse a noising process; at generation time it denoises random noise into a new image guided by the prompt.",
+   "Next-token prediction describes LLMs, not image diffusion.",
+   "Pixel clustering is an image-processing technique, not generative diffusion."
+  ],
+  "explain": "Diffusion models power many text-to-image systems, such as Amazon Nova Canvas and Stable Diffusion. They learn to reverse a gradual noising process and are steered toward a prompt during denoising.",
+  "ref": "Exam guide skill 2.1.1 (diffusion models)"
+ },
+ {
+  "id": "2.1-11",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An insurer wants customers to upload a photo of car damage, add a short description, and get back a written damage summary. What kind of model handles both the image and the text input?",
+  "options": [
+   "A text-only language model",
+   "A multimodal model",
+   "A regression model",
+   "A speech-to-text model"
+  ],
+  "answer": 1,
+  "notes": [
+   "A text-only model cannot interpret the photo.",
+   "Correct. Multimodal models accept and reason over more than one type of input, such as images and text together.",
+   "Regression predicts a number from structured features.",
+   "Speech-to-text converts audio and cannot interpret photos."
+  ],
+  "explain": "Multimodal foundation models process several modalities (text, images, sometimes audio or video) in one model. Several models on Amazon Bedrock, such as Amazon Nova Lite and Pro, accept image input.",
+  "ref": "Exam guide skill 2.1.1 (multimodal models)"
+ },
+ {
+  "id": "2.1-12",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What makes a model a foundation model (FM)?",
+  "options": [
+   "It is trained on one small labeled dataset to do one specific task as accurately as possible",
+   "It is pretrained on very broad data and can be adapted to many different tasks",
+   "It can only be used for image classification on a fixed set of labels",
+   "It is a rules engine written by domain experts without any training"
+  ],
+  "answer": 1,
+  "notes": [
+   "A narrow model trained for one task is the opposite of a foundation model.",
+   "Correct. FMs are large models pretrained on vast, broad datasets that serve as a base for many tasks through prompting, RAG, or fine-tuning.",
+   "FMs are general-purpose; they are not limited to one task.",
+   "FMs are learned from data, not hand-written rules."
+  ],
+  "explain": "Foundation models, such as LLMs and multimodal models, are pretrained once at great expense and then reused for many tasks. That reuse is what makes generative AI accessible to most companies.",
+  "ref": "Exam guide skill 2.1.1 (foundation models)"
+ },
+ {
+  "id": "2.1-13",
+  "task": "2.1",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put these stages of the foundation model lifecycle in order.",
+  "options": [
+   "Select and prepare training data",
+   "Pretrain the model on the broad dataset",
+   "Fine-tune the model for specific tasks",
+   "Evaluate the model against benchmarks and requirements",
+   "Deploy the model and collect feedback"
+  ],
+  "explain": "The FM lifecycle in the exam guide is: data selection, model selection, pretraining, fine-tuning, evaluation, deployment, and feedback. Feedback from production then informs the next round of improvement.",
+  "ref": "Exam guide skill 2.1.3 (foundation model lifecycle)"
+ },
+ {
+  "id": "2.1-14",
+  "task": "2.1",
+  "type": "multi",
+  "difficulty": "easy",
+  "q": "Which tasks are good fits for generative AI? Select TWO.",
+  "options": [
+   "Drafting first versions of marketing copy for review",
+   "Suggesting code completions to developers in their IDE",
+   "Calculating exact interest on a loan using a fixed formula",
+   "Controlling a car's emergency braking in real time",
+   "Reconciling ledger balances that must match to the cent"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Content drafts that people review are a classic GenAI use case.",
+   "Correct. Code generation and completion, as in Amazon Q Developer or Kiro, is a major GenAI use case.",
+   "Exact formula calculations need deterministic code, not a probabilistic model.",
+   "Safety-critical, millisecond control loops are not suited to generative models.",
+   "Exact reconciliation must be deterministic and auditable."
+  ],
+  "explain": "Generative AI excels at creating and transforming content: text, code, images, summaries, translations, and conversational assistants. It is a poor fit where exact, deterministic, or safety-critical outputs are needed.",
+  "ref": "Exam guide skills 2.1.2 and 1.2.2"
+ },
+ {
+  "id": "2.1-15",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What does 'context engineering' mean for a foundation model application?",
+  "options": [
+   "Designing the physical data center, cooling, and network where the model is hosted and served",
+   "Choosing what goes into the model's context window (instructions, retrieved data, tool results, memory) to get good results within token limits",
+   "Training a brand-new model from scratch using only the company's own documents and data",
+   "Encrypting the model's weights with AWS KMS before deploying the model to production"
+  ],
+  "answer": 1,
+  "notes": [
+   "Data center design is infrastructure work, not context engineering.",
+   "Correct. Context engineering curates everything the model sees for a given call: system instructions, relevant retrieved content, conversation history, memory, and tool outputs.",
+   "Training from scratch changes the model itself; context engineering works with an existing model.",
+   "Encrypting weights is a security control, not context design."
+  ],
+  "explain": "Version 1.1 adds context engineering (skill 2.1.5). It goes beyond writing one good prompt: it manages the whole context so the model gets the most relevant information without exceeding the context window or wasting tokens.",
+  "ref": "Exam guide skill 2.1.5 (new in v1.1)"
+ },
+ {
+  "id": "2.1-16",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A long-running support agent starts forgetting earlier instructions and giving worse answers as conversations grow past the model's context window. Which context engineering approach helps most?",
+  "options": [
+   "Paste the entire conversation history and all product manuals into every single request to the model",
+   "Summarize older turns, keep key facts in memory, and retrieve only documents relevant to the current question",
+   "Switch to a model with a smaller context window to force shorter conversations",
+   "Raise the temperature so the model explores more options and is less likely to repeat itself"
+  ],
+  "answer": 1,
+  "notes": [
+   "Sending everything overflows the window, raises cost, and buries the important parts.",
+   "Correct. Compacting history, storing durable facts in memory, and retrieving selectively keep the context focused and within limits.",
+   "A smaller window makes the problem worse.",
+   "Temperature adds randomness; it does not restore lost context."
+  ],
+  "explain": "Good context engineering keeps the most relevant information in the window: concise system instructions, summaries of old turns, long-term memory for durable facts, and targeted retrieval. Amazon Bedrock AgentCore Memory provides short-term and long-term memory for agents.",
+  "ref": "Exam guide skills 2.1.5 and 2.1.6 (memory management)"
+ },
+ {
+  "id": "2.1-17",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is a model's context window?",
+  "options": [
+   "The maximum amount of text, in tokens, the model can consider in one request",
+   "The time window in which a model is available to receive API calls",
+   "The date range of the data the model was trained on, also known as its knowledge cutoff",
+   "The browser window in which a chatbot conversation is displayed"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The context window is the model's working memory for one call; it covers the prompt and, for most models, the generated output too.",
+   "Availability is an operational concern, not the context window.",
+   "That is the training data cutoff, a different concept.",
+   "The chat interface has nothing to do with the model's context window."
+  ],
+  "explain": "Context window size limits how much instruction, history, and retrieved content you can include. Larger windows allow more context but cost more tokens per request, which is why RAG and summarization are still useful.",
+  "ref": "Exam guide skills 2.1.1 and 3.1.1 (input/output length)"
+ },
+ {
+  "id": "2.1-18",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What is the Model Context Protocol (MCP)?",
+  "options": [
+   "An AWS billing model that charges a fixed price for each model context opened by an application",
+   "An open standard that lets AI applications connect to external tools and data through a common client-server interface",
+   "A compression algorithm that shrinks long prompts before they are sent to a foundation model API",
+   "A proprietary file format, controlled by one vendor, for storing and sharing trained model weights"
+  ],
+  "answer": 1,
+  "notes": [
+   "MCP has nothing to do with billing.",
+   "Correct. MCP defines how an AI application (the client) discovers and calls tools, resources, and prompts exposed by MCP servers, so one integration works across many agents and models.",
+   "MCP does not compress prompts.",
+   "Model weight formats are a separate topic."
+  ],
+  "explain": "MCP is an open protocol introduced in late 2024 and now widely adopted. Instead of writing a custom integration for every tool and every agent framework, you expose a system once as an MCP server. Amazon Bedrock AgentCore Gateway can turn existing APIs and AWS Lambda functions into MCP-compatible tools.",
+  "ref": "Exam guide skill 2.1.6 (MCP, new in v1.1)"
+ },
+ {
+  "id": "2.1-19",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company has three agent projects built with different frameworks. All of them need to read and update its internal ticketing system. What is the most reusable way to provide this access?",
+  "options": [
+   "Write a separate custom integration for the ticketing system inside each agent's own code base",
+   "Expose the ticketing system once as an MCP server that every agent can call as a tool",
+   "Copy the entire ticket database into each agent's system prompt so the agents can read it directly",
+   "Fine-tune each agent's model on a snapshot of the tickets"
+  ],
+  "answer": 1,
+  "notes": [
+   "Separate integrations triple the work and drift apart over time.",
+   "Correct. An MCP server gives a standard tool interface that any MCP-compatible agent or framework can use.",
+   "Pasting a database into prompts is costly, stale, and cannot perform updates.",
+   "Fine-tuning bakes in a stale snapshot and cannot perform live updates."
+  ],
+  "explain": "MCP's value is reuse and standardization: build the tool integration once, and agents built with Strands Agents, LangGraph, or other frameworks can all call it.",
+  "ref": "Exam guide skill 2.1.6 (MCP, tool usage)"
+ },
+ {
+  "id": "2.1-20",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An agent needs today's exchange rate to answer a question. The model replies with a structured request to call a 'get_rate' function, the application runs the function, and the result is sent back to the model. What is this capability called?",
+  "options": [
+   "Tool use (function calling)",
+   "Model distillation",
+   "Continued pretraining",
+   "Negative prompting"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. With tool use, the model decides when to call a defined tool and with which arguments; the application executes it and returns the result.",
+   "Distillation trains a smaller model from a larger one.",
+   "Continued pretraining further trains a model on unlabeled data.",
+   "Negative prompting tells a model what to avoid in its output."
+  ],
+  "explain": "Tool use lets FMs reach live data and take actions: look up records, call APIs, run code. It is a core building block of agents. In Amazon Bedrock, the Converse API supports tool definitions across models.",
+  "ref": "Exam guide skill 2.1.6 (tool usage)"
+ },
+ {
+  "id": "2.1-21",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A travel assistant should remember each customer's seat preference and loyalty number across separate conversations weeks apart. Which agent capability is needed?",
+  "options": [
+   "A higher temperature setting",
+   "Long-term memory",
+   "A larger embedding dimension",
+   "Short-term conversation memory only"
+  ],
+  "answer": 1,
+  "notes": [
+   "Temperature controls randomness, not recall of facts.",
+   "Correct. Long-term memory persists facts and preferences across sessions so the agent can use them later.",
+   "Embedding size affects retrieval quality, not whether facts persist across sessions.",
+   "Short-term memory lasts only within a session, so it would be lost between conversations."
+  ],
+  "explain": "Agents use short-term memory for the current session and long-term memory for durable facts, preferences, and summaries across sessions. Amazon Bedrock AgentCore Memory offers both as a managed capability.",
+  "ref": "Exam guide skill 2.1.6 (memory management)"
+ },
+ {
+  "id": "2.1-22",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A customer service system uses one agent that reads each request and hands it to a billing agent, a technical support agent, or a returns agent, then combines their results. Which multi-agent pattern is this?",
+  "options": [
+   "Supervisor (orchestrator and worker) pattern",
+   "Single-agent pattern with no delegation to other agents",
+   "Model distillation pattern",
+   "Batch inference pattern run on a nightly schedule"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A supervisor agent routes subtasks to specialized worker agents and assembles the final answer.",
+   "The scenario explicitly delegates to several agents.",
+   "Distillation is a training technique, not an agent pattern.",
+   "Batch inference is about offline bulk scoring."
+  ],
+  "explain": "Common multi-agent patterns include supervisor/orchestrator (one agent delegates to specialists), sequential pipelines, graphs, and swarms of peer agents. Specialized agents with focused tools and instructions are often more reliable than one agent doing everything.",
+  "ref": "Exam guide skill 2.1.6 (multi-agent patterns)"
+ },
+ {
+  "id": "2.1-23",
+  "task": "2.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each agentic AI concept to its description.",
+  "prompts": [
+   "The model calls an external API or function to get data or take an action",
+   "The agent keeps facts and preferences available across sessions",
+   "A standard way to expose tools and data to any compatible AI application",
+   "One agent delegates subtasks to specialized agents and combines results",
+   "Steps run in a defined sequence with branches, rather than being chosen freely by the model"
+  ],
+  "options": [
+   "Tool use",
+   "Long-term memory",
+   "Model Context Protocol (MCP)",
+   "Supervisor multi-agent pattern",
+   "Workflow orchestration"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "These are the agentic building blocks named in skill 2.1.6. Workflow orchestration suits predictable processes; autonomous agents suit open-ended tasks. Many real systems combine both.",
+  "ref": "Exam guide skill 2.1.6 (new in v1.1)"
+ },
+ {
+  "id": "2.1-24",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "An insurance claims process must always follow the same steps: validate the form, check the policy, run fraud scoring, then route to approval. Auditors need the path to be predictable. Which design fits best?",
+  "options": [
+   "A fully autonomous agent that decides its own steps on every claim",
+   "Workflow orchestration with defined steps, using AI models within individual steps",
+   "A single prompt asking an LLM to process the whole claim at once",
+   "A swarm of peer agents that negotiate among themselves the order of the steps for each claim"
+  ],
+  "answer": 1,
+  "notes": [
+   "Free-form agents may vary their path between claims, which hurts predictability and auditability.",
+   "Correct. An orchestrated workflow fixes the sequence and still uses AI where it helps, such as extracting fields or scoring fraud.",
+   "One prompt gives no control over, or audit trail of, each step.",
+   "Negotiated ordering is the least predictable option."
+  ],
+  "explain": "Use workflow orchestration (for example, Amazon Bedrock Flows or AWS Step Functions) when the process is known and must be repeatable. Use autonomous agents when the path cannot be known in advance.",
+  "ref": "Exam guide skill 2.1.6 (workflow orchestration)"
+ },
+ {
+  "id": "2.1-25",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is prompt engineering?",
+  "options": [
+   "Designing and refining the instructions and context given to a model to get better outputs",
+   "Rewriting the model's source code and layers to change how its neural network architecture works",
+   "Building the GPUs and servers that the model runs on",
+   "Labeling training data with the correct answers for a supervised learning model to learn from"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Prompt engineering improves results by changing what you ask and how: instructions, context, examples, and output format.",
+   "Changing architecture is model development, not prompting.",
+   "Hardware is infrastructure, not prompting.",
+   "Labeling data prepares supervised training sets."
+  ],
+  "explain": "Prompt engineering is the cheapest way to improve FM output: no training, no new infrastructure. Techniques include clear instructions, role and context, few-shot examples, chain-of-thought, and output format specification.",
+  "ref": "Exam guide skill 2.1.1 (prompt engineering)"
+ },
+ {
+  "id": "2.1-26",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "At a basic level, how does an LLM generate a response?",
+  "options": [
+   "It looks up the exact answer in a database of verified facts and returns that answer",
+   "It repeatedly predicts the most likely next token given everything so far",
+   "It runs a search engine query and returns the first result word for word",
+   "It selects a pre-written answer from a fixed list of templates"
+  ],
+  "answer": 1,
+  "notes": [
+   "LLMs do not query a fact database (unless you add retrieval); this is also why they can hallucinate.",
+   "Correct. LLMs generate text one token at a time by sampling from a probability distribution over possible next tokens.",
+   "LLMs do not run web searches by default.",
+   "LLMs generate new text rather than picking fixed templates."
+  ],
+  "explain": "Next-token prediction explains both the strengths of LLMs (fluent, flexible text) and their weaknesses (they can produce plausible but false statements, and outputs vary between runs).",
+  "ref": "Exam guide skills 2.1.1 and 2.2.2"
+ },
+ {
+  "id": "2.1-27",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team needs to convert 1 million product descriptions into vectors for semantic search. What type of model should it use?",
+  "options": [
+   "A text-to-image diffusion model that generates a picture for each description",
+   "An embedding model, such as Amazon Titan Text Embeddings",
+   "A speech synthesis model such as Amazon Polly",
+   "A large chat model with temperature set to zero"
+  ],
+  "answer": 1,
+  "notes": [
+   "Diffusion models generate images; they do not produce vectors for search.",
+   "Correct. Embedding models output numeric vectors that represent meaning, ready for storage in a vector database.",
+   "Polly produces audio, not vectors.",
+   "Chat models generate text; producing vectors is the job of an embedding model."
+  ],
+  "explain": "Generation models create content; embedding models create vector representations. RAG systems use both: an embedding model for indexing and retrieval, and a generation model for the final answer.",
+  "ref": "Exam guide skill 2.1.1 (embeddings)"
+ },
+ {
+  "id": "2.1-28",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A marketing team wants to create dozens of new product images in different styles from text descriptions. Which kind of model fits?",
+  "options": [
+   "An image generation model such as Amazon Nova Canvas",
+   "A text classification model trained on product categories",
+   "A time-series forecasting model fed with historical sales",
+   "An embedding model that turns product text into vectors"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Text-to-image models generate new images from prompts; Amazon Nova Canvas is Amazon's image generation model on Bedrock.",
+   "Classification assigns labels; it does not create images.",
+   "Forecasting predicts future values from history.",
+   "Embedding models create vectors, not images."
+  ],
+  "explain": "Image, video, and audio generation are listed GenAI use cases. Amazon Nova includes Nova Canvas for images and Nova Reel for video.",
+  "ref": "Exam guide skill 2.1.2; Amazon Nova overview"
+ },
+ {
+  "id": "2.1-29",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "The same 1,000-word document costs noticeably different amounts to process with two different models on Amazon Bedrock. What best explains this?",
+  "options": [
+   "Amazon Bedrock charges a fixed fee per document, regardless of the model",
+   "Models use different tokenizers and per-token prices, so token count and rate both vary",
+   "The second model must be quietly adding hidden words to the document before processing it",
+   "On-demand cost depends only on the time of day the request is made, not on the model chosen"
+  ],
+  "answer": 1,
+  "notes": [
+   "On-demand Bedrock pricing is per token, not per document.",
+   "Correct. Each model family splits text into tokens differently, and each has its own input and output price per token.",
+   "Models do not add hidden words; tokenization simply differs.",
+   "On-demand pricing does not depend on the time of day."
+  ],
+  "explain": "Token counts for the same text vary by tokenizer, and prices vary by model size and provider. Compare models on both quality and the real cost of your typical prompts.",
+  "ref": "Exam guide skill 2.1.4"
+ },
+ {
+  "id": "2.1-30",
+  "task": "2.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What is the role of a vector database in a generative AI application?",
+  "options": [
+   "It stores embeddings and quickly finds the ones nearest to a query vector",
+   "It trains the foundation model on new documents every night",
+   "It stores the model's weights so the model can run without a GPU",
+   "It replaces the foundation model entirely by storing every possible answer"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Vector stores index embeddings for fast similarity (nearest-neighbor) search, the retrieval step in RAG.",
+   "Vector databases do not train models.",
+   "Model weights are not served from a vector database.",
+   "A vector store retrieves context; the FM still writes the answer."
+  ],
+  "explain": "On AWS, vector storage options include Amazon OpenSearch Service, Amazon Aurora PostgreSQL and Amazon RDS for PostgreSQL with pgvector, and Amazon Neptune. Amazon Bedrock Knowledge Bases can manage the vector store for you.",
+  "ref": "Exam guide skills 2.1.1 and 3.1.4"
+ }
+]

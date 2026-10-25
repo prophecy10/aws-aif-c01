@@ -1,0 +1,504 @@
+[
+ {
+  "id": "1.1-01",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which statement correctly describes how AI, machine learning (ML), deep learning, and generative AI relate to each other?",
+  "options": [
+   "Generative AI is a subset of deep learning, which is a subset of ML, which is a subset of AI.",
+   "AI is a subset of ML, which is a subset of deep learning, which includes generative AI.",
+   "ML and deep learning are separate fields, and generative AI belongs to neither of them.",
+   "Deep learning is a subset of generative AI, and both sit inside ML, which is one branch of AI."
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Each field nests inside the previous one: GenAI models (such as LLMs) are built with deep neural networks, deep learning is one family of ML methods, and ML is one way to build AI.",
+   "Reversed. AI is the broadest field; ML sits inside it, not the other way round.",
+   "Deep learning is a branch of ML, and modern generative AI is built on deep learning.",
+   "Reversed. Generative AI is one application of deep learning, not its parent."
+  ],
+  "explain": "Think of nested circles: AI (any technique that makes machines act intelligently) contains ML (systems that learn patterns from data), which contains deep learning (ML with many-layered neural networks), which contains generative AI (deep learning models that create new content).",
+  "ref": "Exam guide skill 1.1.2; AWS 'What is artificial intelligence?' overview"
+ },
+ {
+  "id": "1.1-02",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A data science team has finished training a model. The model is now used to score new loan applications as they arrive. What is this second activity called?",
+  "options": [
+   "Feature engineering",
+   "Inferencing",
+   "Hyperparameter tuning",
+   "Data labeling"
+  ],
+  "answer": 1,
+  "notes": [
+   "Feature engineering prepares input variables before training; it does not score new data.",
+   "Correct. Inference means using a trained model to make predictions on new, unseen data.",
+   "Hyperparameter tuning searches for the best training settings, which happens before deployment.",
+   "Labeling adds target values to training data; it is not how predictions are produced."
+  ],
+  "explain": "Training is when a model learns patterns from data. Inferencing is when that trained model is used to produce predictions (or generated output) for new inputs. On AWS, inference can be real-time, batch, asynchronous, or serverless.",
+  "ref": "Exam guide skill 1.1.1 (training vs inferencing)"
+ },
+ {
+  "id": "1.1-03",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A media company runs a computer vision model on uploaded videos. Each request carries a payload of several hundred megabytes and takes up to 20 minutes to process. Users are happy to be notified when results are ready. Which Amazon SageMaker AI inference option fits best?",
+  "options": [
+   "Real-time inference",
+   "Serverless inference",
+   "Asynchronous inference",
+   "Batch transform with a nightly schedule"
+  ],
+  "answer": 2,
+  "notes": [
+   "Real-time endpoints are built for low-latency responses with small payloads, not 20-minute jobs.",
+   "Serverless inference suits intermittent traffic with small payloads and short processing times.",
+   "Correct. Asynchronous inference queues requests, accepts large payloads (up to 1 GB) and long processing times (up to an hour), and notifies you when output is ready.",
+   "Batch transform processes a whole dataset offline; it does not respond to each upload as it arrives."
+  ],
+  "explain": "Asynchronous inference is designed for requests with large payloads and long processing times where an immediate answer is not needed. Requests are queued, results land in Amazon S3, and an Amazon SNS notification can tell the caller the job is done. It can also scale the endpoint to zero when idle.",
+  "ref": "SageMaker AI docs: Asynchronous inference; exam guide skill 1.1.3"
+ },
+ {
+  "id": "1.1-04",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A startup's internal document classifier gets a few small requests in the morning and then sits idle for hours. Callers need the result returned in the response to their request. The team wants to pay nothing while idle and does not want to manage instances, and a short delay on the first request after an idle period is acceptable. Which inference option should they use?",
+  "options": [
+   "Serverless inference",
+   "Real-time inference on a GPU instance",
+   "Asynchronous inference with SNS",
+   "Batch transform"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Serverless inference scales to zero between requests and you pay only for compute used; the trade-off is cold-start latency.",
+   "A real-time endpoint keeps instances running (and billing) even when idle.",
+   "Asynchronous inference queues requests and delivers results later to S3, so callers do not get the result in their response; it is meant for large, long-running jobs.",
+   "Batch transform runs offline jobs over a dataset; it cannot answer individual requests on demand."
+  ],
+  "explain": "Serverless inference is the fit for intermittent or unpredictable traffic that can tolerate cold starts. AWS provisions and scales the compute for you and scales down to zero when no requests arrive.",
+  "ref": "SageMaker AI docs: Serverless inference; exam guide skill 1.1.3"
+ },
+ {
+  "id": "1.1-05",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A retailer wants to score its entire 50-million-row customer table once a week to predict churn. No one needs results instantly, and the team does not want a persistent endpoint. Which inference approach is most suitable?",
+  "options": [
+   "Real-time inference",
+   "Batch inference",
+   "Serverless inference",
+   "Streaming inference on each record"
+  ],
+  "answer": 1,
+  "notes": [
+   "Real-time inference keeps an endpoint running for instant answers, which this job does not need.",
+   "Correct. Batch inference (for example, SageMaker AI batch transform) processes a large dataset offline in one job and then shuts down.",
+   "Serverless inference handles individual on-demand requests; scoring 50 million rows weekly is a bulk offline job.",
+   "Scoring each record through a live stream adds cost and complexity for no benefit here."
+  ],
+  "explain": "Batch inference is used when you have a large set of data to score at once and do not need immediate results. It is usually the cheapest option for periodic bulk scoring because no endpoint runs between jobs.",
+  "ref": "SageMaker AI docs: Batch transform; exam guide skill 1.1.3"
+ },
+ {
+  "id": "1.1-06",
+  "task": "1.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each workload to the inference type that fits it best.",
+  "prompts": [
+   "Approve or decline a card payment within 100 milliseconds at checkout",
+   "Re-score every product in a catalog once each night",
+   "Transcribe hour-long recordings that users upload, with results ready later",
+   "An HR chatbot used a few times a day that should cost nothing when idle"
+  ],
+  "options": [
+   "Real-time inference",
+   "Batch inference",
+   "Asynchronous inference",
+   "Serverless inference"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Real-time inference serves low-latency, steady traffic. Batch inference scores a whole dataset offline on a schedule. Asynchronous inference queues large or long-running requests and delivers results later. Serverless inference suits sporadic traffic and scales to zero, at the cost of cold starts.",
+  "ref": "Exam guide skill 1.1.3; SageMaker AI docs: Deploy models for inference"
+ },
+ {
+  "id": "1.1-07",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which dataset is an example of labeled data?",
+  "options": [
+   "10,000 product photos stored in Amazon S3 with no descriptions",
+   "Web server logs collected from an application, stored as raw text",
+   "Customer emails, each tagged as 'complaint', 'question', or 'praise'",
+   "Raw audio recordings captured from a call center, with no transcripts"
+  ],
+  "answer": 2,
+  "notes": [
+   "Photos without descriptions have no target values, so they are unlabeled.",
+   "Raw logs have no attached answers for a model to learn from.",
+   "Correct. Each email carries a known target value (its category), which a supervised model can learn to predict.",
+   "Recordings without transcripts or tags are unlabeled data."
+  ],
+  "explain": "Labeled data pairs each input with the correct output (the label or target). Supervised learning needs labeled data. Unlabeled data has only inputs and is used for unsupervised learning or for pretraining foundation models.",
+  "ref": "Exam guide skill 1.1.4 (labeled and unlabeled data)"
+ },
+ {
+  "id": "1.1-08",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An energy company records the power consumption of each building every 15 minutes. What type of data is this?",
+  "options": [
+   "Image data",
+   "Time-series data",
+   "Unlabeled text data",
+   "Graph data"
+  ],
+  "answer": 1,
+  "notes": [
+   "There are no images involved, only numeric readings.",
+   "Correct. Measurements taken at regular intervals over time form time-series data, which is often used for forecasting.",
+   "The readings are numeric values, not text.",
+   "Graph data describes relationships between entities (nodes and edges), not readings over time."
+  ],
+  "explain": "Time-series data is a sequence of values recorded in time order, such as sensor readings, stock prices, or website traffic per hour. It is the typical input for forecasting and anomaly detection.",
+  "ref": "Exam guide skill 1.1.4 (time-series data)"
+ },
+ {
+  "id": "1.1-09",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which of the following is unstructured data?",
+  "options": [
+   "A table of orders with order ID, date, and amount columns",
+   "Scanned PDF contracts and recorded customer calls",
+   "A CSV file of daily exchange rates",
+   "A relational database of employee records"
+  ],
+  "answer": 1,
+  "notes": [
+   "A table with fixed columns is structured (tabular) data.",
+   "Correct. Documents, images, audio, and video do not follow a fixed row-and-column schema, so they are unstructured.",
+   "A CSV with consistent columns is structured data.",
+   "Relational tables have a defined schema, which makes them structured."
+  ],
+  "explain": "Structured data fits a predefined schema (rows and columns). Unstructured data, such as text documents, images, audio, and video, has no fixed schema. Most generative AI use cases, such as summarizing documents, work on unstructured data.",
+  "ref": "Exam guide skill 1.1.4 (structured and unstructured data)"
+ },
+ {
+  "id": "1.1-10",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A real estate company has 20 years of past sales with features such as size, location, and age, plus the final sale price of each home. It wants to predict the price of new listings. Which type of learning is this?",
+  "options": [
+   "Unsupervised learning",
+   "Reinforcement learning",
+   "Supervised learning",
+   "Self-organizing clustering"
+  ],
+  "answer": 2,
+  "notes": [
+   "Unsupervised learning finds patterns without known answers; here the sale prices are known.",
+   "Reinforcement learning learns from rewards through trial and error, not from historical labeled examples.",
+   "Correct. The historical sale price is a label, so a model learns the mapping from features to price. Predicting a number makes it a regression task.",
+   "Clustering groups similar records without labels; it does not predict a price."
+  ],
+  "explain": "Supervised learning trains on examples where the correct answer is known. Predicting a continuous number (price) is regression; predicting a category is classification. Both are supervised.",
+  "ref": "Exam guide skills 1.1.5 and 1.2.3"
+ },
+ {
+  "id": "1.1-11",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A marketing team wants to discover natural groups among its customers based on purchase behavior. It has no predefined segments. Which approach fits?",
+  "options": [
+   "Supervised classification",
+   "Unsupervised clustering",
+   "Reinforcement learning",
+   "Linear regression"
+  ],
+  "answer": 1,
+  "notes": [
+   "Classification needs known labels (segments), which the team does not have.",
+   "Correct. Clustering is an unsupervised technique that groups similar data points without labels.",
+   "Reinforcement learning optimizes actions through rewards; it is not used to find customer segments.",
+   "Regression predicts a numeric value and needs labeled training data."
+  ],
+  "explain": "When there are no labels and the goal is to find structure in the data, use unsupervised learning. Clustering (for example, k-means) is the classic way to create customer segments.",
+  "ref": "Exam guide skills 1.1.5 and 1.2.3"
+ },
+ {
+  "id": "1.1-12",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A logistics company trains a warehouse robot by letting it try different routes. It earns points for fast, collision-free deliveries and loses points for bumps. Over time it learns the best strategy. Which type of learning is this?",
+  "options": [
+   "Supervised learning",
+   "Unsupervised learning",
+   "Reinforcement learning",
+   "Semi-supervised learning"
+  ],
+  "answer": 2,
+  "notes": [
+   "There is no labeled dataset of correct routes; the robot learns from feedback.",
+   "The robot is not grouping data; it is learning which actions maximize a goal.",
+   "Correct. In reinforcement learning, an agent takes actions in an environment and learns from rewards and penalties.",
+   "Semi-supervised learning mixes a little labeled data with lots of unlabeled data; this robot learns from rewards, not labels."
+  ],
+  "explain": "Reinforcement learning (RL) trains an agent to maximize cumulative reward through trial and error. Reinforcement learning from human feedback (RLHF) applies the same idea to align foundation models with human preferences.",
+  "ref": "Exam guide skill 1.1.5"
+ },
+ {
+  "id": "1.1-13",
+  "task": "1.1",
+  "type": "match",
+  "difficulty": "easy",
+  "q": "Match each scenario to the type of learning it uses.",
+  "prompts": [
+   "Predict whether an email is spam from 50,000 emails already marked spam or not spam",
+   "Find unusual groups of network traffic with no prior examples of attacks",
+   "Teach a game-playing agent by giving it a score after every move"
+  ],
+  "options": [
+   "Supervised learning",
+   "Unsupervised learning",
+   "Reinforcement learning",
+   "Prompt engineering"
+  ],
+  "answer": [
+   0,
+   1,
+   2
+  ],
+  "explain": "Labeled examples mean supervised learning. Finding structure without labels means unsupervised learning. Learning from rewards through interaction means reinforcement learning. Prompt engineering is a way to instruct a foundation model, not a learning type.",
+  "ref": "Exam guide skill 1.1.5"
+ },
+ {
+  "id": "1.1-14",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A model reaches 99% accuracy on its training data but only 62% on new data it has never seen. What is the most likely problem?",
+  "options": [
+   "Underfitting",
+   "Overfitting",
+   "Data drift since deployment",
+   "Too little model complexity"
+  ],
+  "answer": 1,
+  "notes": [
+   "Underfitting means the model performs poorly even on training data, which is not the case here.",
+   "Correct. The model has memorized the training data, including noise, and does not generalize. This is high variance.",
+   "Drift happens over time in production; this gap appears straight after training.",
+   "Too little complexity causes underfitting, the opposite symptom."
+  ],
+  "explain": "Overfitting shows as a large gap between training and test performance. Common fixes are more (or more varied) training data, regularization, early stopping, data augmentation, or a simpler model. Underfitting shows as poor performance on both training and test data.",
+  "ref": "Exam guide skills 1.1.1 (fit) and 4.1.6 (overfitting and underfitting)"
+ },
+ {
+  "id": "1.1-15",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "In the context of AI, what does 'bias' most commonly refer to?",
+  "options": [
+   "The number of layers and neurons chosen for a neural network architecture",
+   "A systematic error that produces unfair or skewed results for certain groups",
+   "The randomness setting, such as temperature, used when generating text",
+   "The time a model takes to return a prediction after it receives a request"
+  ],
+  "answer": 1,
+  "notes": [
+   "Layer count describes model architecture, not bias.",
+   "Correct. Bias in AI usually means systematic skew, often caused by unrepresentative data, that leads to unfair outcomes for some groups.",
+   "Randomness in generation is controlled by inference parameters such as temperature.",
+   "Response time is latency, not bias."
+  ],
+  "explain": "Bias can enter through training data that under-represents groups, through labels that reflect human prejudice, or through how a model is used. Fairness is the goal of treating groups equitably. Tools such as SageMaker Clarify measure bias in data and models.",
+  "ref": "Exam guide skill 1.1.1 (bias, fairness)"
+ },
+ {
+  "id": "1.1-16",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A factory installs cameras to spot scratches on parts moving along a conveyor belt. Which field of AI does this use?",
+  "options": [
+   "Natural language processing",
+   "Computer vision",
+   "Speech recognition",
+   "Time-series forecasting"
+  ],
+  "answer": 1,
+  "notes": [
+   "NLP works with human language (text), not images.",
+   "Correct. Computer vision lets machines interpret images and video, for example to detect defects.",
+   "Speech recognition converts spoken audio to text.",
+   "Forecasting predicts future values from historical sequences, not defects in images."
+  ],
+  "explain": "Computer vision covers image classification, object detection, and segmentation. On AWS, Amazon Rekognition offers ready-made image and video analysis, and custom models can be trained in SageMaker AI.",
+  "ref": "Exam guide skills 1.1.1 and 1.2.4"
+ },
+ {
+  "id": "1.1-17",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which task is a typical natural language processing (NLP) application?",
+  "options": [
+   "Detecting and counting faces in photos uploaded to a website",
+   "Determining whether product reviews are positive or negative",
+   "Predicting machine failure from vibration sensor readings",
+   "Optimizing a delivery route using rewards"
+  ],
+  "answer": 1,
+  "notes": [
+   "Detecting faces is computer vision.",
+   "Correct. Sentiment analysis of text is a classic NLP task; Amazon Comprehend offers it as a managed service.",
+   "Vibration readings are numeric sensor data, a time-series or anomaly detection problem.",
+   "Reward-driven route optimization is reinforcement learning."
+  ],
+  "explain": "NLP lets computers understand, interpret, and generate human language. Common tasks are sentiment analysis, entity recognition, translation, summarization, and question answering.",
+  "ref": "Exam guide skill 1.1.1 (NLP)"
+ },
+ {
+  "id": "1.1-18",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What best distinguishes agentic AI from a standard generative AI chatbot?",
+  "options": [
+   "Agentic AI works only with images and video, while chatbots are limited to working with text.",
+   "Agentic AI can plan multi-step tasks, call tools or APIs, and act toward a goal with limited human input.",
+   "Agentic AI does not use foundation models; it relies only on hand-written rules and decision trees.",
+   "Agentic AI always needs a human to review and approve each response before the user can see it."
+  ],
+  "answer": 1,
+  "notes": [
+   "Agents can work with any modality; the difference is autonomy and action, not data type.",
+   "Correct. An agent reasons about a goal, breaks it into steps, uses tools (APIs, databases, code), and acts, often with memory across steps.",
+   "Most AI agents use a foundation model as their reasoning engine.",
+   "Human approval can be added, but it is not what defines agentic AI."
+  ],
+  "explain": "A chatbot responds to a prompt. An AI agent pursues a goal: it plans, calls tools, observes results, and iterates. On AWS, agents can be built with Strands Agents or Amazon Bedrock Agents and run on Amazon Bedrock AgentCore.",
+  "ref": "Exam guide skills 1.1.1, 1.1.2 and 2.1.6 (v1.1 additions)"
+ },
+ {
+  "id": "1.1-19",
+  "task": "1.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which statements about deep learning are true? Select TWO.",
+  "options": [
+   "It uses artificial neural networks with many layers.",
+   "It can learn useful features directly from raw data such as pixels or text.",
+   "It works only on small, structured datasets.",
+   "Its decisions are always easy for humans to interpret.",
+   "It does not need any training data."
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. 'Deep' refers to the many layers of neurons in the network.",
+   "Correct. Deep networks learn their own feature representations, which reduces manual feature engineering.",
+   "Deep learning shines on large, unstructured datasets such as images, audio, and text.",
+   "Deep networks are often hard to interpret, which is why explainability tools exist.",
+   "Deep learning typically needs large amounts of training data."
+  ],
+  "explain": "Deep learning uses multi-layer neural networks that learn hierarchical features from raw data. It powers computer vision, speech recognition, and foundation models, but it usually needs lots of data and compute and is harder to explain than simpler models.",
+  "ref": "Exam guide skill 1.1.1 (deep learning, neural networks)"
+ },
+ {
+  "id": "1.1-20",
+  "task": "1.1",
+  "type": "multi",
+  "difficulty": "easy",
+  "q": "Which of these are examples of generative AI? Select TWO.",
+  "options": [
+   "Writing product descriptions from a list of features",
+   "Classifying credit card transactions as fraud or not fraud",
+   "Creating marketing images from a text prompt",
+   "Grouping customers into segments with k-means",
+   "Predicting next month's sales with a regression model"
+  ],
+  "answer": [
+   0,
+   2
+  ],
+  "notes": [
+   "Correct. The model creates new text that did not exist before.",
+   "Fraud classification picks a label from fixed options; it does not create new content.",
+   "Correct. Text-to-image models (such as diffusion models) generate new images.",
+   "Clustering groups existing records; it creates nothing new.",
+   "Regression predicts a number; it is not generative."
+  ],
+  "explain": "Generative AI creates new content such as text, images, audio, video, or code. Classification, clustering, and regression analyze or predict from existing data, which is traditional (discriminative) ML.",
+  "ref": "Exam guide skills 1.1.2 and 2.1.2"
+ },
+ {
+  "id": "1.1-21",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What is the difference between an ML algorithm and an ML model?",
+  "options": [
+   "They are two names for the same thing; both describe the trained file you deploy to an endpoint.",
+   "An algorithm is the procedure that learns from data; a model is the trained result, with learned parameters, used to predict.",
+   "A model is the step-by-step learning procedure; an algorithm is the weights file saved after training finishes.",
+   "An algorithm is used only in deep learning projects, while a model is used only in traditional machine learning work."
+  ],
+  "answer": 1,
+  "notes": [
+   "They are related but different: one is the method, the other is its output.",
+   "Correct. For example, XGBoost is an algorithm; running it on your data produces a model you deploy for inference.",
+   "This reverses the two terms.",
+   "Both terms apply across all kinds of ML, including deep learning."
+  ],
+  "explain": "An algorithm is the recipe (for example, linear regression or a transformer training procedure). Training applies the algorithm to data and produces a model: an artifact with learned weights that you deploy to make predictions.",
+  "ref": "Exam guide skill 1.1.1 (model, algorithm)"
+ },
+ {
+  "id": "1.1-22",
+  "task": "1.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is a large language model (LLM)?",
+  "options": [
+   "A rules engine that matches keywords in a question to a library of stored, pre-written answers",
+   "A very large neural network, usually transformer-based, trained on vast text to understand and generate language",
+   "A database that stores every sentence it was shown and retrieves the closest one word for word",
+   "A small model trained only on one company's internal documents, so it has no general knowledge of language"
+  ],
+  "answer": 1,
+  "notes": [
+   "Keyword rules engines are not learned models and cannot generate new language.",
+   "Correct. LLMs are foundation models trained on massive text corpora; they predict the next token to generate fluent text.",
+   "An LLM learns statistical patterns; it does not store and look up every sentence.",
+   "LLMs are trained on broad, very large datasets. Company data is usually added later through RAG or fine-tuning."
+  ],
+  "explain": "LLMs are a type of foundation model specialized in language. They are pretrained on vast text, typically with a transformer architecture, and can be adapted to many tasks through prompting, retrieval-augmented generation (RAG), or fine-tuning.",
+  "ref": "Exam guide skills 1.1.1 and 2.1.1"
+ }
+]

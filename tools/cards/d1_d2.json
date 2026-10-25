@@ -1,0 +1,219 @@
+{
+ "1.1": [
+  {
+   "t": "AI ⊃ ML ⊃ deep learning ⊃ generative AI",
+   "b": "AI is any technique that makes machines act intelligently. ML learns patterns from data. Deep learning is ML with many-layered neural networks. Generative AI uses deep learning to create new content. Agentic AI adds planning, tool use, and actions toward a goal.",
+   "x": "Questions that reverse the nesting (for example, 'ML is a subset of deep learning') are wrong."
+  },
+  {
+   "t": "Training vs inference",
+   "b": "Training: the model learns its parameters from data. Inference: the trained model makes predictions or generates output for new inputs.",
+   "x": "'Scoring new data' and 'generating a response' both describe inference, not training."
+  },
+  {
+   "t": "Four inference types on AWS",
+   "b": "Real-time: steady traffic, low latency. Batch: score a whole dataset offline, no endpoint between jobs. Asynchronous: large payloads (up to 1 GB) and long processing (up to 1 hour), queued, can scale to zero. Serverless: sporadic traffic, scales to zero, cold starts.",
+   "x": "'Large payload + long processing + notify when done' = asynchronous. 'Idle most of the day, pay nothing when idle' = serverless."
+  },
+  {
+   "t": "Data types",
+   "b": "Labeled (inputs with answers) vs unlabeled. Structured/tabular (rows and columns) vs unstructured (text, images, audio, video). Time-series = values recorded in time order (sensor readings, sales per day).",
+   "x": "Supervised learning needs labeled data. Foundation-model pretraining uses huge amounts of unlabeled data."
+  },
+  {
+   "t": "Supervised, unsupervised, reinforcement",
+   "b": "Supervised: learn from labeled examples (classification, regression). Unsupervised: find structure without labels (clustering). Reinforcement: an agent learns actions from rewards and penalties.",
+   "x": "'Group customers with no predefined segments' = unsupervised clustering. 'Earns points for good moves' = reinforcement learning."
+  },
+  {
+   "t": "Overfitting vs underfitting",
+   "b": "Overfitting (high variance): great on training data, poor on new data. Underfitting (high bias): poor on both.",
+   "x": "Fix overfitting with more data, regularization, early stopping, or a simpler model. Fix underfitting with a more capable model or better features."
+  },
+  {
+   "t": "Algorithm vs model; LLM",
+   "b": "An algorithm is the learning procedure (for example, XGBoost). The model is the trained result with learned parameters that you deploy. An LLM is a large, usually transformer-based, foundation model trained on vast text.",
+   "x": "An LLM does not look up stored sentences; it predicts the next token from learned patterns."
+  }
+ ],
+ "1.2": [
+  {
+   "t": "When NOT to use ML",
+   "b": "Skip ML when a known formula or rule gives the exact answer, when outputs must be deterministic, when costs outweigh benefits, or when there is too little data.",
+   "x": "'Calculate tax using the legal formula' → write deterministic code, not ML."
+  },
+  {
+   "t": "Regression, classification, clustering",
+   "b": "Regression predicts a number (price, minutes). Classification predicts a category (churn yes/no, spam). Clustering finds groups without labels (segments, topics).",
+   "x": "Yes/no outcomes are binary classification, not regression."
+  },
+  {
+   "t": "Speech and language services",
+   "b": "Amazon Transcribe = speech to text. Amazon Polly = text to speech. Amazon Translate = language to language (custom terminology for brand names). Amazon Comprehend = insights from text (sentiment, entities, key phrases, PII). Amazon Lex = chatbots with intents and slots.",
+   "x": "Transcribe and Polly are opposites, and exam options often swap them."
+  },
+  {
+   "t": "Vision, documents, recommendations",
+   "b": "Amazon Rekognition = image and video analysis, including content moderation. Amazon Textract = text, forms, and tables from scanned documents. Amazon Personalize = real-time recommendations.",
+   "x": "Extracting invoice tables → Textract, not Rekognition and not Comprehend."
+  },
+  {
+   "t": "Chaining managed services",
+   "b": "Common pipelines: Transcribe → Comprehend (call sentiment); Textract → Comprehend (document insights); Translate → Polly (multilingual audio).",
+   "x": "'Least development effort' usually means combining managed AI services rather than training models."
+  },
+  {
+   "t": "Traditional ML vs foundation models (new in v1.1)",
+   "b": "Prefer traditional ML for regulated, explainable decisions on structured data, or for high-volume, low-latency, low-cost predictions. Prefer FMs for open-ended language, content generation, and many tasks without training.",
+   "x": "Credit decisions that must be explained to regulators → interpretable traditional ML with feature attributions, not an LLM."
+  },
+  {
+   "t": "Where AI adds value",
+   "b": "Decision support, scalability (volumes people cannot handle), and automation of repetitive work. Real-world applications include computer vision, NLP, speech, recommendations, fraud detection, forecasting, knowledge bases, and agentic AI.",
+   "x": "AI improves speed and scale; it never guarantees every prediction is correct."
+  }
+ ],
+ "1.3": [
+  {
+   "t": "The AI/ML pipeline",
+   "b": "Data collection → EDA and preparation (cleaning, feature engineering) → training and hyperparameter tuning → evaluation → deployment → monitoring, with feedback into retraining.",
+   "x": "Evaluation uses held-out data the model never saw in training."
+  },
+  {
+   "t": "Parameters vs hyperparameters",
+   "b": "Parameters (weights, coefficients) are learned during training. Hyperparameters (learning rate, epochs, tree depth) are set before training and tuned.",
+   "x": "Learning rate is a hyperparameter; weights are parameters."
+  },
+  {
+   "t": "Managed API vs self-hosted",
+   "b": "Managed API (Amazon Bedrock): least effort, no servers, less control. Self-hosted (SageMaker AI endpoint, possibly via JumpStart): control over weights, instance type, and network, plus more operational work.",
+   "x": "'Least operational overhead' points to Bedrock. 'Must control instance type and weights' points to SageMaker AI."
+  },
+  {
+   "t": "v1.1 pipeline services",
+   "b": "Amazon Bedrock (FMs as a service), Amazon SageMaker AI (build/train/deploy custom models), Kiro (agentic IDE, spec-driven development), Amazon Quick (business analytics, research, and automation agents), Amazon Q (generative AI assistants such as Q Developer).",
+   "x": "Data Wrangler, Feature Store, and Model Monitor were dropped from this objective's examples in v1.1."
+  },
+  {
+   "t": "MLOps",
+   "b": "Experimentation tracking, repeatability (version data, code, and models), scalability, managing technical debt, production readiness, monitoring, and retraining. SageMaker Pipelines and the model registry support it.",
+   "x": "'Cannot reproduce last month's model' → missing versioning and tracked pipelines."
+  },
+  {
+   "t": "Precision, recall, F1",
+   "b": "Precision = TP / (TP + FP). Recall = TP / (TP + FN). F1 = 2PR / (P + R). Accuracy = correct / total.",
+   "x": "Missing a sick patient is the costly error → prioritize recall. Blocking a real email is the costly error → prioritize precision. Imbalanced data makes accuracy misleading."
+  },
+  {
+   "t": "Business metrics",
+   "b": "Cost per user, development cost, customer feedback, and ROI tell you whether the solution creates value. Model metrics tell you how well it predicts.",
+   "x": "'Is the project worth it?' → ROI, not F1."
+  }
+ ],
+ "2.1": [
+  {
+   "t": "Tokens and token-based pricing (new in v1.1)",
+   "b": "Models read and write tokens (about ¾ of a word in English). On-demand cost = input tokens × input price + output tokens × output price. Output tokens usually cost more and add the most latency, because they are generated one at a time.",
+   "x": "Practice the arithmetic: per-request cost × number of requests. Prompt caching, shorter prompts, and output caps cut cost."
+  },
+  {
+   "t": "Embeddings and vectors",
+   "b": "An embedding model turns content into a vector so that similar meanings sit close together. A vector database finds the nearest vectors to a query: semantic search.",
+   "x": "'Money back' finding 'Refund policy' with no shared words = semantic (vector) search."
+  },
+  {
+   "t": "Chunking",
+   "b": "Split documents into passages before embedding. Too large: irrelevant text and higher cost. Too small: lost context. Overlap helps keep context.",
+   "x": "Poor retrieval with huge chunks → use smaller chunks, not a bigger model."
+  },
+  {
+   "t": "Transformers, diffusion, multimodal",
+   "b": "Transformers use self-attention to relate every token to every other token. Diffusion models create images by removing noise step by step. Multimodal models take more than one input type, such as an image plus text.",
+   "x": "Diffusion = denoising, not stitching together training images."
+  },
+  {
+   "t": "Context window and context engineering (new in v1.1)",
+   "b": "The context window is the token limit per request. Context engineering decides what goes into it: instructions, retrieved data, tool results, memory, and summarized history.",
+   "x": "Long conversations degrading → summarize old turns, use memory, and retrieve selectively. Do not paste everything."
+  },
+  {
+   "t": "Agentic AI building blocks (new in v1.1)",
+   "b": "Tool use (function calling), short-term and long-term memory, multi-agent patterns (supervisor/orchestrator, sequential, swarm), multi-agent communication, and workflow orchestration.",
+   "x": "A fixed, auditable process → workflow orchestration. An open-ended task → an autonomous agent."
+  },
+  {
+   "t": "Model Context Protocol (MCP)",
+   "b": "An open standard for connecting AI apps and agents to tools and data through MCP servers. Build an integration once and reuse it across agents and frameworks. AgentCore Gateway can expose APIs and Lambda functions as MCP tools.",
+   "x": "MCP is a connectivity protocol, not a billing model or a compression method."
+  },
+  {
+   "t": "FM lifecycle",
+   "b": "Data selection → model selection → pretraining → fine-tuning → evaluation → deployment → feedback.",
+   "x": "Feedback from production feeds the next round of improvement."
+  }
+ ],
+ "2.2": [
+  {
+   "t": "Advantages of GenAI",
+   "b": "Adaptability (one model, many tasks), responsiveness, conversational capabilities, and the ability to generate content.",
+   "x": "Determinism and guaranteed accuracy are never GenAI advantages."
+  },
+  {
+   "t": "Disadvantages of GenAI",
+   "b": "Hallucinations, poor interpretability, inaccuracy, and nondeterminism (the same prompt can give different answers).",
+   "x": "Lower temperature reduces variation; RAG and grounding checks reduce hallucinations."
+  },
+  {
+   "t": "Model selection factors",
+   "b": "Model type, performance, capabilities (such as image input), constraints, compliance (including Region availability), cost, latency, and model complexity.",
+   "x": "If a small model meets the quality bar, it wins on cost and latency."
+  },
+  {
+   "t": "Business value metrics",
+   "b": "Conversion rate (purchases per visit), ARPU (average revenue per user), CLV (customer lifetime value), efficiency or productivity, accuracy, cross-domain performance, and ROI.",
+   "x": "Keeping customers longer → CLV. Spending more each month → ARPU."
+  },
+  {
+   "t": "Managing hallucination risk",
+   "b": "Ground answers with RAG on approved sources, require citations, use guardrails, validate outputs, and escalate high-stakes questions to humans.",
+   "x": "A bigger model alone does not remove hallucinations."
+  }
+ ],
+ "2.3": [
+  {
+   "t": "Amazon Bedrock",
+   "b": "A fully managed, serverless API to many FMs (Amazon Nova plus models from other providers). Includes Knowledge Bases, Guardrails, Agents, Flows, Prompt Management, evaluations, customization, and distillation.",
+   "x": "Bedrock does not use your prompts or outputs to train models or share them with model providers."
+  },
+  {
+   "t": "SageMaker AI and JumpStart",
+   "b": "SageMaker AI is the full ML platform for building, training, and deploying with full control. JumpStart is its hub of pretrained and foundation models you can deploy and fine-tune on your own endpoints.",
+   "x": "Need custom inference code or a specific GPU type → SageMaker AI, not Bedrock on-demand."
+  },
+  {
+   "t": "Strands Agents and AgentCore (new in v1.1)",
+   "b": "Strands Agents: an open-source SDK to build agents with a model-driven approach (model + prompt + tools). Amazon Bedrock AgentCore: run agents in production with Runtime, Memory, Gateway, Identity, Observability, and Policy. Framework- and model-agnostic.",
+   "x": "Build with Strands (or LangGraph, CrewAI); host and operate with AgentCore."
+  },
+  {
+   "t": "Kiro, Amazon Quick, Amazon Q, AWS Transform",
+   "b": "Kiro: agentic IDE with spec-driven development. Amazon Quick: an agentic workspace for business users (dashboards, research, automation). Amazon Q Developer: an AI assistant in IDEs and the console. AWS Transform: agentic modernization of legacy apps.",
+   "x": "Business analysts and dashboards → Amazon Quick. Developers writing code from specs → Kiro."
+  },
+  {
+   "t": "Bedrock pricing options",
+   "b": "On-demand: pay per token. Batch inference: about 50% cheaper for bulk, non-urgent jobs on supported models. Provisioned Throughput: reserved model units billed hourly, for steady high volume; some custom models must be served this way, while others (such as custom Nova models) can run on demand.",
+   "x": "Reserved capacity is billed every hour, busy or idle."
+  },
+  {
+   "t": "Cost trade-offs",
+   "b": "More responsiveness, availability, redundancy, performance, and Regional coverage usually cost more. Cross-Region inference raises throughput and availability, but check data residency.",
+   "x": "Multi-Region deployment = higher availability at higher cost."
+  },
+  {
+   "t": "Advantages and shared responsibility",
+   "b": "Advantages: accessibility, lower barrier to entry, efficiency, cost-effectiveness, speed to market. AWS secures the cloud; customers secure their data, identities, access, and use.",
+   "x": "Managed services never remove the customer's responsibility for data and access."
+  }
+ ]
+}

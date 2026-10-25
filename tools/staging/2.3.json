@@ -1,0 +1,551 @@
+[
+ {
+  "id": "2.3-01",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which AWS service offers foundation models from Amazon and other leading AI companies through a single API, as a fully managed, serverless service?",
+  "options": [
+   "Amazon Bedrock",
+   "Amazon EC2 with GPU instances that you configure and patch yourself",
+   "Amazon Comprehend",
+   "AWS Glue"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Bedrock gives API access to many FMs (including Amazon Nova and models from providers such as Anthropic, Meta, and Mistral) with no infrastructure to manage.",
+   "EC2 can host models, but you manage the servers, scaling, and model serving yourself.",
+   "Comprehend is a task-specific NLP service, not a catalog of FMs.",
+   "Glue is a data integration and ETL service."
+  ],
+  "explain": "Amazon Bedrock is the core managed GenAI service on AWS. Alongside model access it provides Knowledge Bases (RAG), Guardrails, Agents, Flows, Prompt Management, model evaluation, and model customization.",
+  "ref": "Exam guide skill 2.3.1; Amazon Bedrock overview"
+ },
+ {
+  "id": "2.3-02",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team wants to deploy an open-weight foundation model to its own endpoint with a few clicks, then fine-tune it on company data. It is comfortable managing an endpoint. Which option is designed for this?",
+  "options": [
+   "Amazon SageMaker JumpStart",
+   "Amazon Polly",
+   "AWS Artifact",
+   "Amazon SageMaker Ground Truth"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. SageMaker JumpStart is an ML hub of pretrained and foundation models that you can deploy to SageMaker AI endpoints and fine-tune.",
+   "Polly is text-to-speech.",
+   "Artifact provides compliance reports.",
+   "Ground Truth helps label training data; it is not a catalog of deployable foundation models."
+  ],
+  "explain": "JumpStart sits inside SageMaker AI. It trades some convenience for control: you choose the instance type and run the endpoint, unlike the serverless Amazon Bedrock API.",
+  "ref": "Exam guide skill 2.3.1 (SageMaker JumpStart, added in v1.1)"
+ },
+ {
+  "id": "2.3-03",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants to add a generative AI chat feature with the least operational overhead. It has no ML engineers and does not want to manage servers. Which option fits best?",
+  "options": [
+   "Call a foundation model through Amazon Bedrock",
+   "Train a custom LLM on Amazon EC2 GPU instances",
+   "Host an open-source model on a self-managed Amazon EKS cluster",
+   "Build a model from scratch in SageMaker AI notebooks"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock is serverless: you call an API and AWS runs the models.",
+   "Training a custom LLM needs ML expertise, data, and large GPU budgets.",
+   "Running models on EKS means managing clusters, scaling, and model serving.",
+   "Building from scratch is the highest-effort option."
+  ],
+  "explain": "'Least operational overhead' usually points to the most managed service. For FM access that is Amazon Bedrock. Choose SageMaker AI when you need more control over models, training, or infrastructure.",
+  "ref": "Exam guide skills 2.3.1 and 2.3.2"
+ },
+ {
+  "id": "2.3-04",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A developer wants to build an AI agent in Python with a few lines of code: give it a model, a prompt, and some tools, and let the model plan which tools to call. Which open-source SDK from AWS is built for this?",
+  "options": [
+   "Strands Agents",
+   "AWS Glue DataBrew",
+   "Amazon Translate",
+   "AWS Trusted Advisor"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Strands Agents is an open-source SDK that takes a model-driven approach to building agents and supports tools, MCP, and multi-agent patterns.",
+   "DataBrew is a visual data-preparation tool.",
+   "Translate is a translation service.",
+   "Trusted Advisor recommends best-practice improvements for AWS accounts."
+  ],
+  "explain": "Strands Agents, new in v1.1, lets the model's reasoning drive the agent loop instead of hard-coded workflows. Agents built with it can run anywhere, including on Amazon Bedrock AgentCore Runtime.",
+  "ref": "Exam guide skill 2.3.1 (Strands Agents, new in v1.1)"
+ },
+ {
+  "id": "2.3-05",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company has built agents with several frameworks. It now needs secure, scalable hosting for them with session isolation, memory, identity controls, tool gateways, and observability, without managing infrastructure. Which service fits?",
+  "options": [
+   "Amazon Bedrock AgentCore",
+   "Amazon S3 Glacier",
+   "Amazon Polly",
+   "AWS Cost Explorer and AWS Budgets"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AgentCore provides managed building blocks to deploy and operate agents at scale: Runtime, Memory, Gateway, Identity, Observability, and more. It works with any framework or model.",
+   "Glacier is archival storage.",
+   "Polly is text-to-speech.",
+   "Cost Explorer and Budgets analyze and limit AWS spending; they do not host agents."
+  ],
+  "explain": "Amazon Bedrock AgentCore, new in v1.1, is framework-agnostic (Strands Agents, LangGraph, CrewAI, and others) and model-agnostic. It handles the operational problems of running agents in production.",
+  "ref": "Exam guide skill 2.3.1 (Amazon Bedrock AgentCore, new in v1.1)"
+ },
+ {
+  "id": "2.3-06",
+  "task": "2.3",
+  "type": "match",
+  "difficulty": "hard",
+  "q": "Match each Amazon Bedrock AgentCore capability to what it does.",
+  "prompts": [
+   "Runs agents serverlessly with isolated sessions",
+   "Keeps short-term and long-term context for agents",
+   "Turns existing APIs and Lambda functions into tools agents can call",
+   "Manages how agents authenticate and what they may access",
+   "Traces and monitors agent behavior in production"
+  ],
+  "options": [
+   "AgentCore Runtime",
+   "AgentCore Memory",
+   "AgentCore Gateway",
+   "AgentCore Identity",
+   "AgentCore Observability"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "AgentCore is modular, so you can use one capability or several. Runtime hosts agents, Memory stores context, Gateway exposes tools (including as MCP tools), Identity handles agent authentication and authorization, and Observability provides tracing and dashboards. Policy in AgentCore adds controls over what actions agents can take.",
+  "ref": "Exam guide skills 2.3.1 and 5.1.1; Amazon Bedrock AgentCore docs"
+ },
+ {
+  "id": "2.3-07",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Developers want a generative AI assistant inside their existing IDE and the AWS Management Console that suggests code, explains AWS resources, and answers questions about their account. Which service fits best?",
+  "options": [
+   "Amazon Q Developer",
+   "Amazon Rekognition",
+   "Amazon Personalize",
+   "Amazon Textract"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Q Developer is a generative AI assistant for building on AWS, available in IDEs, the console, and the command line.",
+   "Rekognition analyzes images and video.",
+   "Personalize builds recommendation models.",
+   "Textract extracts text and data from documents."
+  ],
+  "explain": "Amazon Q is AWS's family of generative AI assistants. Q Developer helps developers write, explain, and transform code and work with AWS resources. Kiro, by contrast, is a standalone agentic IDE built around spec-driven development.",
+  "ref": "Exam guide in-scope services (Amazon Q, added in v1.1)"
+ },
+ {
+  "id": "2.3-08",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants to use agentic AI to speed up modernizing legacy mainframe and .NET applications for the cloud. Which AWS service is built for this?",
+  "options": [
+   "AWS Transform",
+   "Amazon Lex",
+   "Amazon Comprehend",
+   "AWS Budgets"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AWS Transform uses AI agents to help migrate and modernize workloads such as mainframe, VMware, and .NET applications.",
+   "Lex builds chatbots.",
+   "Comprehend analyzes text.",
+   "Budgets tracks AWS spending against limits."
+  ],
+  "explain": "AWS Transform was added to the in-scope services in v1.1. It is an example of agentic AI applied to a specific, high-value enterprise task.",
+  "ref": "Exam guide in-scope services (AWS Transform, added in v1.1)"
+ },
+ {
+  "id": "2.3-09",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is Amazon Nova?",
+  "options": [
+   "Amazon's own family of foundation models, available through Amazon Bedrock",
+   "A database service that stores vectors for similarity search",
+   "A security service that scans S3 buckets for personal data",
+   "A service that labels training data using a workforce of human annotators"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Nova includes understanding models (such as Nova Micro, Lite, and Pro) and creative models (such as Nova Canvas for images and Nova Reel for video).",
+   "Vector storage is provided by services such as OpenSearch Service or Aurora.",
+   "Scanning S3 for sensitive data is Amazon Macie.",
+   "Human labeling is SageMaker Ground Truth."
+  ],
+  "explain": "Nova models are built by Amazon and offered in Bedrock alongside third-party models. Smaller Nova models are positioned for low cost and latency; larger ones for complex reasoning.",
+  "ref": "Exam guide in-scope services (Amazon Nova)"
+ },
+ {
+  "id": "2.3-10",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A startup ships a generative AI feature in three weeks using Amazon Bedrock instead of spending months standing up GPU infrastructure. Which advantage of AWS GenAI services does this show most directly?",
+  "options": [
+   "Speed to market",
+   "Guaranteed hallucination-free answers",
+   "No responsibility for data security",
+   "Unlimited free usage"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Managed services remove infrastructure work, so teams deliver value much faster.",
+   "No service can guarantee hallucination-free output.",
+   "Under the shared responsibility model, customers still secure their data and access.",
+   "Bedrock is pay-as-you-go, not free."
+  ],
+  "explain": "The guide lists accessibility, a lower barrier to entry, efficiency, cost-effectiveness, and speed to market as advantages of AWS GenAI services.",
+  "ref": "Exam guide skill 2.3.2"
+ },
+ {
+  "id": "2.3-11",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A small business with no data scientists builds a useful document Q&A tool using Amazon Bedrock Knowledge Bases. Which advantage of AWS GenAI services does this best illustrate?",
+  "options": [
+   "Lower barrier to entry",
+   "Higher model interpretability",
+   "Fully deterministic outputs",
+   "Free GPUs for every account"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Managed, pre-integrated capabilities let teams without ML expertise build GenAI applications.",
+   "Managed services do not make models more interpretable.",
+   "Outputs remain probabilistic.",
+   "GPUs are not free; managed services simply hide them."
+  ],
+  "explain": "Managed RAG, guardrails, and agents mean you do not need to assemble vector databases, embedding pipelines, and orchestration code yourself.",
+  "ref": "Exam guide skill 2.3.2 (lower barrier to entry)"
+ },
+ {
+  "id": "2.3-12",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A healthcare company worries that prompts containing patient information could be used to train the models it calls. What does Amazon Bedrock state about this?",
+  "options": [
+   "Prompts and outputs are not used to train the base models or shared with model providers",
+   "Every prompt is shared with the model provider to improve future models",
+   "Prompts are stored publicly so the community can audit model quality",
+   "Data protection depends on each model provider, and Bedrock itself gives no assurances"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock does not use your prompts and completions to train AWS or third-party models, and does not share them with model providers.",
+   "Bedrock does not pass customer prompts to providers for training.",
+   "Customer data is never published.",
+   "Bedrock provides the same data protection across the models it hosts."
+  ],
+  "explain": "Bedrock also encrypts data in transit and at rest, keeps data in the Region you use (unless you opt into cross-Region inference), and supports private connectivity with AWS PrivateLink. Customers still control access with IAM.",
+  "ref": "Exam guide skill 2.3.3; Amazon Bedrock data protection"
+ },
+ {
+  "id": "2.3-13",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Under the AWS shared responsibility model, which task stays with the customer when using Amazon Bedrock?",
+  "options": [
+   "Controlling which users and applications can invoke models, and protecting the data they send",
+   "Patching the operating systems of the servers that host the foundation models",
+   "Physically securing the data centers, power, and cooling systems that run Bedrock",
+   "Maintaining and upgrading the network hardware and cabling inside each AWS Region"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Customers are responsible for security in the cloud: IAM permissions, data classification, guardrails, and how outputs are used.",
+   "Server patching for a managed service is AWS's job.",
+   "Physical data center security is AWS's job.",
+   "AWS manages its own network hardware."
+  ],
+  "explain": "AWS secures the cloud itself (infrastructure and managed service operations). Customers secure what they put in and build on it: identities, data, application logic, and responsible use.",
+  "ref": "Exam guide skills 2.3.3 and 5.1.1 (shared responsibility model)"
+ },
+ {
+  "id": "2.3-14",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company's GenAI app has steady, high, predictable traffic and needs guaranteed throughput during business hours. Which Amazon Bedrock pricing option is designed for this?",
+  "options": [
+   "Provisioned Throughput",
+   "On-demand pay-per-token with no reservation",
+   "Batch inference jobs submitted once a day",
+   "The AWS Free Tier"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Provisioned Throughput reserves dedicated model capacity (model units) for an hourly charge, which suits consistent, high-volume workloads.",
+   "On-demand is flexible and pay-per-use, but it does not guarantee capacity at high volume.",
+   "Batch inference is for offline jobs, not live traffic.",
+   "The Free Tier is not meant for production workloads."
+  ],
+  "explain": "Bedrock pricing trade-offs: on-demand (pay per token, no commitment), batch (lower price for non-urgent bulk jobs), and Provisioned Throughput (reserved capacity, billed hourly, optionally with a term commitment).",
+  "ref": "Exam guide skill 2.3.4 (provisioned throughput); Amazon Bedrock pricing"
+ },
+ {
+  "id": "2.3-15",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company needs to summarize 2 million archived documents. Results are needed within a few days, not instantly. How can it cut cost on Amazon Bedrock?",
+  "options": [
+   "Use batch inference, which is priced lower than on-demand for supported models",
+   "Buy Provisioned Throughput with a one-year commitment for the job",
+   "Send each document through on-demand calls as fast as possible, in parallel",
+   "Raise the temperature to finish each summary faster"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock batch inference processes large sets of prompts asynchronously at a discounted price (around 50% lower than on-demand for supported models).",
+   "A year of reserved capacity is costly for a one-off job.",
+   "On-demand works but costs more than batch for bulk, non-urgent work.",
+   "Temperature affects randomness, not speed or price."
+  ],
+  "explain": "Match pricing to responsiveness needs: real-time traffic uses on-demand or Provisioned Throughput, while large offline workloads use batch inference.",
+  "ref": "Exam guide skill 2.3.4 (responsiveness trade-offs); Bedrock batch inference"
+ },
+ {
+  "id": "2.3-16",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team fine-tuned a model in Amazon Bedrock and bought Provisioned Throughput to serve it. On quiet days with almost no traffic, the bill is still high. What is the most likely reason?",
+  "options": [
+   "Provisioned Throughput is billed for every hour the capacity is reserved, whether or not requests arrive",
+   "Fine-tuned models are charged again every day for each character of the training data used",
+   "Bedrock charges a daily fee for every prompt template saved in Prompt Management",
+   "Custom models are billed only by the number of failed requests they receive"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Provisioned Throughput reserves dedicated capacity at an hourly rate, so idle hours cost the same as busy ones.",
+   "Training is a one-time cost based on tokens processed, not a daily charge.",
+   "Saving prompt templates does not drive this kind of cost.",
+   "Billing is not based on failed requests."
+  ],
+  "explain": "Customization has two cost parts: training (one-time) and serving (ongoing). Some custom models can now be served on demand and billed per token, but others require Provisioned Throughput, which is billed hourly. Weigh prompt engineering and RAG first, and check the serving options for your model before you customize.",
+  "ref": "Exam guide skills 2.3.4 (custom models, provisioned throughput) and 3.1.5; Amazon Bedrock pricing"
+ },
+ {
+  "id": "2.3-17",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "An app hits throughput limits in one Region during traffic spikes. The team wants requests routed automatically to other Regions in the same geography. Which Amazon Bedrock feature helps, and what must they check?",
+  "options": [
+   "Cross-Region inference; check that routing within the geography meets their data residency rules",
+   "Prompt caching; check that the cache is encrypted with a customer managed key",
+   "Batch inference; check the size of the output S3 bucket",
+   "Model distillation; check that the teacher model's license allows creating a smaller student model"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Cross-Region inference spreads requests across Regions in a geography for higher throughput and availability, but data may be processed outside the source Region.",
+   "Caching reduces repeated-prefix cost; it does not add Regional capacity.",
+   "Batch inference is for offline jobs, not live spikes.",
+   "Distillation creates a smaller model; it does not route traffic."
+  ],
+  "explain": "Regional coverage and availability are cost and design trade-offs. Cross-Region inference improves resilience to spikes but has data residency implications that compliance teams must review.",
+  "ref": "Exam guide skill 2.3.4 (availability, regional coverage)"
+ },
+ {
+  "id": "2.3-18",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team deploys its self-hosted model endpoint in two Regions so the app keeps working if one Region has problems. What is the main trade-off?",
+  "options": [
+   "Higher availability and redundancy, at a higher cost",
+   "Lower cost, but less availability",
+   "Better model accuracy, at the same cost",
+   "Fewer tokens per request, but higher latency for every user"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Redundant deployments improve resilience but roughly double the hosting cost.",
+   "Running in two Regions costs more, not less.",
+   "Redundancy does not change model accuracy.",
+   "Deployment topology does not change token counts."
+  ],
+  "explain": "The guide asks you to weigh responsiveness, availability, redundancy, performance, and regional coverage against cost. More resilience and lower latency usually cost more.",
+  "ref": "Exam guide skill 2.3.4"
+ },
+ {
+  "id": "2.3-19",
+  "task": "2.3",
+  "type": "multi",
+  "difficulty": "easy",
+  "q": "Which are genuine advantages of building generative AI applications with managed AWS services? Select TWO.",
+  "options": [
+   "Faster time to market",
+   "No need to manage the underlying model infrastructure",
+   "Models that never produce incorrect answers",
+   "No cost until the application reaches one million users",
+   "No security responsibilities for the customer at all"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Managed services remove setup work, so teams ship faster.",
+   "Correct. AWS runs the servers, scaling, and model hosting.",
+   "All models can make mistakes.",
+   "Managed services are pay-as-you-go from the first request.",
+   "Customers keep responsibility for data, access, and usage."
+  ],
+  "explain": "Advantages include accessibility, lower barrier to entry, efficiency, cost-effectiveness, and speed to market. They do not remove model limitations or the customer's share of security responsibility.",
+  "ref": "Exam guide skill 2.3.2"
+ },
+ {
+  "id": "2.3-20",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team needs full control to run its own open-weight model with custom inference code and a specific GPU instance type. Which AWS service fits better than Amazon Bedrock on-demand?",
+  "options": [
+   "Amazon SageMaker AI",
+   "Amazon Translate with custom terminology",
+   "AWS Config",
+   "Amazon Polly"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. SageMaker AI lets you bring your own model and container, choose instance types, and control how inference runs.",
+   "Translate is a fixed-purpose translation service.",
+   "Config records and evaluates AWS resource configurations.",
+   "Polly is text-to-speech."
+  ],
+  "explain": "Rule of thumb: Bedrock for the fastest, fully managed FM access; SageMaker AI for maximum control over models, code, and infrastructure.",
+  "ref": "Exam guide skills 2.3.1 and 1.3.3"
+ },
+ {
+  "id": "2.3-21",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A product team wants to test models from several providers and switch between them later without rewriting its application. Which Amazon Bedrock characteristic helps most?",
+  "options": [
+   "Access to many providers' models through one consistent API",
+   "A single model that cannot be changed after the first deployment",
+   "Mandatory fine-tuning before any model can be called",
+   "Separate accounts and SDKs required for each model provider"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock offers models from multiple providers behind a common API (such as the Converse API), so switching is mostly a configuration change.",
+   "Bedrock does not lock you into one model.",
+   "Base models can be called without any fine-tuning.",
+   "Bedrock removes the need for separate provider accounts and SDKs."
+  ],
+  "explain": "Model choice is a key Bedrock benefit: as better or cheaper models appear, you can evaluate and adopt them with little code change.",
+  "ref": "Exam guide skills 2.3.1 and 2.3.2"
+ },
+ {
+  "id": "2.3-22",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which statement about Amazon Bedrock being serverless is correct?",
+  "options": [
+   "AWS manages the compute that runs the models; you call an API and pay for usage",
+   "You must choose and patch EC2 instances for each model you call",
+   "You must install GPU drivers before calling a model",
+   "You must build and run your own load balancer in front of every model you want to call"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. With serverless Bedrock you never see or manage the underlying instances.",
+   "Instance selection and patching apply to self-managed hosting, not Bedrock.",
+   "Drivers and hardware are AWS's concern in Bedrock.",
+   "Bedrock handles scaling and request routing."
+  ],
+  "explain": "Serverless means no servers for you to provision, scale, or patch. That is a large part of why Bedrock has a low barrier to entry.",
+  "ref": "Exam guide skill 2.3.2"
+ },
+ {
+  "id": "2.3-23",
+  "task": "2.3",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each need to the AWS offering that fits it best.",
+  "prompts": [
+   "Call a foundation model through a managed API with no servers",
+   "Deploy and fine-tune an open-weight model on your own SageMaker AI endpoint",
+   "Write an agent in a few lines of Python using an open-source SDK",
+   "Host and operate agents in production with memory and identity controls",
+   "Give business users AI-assisted dashboards, research, and automation"
+  ],
+  "options": [
+   "Amazon Bedrock",
+   "SageMaker JumpStart",
+   "Strands Agents",
+   "Amazon Bedrock AgentCore",
+   "Amazon Quick"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "These are the GenAI services listed in skill 2.3.1 of the v1.1 guide. Kiro, the agentic IDE, completes the list.",
+  "ref": "Exam guide skill 2.3.1 (v1.1 service list)"
+ },
+ {
+  "id": "2.3-24",
+  "task": "2.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Why might a company choose AWS infrastructure for generative AI because of compliance requirements?",
+  "options": [
+   "AWS services are covered by many third-party compliance programs, and customers can download the audit reports",
+   "AWS guarantees that every application a customer builds on AWS is automatically compliant with all laws",
+   "Compliance applies only to on-premises systems, so cloud use avoids it entirely",
+   "AWS removes the need for customers to document their own AI governance"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AWS maintains certifications and attestations such as SOC, ISO, and PCI, and customers can download the reports through AWS Artifact.",
+   "AWS compliance covers its infrastructure; customers must still make their own applications compliant.",
+   "Regulations apply wherever data is processed, including the cloud.",
+   "Customers remain responsible for their own governance and documentation."
+  ],
+  "explain": "AWS infrastructure offers security, compliance, responsibility (the shared model), and safety benefits. Inherited controls reduce effort, but customer obligations remain.",
+  "ref": "Exam guide skill 2.3.3 (compliance)"
+ }
+]

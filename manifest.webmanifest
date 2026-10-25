@@ -1,0 +1,17 @@
+{
+  "name": "AIF-C01 Practice — AWS Certified AI Practitioner",
+  "short_name": "AIF-C01",
+  "description": "Free AWS Certified AI Practitioner (AIF-C01) practice: 300 questions, 65-question mocks, daily 10. Works offline.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f4fb",
+  "theme_color": "#3730a3",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

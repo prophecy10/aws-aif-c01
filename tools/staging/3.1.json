@@ -1,0 +1,569 @@
+[
+ {
+  "id": "3.1-01",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An application uses an FM to extract invoice numbers and totals from emails. The team wants the most consistent, least creative output. How should it set the temperature?",
+  "options": [
+   "Low, close to 0",
+   "High, close to 1",
+   "Exactly in the middle at 0.5, to balance accuracy and creativity",
+   "Temperature does not affect the output"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Low temperature makes the model favor the most likely tokens, which gives focused, repeatable output.",
+   "High temperature increases randomness, which is the opposite of what extraction needs.",
+   "A middle value still adds randomness that extraction does not need.",
+   "Temperature directly controls how random token selection is."
+  ],
+  "explain": "Temperature scales the probability distribution over next tokens. Low values (around 0 to 0.3) suit factual tasks, extraction, and classification. Higher values suit brainstorming and creative writing.",
+  "ref": "Exam guide skill 3.1.2 (temperature)"
+ },
+ {
+  "id": "3.1-02",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A marketing team wants an FM to brainstorm many different and unusual slogan ideas. Which setting change helps most?",
+  "options": [
+   "Increase the temperature",
+   "Decrease the maximum output tokens to 5",
+   "Set the temperature to 0 so every slogan is the same",
+   "Add a stop sequence after the first word of every slogan"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Higher temperature makes less likely tokens more probable, producing more varied and creative output.",
+   "Five tokens is too short to write a slogan at all.",
+   "Temperature 0 makes outputs as repetitive as possible.",
+   "Stopping after one word would cut every slogan off."
+  ],
+  "explain": "Use higher temperature (and possibly higher top-p) for creativity and diversity. The trade-off is more risk of off-topic or incorrect output.",
+  "ref": "Exam guide skill 3.1.2"
+ },
+ {
+  "id": "3.1-03",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What does the top-p (nucleus sampling) parameter control?",
+  "options": [
+   "The model samples only from the most likely tokens whose combined probability reaches p",
+   "The percentage of the prompt that the model is allowed to read before it starts writing an answer",
+   "The number of parallel requests the endpoint accepts per second",
+   "The proportion of training data used to pretrain the model"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. With top-p = 0.9, the model picks from the most likely tokens that together make up 90% of the probability mass.",
+   "The model always reads the full prompt that fits in its context window.",
+   "Throughput limits are a service setting, not a sampling parameter.",
+   "Top-p is an inference setting and does not affect training."
+  ],
+  "explain": "Top-p and top-k both limit the pool of candidate tokens. Lower values give more focused output; higher values allow more diversity. Temperature reshapes the probabilities themselves.",
+  "ref": "Exam guide skill 3.1.2 (inference parameters)"
+ },
+ {
+  "id": "3.1-04",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A model is configured with top-k = 50. What does this mean?",
+  "options": [
+   "At each step the model chooses only among the 50 most likely next tokens",
+   "The model returns 50 alternative answers for every prompt",
+   "The model may use at most 50 tokens of input per request",
+   "The model is automatically retrained on its own outputs after every 50 requests"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Top-k restricts sampling to the k highest-probability tokens at each step.",
+   "The number of returned answers is a different setting, if supported at all.",
+   "Input length is limited by the context window, not top-k.",
+   "Inference never retrains the model."
+  ],
+  "explain": "A smaller top-k (for example 5) makes output more predictable; a larger top-k allows more variety. It is often combined with temperature and top-p.",
+  "ref": "Exam guide skill 3.1.2 (inference parameters)"
+ },
+ {
+  "id": "3.1-05",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Users report that the assistant's long answers stop abruptly in the middle of a sentence. Which inference parameter should the team check first?",
+  "options": [
+   "Maximum output tokens (response length limit)",
+   "Temperature",
+   "Top-k",
+   "The embedding model used by the knowledge base for retrieval"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. If max tokens is too low, generation stops when the limit is reached, even mid-sentence.",
+   "Temperature affects randomness, not where output stops.",
+   "Top-k limits candidate tokens, not output length.",
+   "The embedding model affects retrieval quality, not truncated answers."
+  ],
+  "explain": "Output length settings control cost and latency, but setting them too low truncates answers. Balance the limit against what the task needs.",
+  "ref": "Exam guide skill 3.1.2 (input/output length)"
+ },
+ {
+  "id": "3.1-06",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A developer wants the model to stop generating as soon as it writes the text 'END_OF_ANSWER'. Which parameter does this?",
+  "options": [
+   "A stop sequence",
+   "Top-p",
+   "Temperature",
+   "Provisioned Throughput"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Stop sequences tell the model to stop generating when it produces a specified string.",
+   "Top-p controls which tokens may be sampled.",
+   "Temperature controls randomness.",
+   "Provisioned Throughput is a capacity and pricing option."
+  ],
+  "explain": "Stop sequences help keep outputs in a fixed format and avoid wasted tokens, for example by stopping after one item in a list.",
+  "ref": "Exam guide skill 3.1.2 (inference parameters)"
+ },
+ {
+  "id": "3.1-07",
+  "task": "3.1",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each inference parameter to its effect.",
+  "prompts": [
+   "Higher values make output more random and creative",
+   "Limits sampling to the most likely tokens up to a cumulative probability",
+   "Caps how long the generated response can be",
+   "Ends generation when a chosen string appears"
+  ],
+  "options": [
+   "Temperature",
+   "Top-p",
+   "Maximum output tokens",
+   "Stop sequence"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "These parameters let you tune the same model for different tasks without retraining: low temperature for precise answers, length limits for cost control, and stop sequences for structured output.",
+  "ref": "Exam guide skill 3.1.2"
+ },
+ {
+  "id": "3.1-08",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is retrieval-augmented generation (RAG)?",
+  "options": [
+   "Retrieving relevant information from a knowledge source and adding it to the prompt to ground the answer",
+   "Retraining the FM's weights every night on all of the newly uploaded company documents",
+   "Generating synthetic training data for a supervised learning model",
+   "Compressing a large model into a smaller one that runs faster and costs less to host"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. RAG grounds the model's answer in retrieved content, without changing the model.",
+   "Changing the weights is fine-tuning or continued pretraining, not RAG.",
+   "Synthetic data generation is a different technique.",
+   "Compressing a model is distillation or quantization."
+  ],
+  "explain": "RAG retrieves relevant chunks (usually by vector similarity) and places them in the prompt. It lets an FM use private and up-to-date information, reduces hallucinations, and supports citations.",
+  "ref": "Exam guide skill 3.1.3 (RAG)"
+ },
+ {
+  "id": "3.1-09",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An electronics retailer updates its product specifications and prices every day. It wants an FM assistant that always answers using current information. What is the best approach?",
+  "options": [
+   "RAG over the latest product data",
+   "Fine-tune the model once on last year's product catalog",
+   "Pretrain a new model from scratch every week",
+   "Rely on the FM's built-in knowledge from pretraining"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. RAG retrieves today's data at question time, so answers stay current without retraining.",
+   "A one-time fine-tune quickly goes stale as products change.",
+   "Weekly pretraining from scratch would be extremely expensive and slow.",
+   "Pretraining knowledge has a cutoff date and knows nothing about this retailer's catalog."
+  ],
+  "explain": "Choose RAG when knowledge changes often, must be traceable to sources, or is private. Fine-tuning is better for changing style, format, or task behavior, not for keeping facts current.",
+  "ref": "Exam guide skills 3.1.3 and 3.1.5"
+ },
+ {
+  "id": "3.1-10",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A company stores its HR policies as PDFs in Amazon S3. It wants a managed way to build RAG on them, including chunking, embeddings, a vector store, and retrieval, with minimal code. Which AWS capability fits?",
+  "options": [
+   "Amazon Bedrock Knowledge Bases",
+   "Amazon Rekognition Custom Labels",
+   "AWS Glue DataBrew recipes",
+   "Amazon Polly lexicons"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock Knowledge Bases connects to data sources such as S3, then chunks, embeds, stores, and retrieves content for RAG, and returns source citations.",
+   "Rekognition Custom Labels trains image models.",
+   "DataBrew cleans tabular data and does not build RAG.",
+   "Polly lexicons control speech pronunciation."
+  ],
+  "explain": "Knowledge Bases is the fully managed RAG capability in Amazon Bedrock. You choose the data source, embedding model, chunking strategy, and vector store (or let it create one).",
+  "ref": "Exam guide skill 3.1.3 (Amazon Bedrock Knowledge Bases)"
+ },
+ {
+  "id": "3.1-11",
+  "task": "3.1",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put the steps of answering a user's question with RAG in order.",
+  "options": [
+   "The user submits a question",
+   "The question is converted into an embedding",
+   "The most similar chunks are retrieved from the vector store",
+   "The retrieved chunks are added to the prompt with the question",
+   "The foundation model generates an answer grounded in those chunks"
+  ],
+  "explain": "At query time, RAG embeds the question, finds nearby chunk vectors, augments the prompt with those chunks, and lets the FM generate a grounded answer, often with citations.",
+  "ref": "Exam guide skill 3.1.3"
+ },
+ {
+  "id": "3.1-12",
+  "task": "3.1",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put the steps of preparing documents for a RAG knowledge base in order.",
+  "options": [
+   "Load the source documents from the data source",
+   "Split the documents into chunks",
+   "Generate an embedding for each chunk",
+   "Store the embeddings in a vector store"
+  ],
+  "explain": "Ingestion turns documents into searchable vectors: load, chunk, embed, store. Bedrock Knowledge Bases runs this pipeline for you and can re-sync when the source data changes.",
+  "ref": "Exam guide skills 2.1.1 and 3.1.3"
+ },
+ {
+  "id": "3.1-13",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team already runs its application on Amazon Aurora PostgreSQL. It wants to add vector search for RAG without adopting a new database engine. What should it use?",
+  "options": [
+   "The pgvector extension on Aurora PostgreSQL",
+   "Amazon S3 Glacier Deep Archive",
+   "Amazon CloudFront edge caching",
+   "AWS Config rules that evaluate resource settings"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Aurora PostgreSQL (and RDS for PostgreSQL) support pgvector for storing embeddings and running similarity search.",
+   "Glacier is archival storage with retrieval delays.",
+   "CloudFront is a content delivery network.",
+   "Config evaluates resource configurations."
+  ],
+  "explain": "Vector stores listed in the guide include Amazon OpenSearch Service, Amazon Aurora, Amazon Neptune, and Amazon RDS for PostgreSQL. Reusing a familiar database can reduce operational overhead.",
+  "ref": "Exam guide skill 3.1.4 (vector stores)"
+ },
+ {
+  "id": "3.1-14",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company needs a vector store that also supports full-text keyword search, so it can combine both in hybrid search across millions of documents. Which service is the strongest fit?",
+  "options": [
+   "Amazon OpenSearch Service",
+   "Amazon Polly",
+   "AWS Secrets Manager with rotation",
+   "Amazon Transcribe"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. OpenSearch Service offers k-NN vector search alongside full-text search, which enables hybrid retrieval at scale. OpenSearch Serverless is a common Knowledge Bases vector store.",
+   "Polly is text-to-speech.",
+   "Secrets Manager stores credentials.",
+   "Transcribe converts speech to text."
+  ],
+  "explain": "Hybrid search (keyword plus semantic) often improves retrieval quality, for example when queries include product codes or exact names.",
+  "ref": "Exam guide skill 3.1.4"
+ },
+ {
+  "id": "3.1-15",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A pharmaceutical company wants RAG that uses both vector similarity and the explicit relationships between drugs, genes, and diseases. Which AWS database is designed for graph data and also supports vector search?",
+  "options": [
+   "Amazon Neptune",
+   "Amazon Redshift",
+   "Amazon ElastiCache for session caching",
+   "Amazon S3 Glacier"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Neptune is AWS's graph database, and Neptune Analytics supports vector search, enabling graph-based RAG (GraphRAG).",
+   "Redshift is a data warehouse for analytics.",
+   "Session caching is not a graph database use case.",
+   "Glacier is archival storage."
+  ],
+  "explain": "GraphRAG combines relationships between entities with semantic search, which helps when answers depend on how facts connect.",
+  "ref": "Exam guide skill 3.1.4 (Amazon Neptune)"
+ },
+ {
+  "id": "3.1-16",
+  "task": "3.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which AWS services can store embeddings for vector similarity search in a RAG solution? Select TWO.",
+  "options": [
+   "Amazon OpenSearch Service",
+   "Amazon RDS for PostgreSQL with pgvector",
+   "Amazon S3 Glacier Flexible Retrieval",
+   "AWS Glue Data Catalog",
+   "Amazon CloudFront"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. OpenSearch Service supports vector (k-NN) search.",
+   "Correct. The pgvector extension adds vector storage and similarity search to PostgreSQL.",
+   "Glacier is for long-term archives, not low-latency search.",
+   "The Data Catalog stores table metadata, not embeddings for search.",
+   "CloudFront delivers content; it is not a database."
+  ],
+  "explain": "The guide's examples of vector stores are OpenSearch Service, Aurora, Neptune, and RDS for PostgreSQL.",
+  "ref": "Exam guide skill 3.1.4"
+ },
+ {
+  "id": "3.1-17",
+  "task": "3.1",
+  "type": "order",
+  "difficulty": "hard",
+  "q": "Order these ways of adapting a foundation model from LOWEST to HIGHEST typical cost and effort.",
+  "options": [
+   "In-context learning (prompt engineering with examples)",
+   "Retrieval-augmented generation (RAG)",
+   "Fine-tuning on labeled examples",
+   "Pretraining a new model from scratch"
+  ],
+  "explain": "Prompting needs no training. RAG adds retrieval infrastructure. Fine-tuning needs labeled data, training jobs, and usually more expensive hosting. Pretraining from scratch needs huge datasets and compute. Start at the cheapest option that meets the need.",
+  "ref": "Exam guide skill 3.1.5 (cost trade-offs of customization)"
+ },
+ {
+  "id": "3.1-18",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A bank wants every response from its assistant to follow a strict house style and a fixed report structure. It has 5,000 high-quality example prompt-and-response pairs. Prompting alone has not been consistent. Which approach fits best?",
+  "options": [
+   "Fine-tune the model on the example pairs",
+   "Add a vector store of today's exchange rates",
+   "Raise the temperature to encourage variety",
+   "Pretrain a new model from scratch on the bank's website"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Fine-tuning on labeled examples teaches the model consistent style, structure, and task behavior.",
+   "Retrieving exchange rates adds facts, not a consistent style.",
+   "Higher temperature makes output less consistent.",
+   "Pretraining from scratch is far more costly than needed."
+  ],
+  "explain": "Fine-tuning changes how a model behaves (tone, format, domain-specific tasks). RAG changes what the model knows at question time. They can be combined.",
+  "ref": "Exam guide skills 3.1.5 and 3.3.2"
+ },
+ {
+  "id": "3.1-19",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A large model gives excellent answers for a narrow support task but is too slow and expensive at scale. The team wants a much smaller model that keeps most of that quality for this task. Which technique fits?",
+  "options": [
+   "Model distillation, training a small student model on the large teacher model's outputs",
+   "Continued pretraining of the large model on unlabeled support logs",
+   "Raising the large model's temperature to speed up generation",
+   "Adding many more retrieved documents to every prompt that the large model receives"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Distillation transfers task-specific skill from a large teacher to a smaller, faster, cheaper student. Amazon Bedrock offers model distillation.",
+   "Continued pretraining makes the large model no smaller or cheaper.",
+   "Temperature does not change speed or cost meaningfully.",
+   "More context increases cost and latency."
+  ],
+  "explain": "Model distillation was added to the customization options in v1.1. It trades some up-front training work for much lower inference cost and latency.",
+  "ref": "Exam guide skills 3.1.5 and 3.3.1 (distillation)"
+ },
+ {
+  "id": "3.1-20",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "When is pretraining a brand-new foundation model from scratch most likely to be justified?",
+  "options": [
+   "Rarely: only with massive unique data, a need existing models cannot meet, and a very large budget",
+   "Whenever a company wants its chatbot to know its current return and refund policy",
+   "Whenever answers need to include the latest daily prices",
+   "Whenever responses need a friendlier tone or a more consistent format for customers"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Pretraining is by far the most expensive option and is rarely needed by typical businesses.",
+   "A return policy is easily handled with RAG or a prompt.",
+   "Daily prices call for RAG.",
+   "Tone is handled with prompting or fine-tuning."
+  ],
+  "explain": "Most organizations adapt existing FMs with prompting, RAG, fine-tuning, or distillation. Pretraining from scratch costs huge amounts of data, compute, and expertise.",
+  "ref": "Exam guide skill 3.1.5"
+ },
+ {
+  "id": "3.1-21",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A travel company's customers write in English, Hindi, Tamil, and Japanese. Which model selection criterion is essential?",
+  "options": [
+   "Multilingual support for those languages",
+   "Image generation resolution",
+   "The model's ability to generate video",
+   "The number of AWS Regions the company uses for backups"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The model must understand and respond well in each language the customers use.",
+   "Image generation is not needed here.",
+   "Video generation is not needed here.",
+   "Backup Regions do not affect language handling."
+  ],
+  "explain": "FM selection criteria in the guide include cost, modality, latency, multilingual support, model size, complexity, customization, input/output length, and prompt caching. Test real samples in each language before deciding.",
+  "ref": "Exam guide skill 3.1.1"
+ },
+ {
+  "id": "3.1-22",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A legal team wants to analyze 300-page contracts in a single request. Which selection criterion matters most?",
+  "options": [
+   "Maximum input length (context window size)",
+   "Image generation support",
+   "Speech synthesis voices",
+   "The model's default temperature and top-p values"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. The model must accept enough tokens to hold the full contract, or the team must chunk the document and use retrieval.",
+   "Images are not part of this task.",
+   "Speech is not part of this task.",
+   "The default temperature can be changed and does not limit input size."
+  ],
+  "explain": "Input and output length limits are hard constraints. If a document does not fit, use a model with a larger context window or split the work with chunking and RAG.",
+  "ref": "Exam guide skill 3.1.1 (input/output length)"
+ },
+ {
+  "id": "3.1-23",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "Every request to a company's assistant starts with the same 10,000-token policy document, followed by a short user question. Which model capability should weigh heavily in model selection to cut cost and latency?",
+  "options": [
+   "Support for prompt caching",
+   "Support for image generation",
+   "The highest possible temperature range",
+   "Built-in speech recognition"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Prompt caching reuses the repeated prefix across requests, which reduces input processing cost and time to first token.",
+   "Image generation does not help with repeated text prefixes.",
+   "Temperature range has nothing to do with repeated input cost.",
+   "Speech recognition is unrelated to this workload."
+  ],
+  "explain": "Prompt caching is listed as an FM selection criterion in the guide. It pays off when many requests share a long, identical beginning, such as instructions or a reference document.",
+  "ref": "Exam guide skill 3.1.1 (prompt caching)"
+ },
+ {
+  "id": "3.1-24",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An online retailer wants an AI system that handles a return from start to finish: look up the order, check the return policy, create the return label through an API, and email the customer. Which design fits best?",
+  "options": [
+   "An AI agent that plans the steps and uses tools for the order system, label API, and email",
+   "A single summarization prompt that has no access to any of the company's systems",
+   "A k-means clustering model that groups past returns by product size and weight",
+   "A text-to-image model that draws the return label"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Multi-step tasks that call several systems are what AI agents are for.",
+   "Without tool access, a prompt cannot look up orders or create labels.",
+   "Clustering does not carry out a business process.",
+   "Labels come from a shipping API, not image generation."
+  ],
+  "explain": "AI agents combine an FM's reasoning with tools and memory to complete tasks. Common business applications are customer service automation, IT operations, back-office processing, and research assistance.",
+  "ref": "Exam guide skill 3.1.6 (role and business applications of AI agents)"
+ },
+ {
+  "id": "3.1-25",
+  "task": "3.1",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which statements correctly describe AI agents? Select TWO.",
+  "options": [
+   "They can break a goal into steps and decide which tools to use",
+   "They can call APIs and act on systems, not only generate text",
+   "They never need any guardrails or human oversight",
+   "They only work without a foundation model",
+   "They are limited to answering a single question with no actions"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Planning and tool selection are core agent behaviors.",
+   "Correct. Agents act through tools such as APIs, databases, and code execution.",
+   "Agents act on real systems, so they need guardrails, permissions, and often human approval for risky actions.",
+   "Most agents use an FM as their reasoning engine.",
+   "Taking actions is what separates agents from simple Q&A."
+  ],
+  "explain": "Agents pursue goals with planning, tool use, and memory. Because they act, they also need identity and permission controls (for example, AgentCore Identity and Policy in AgentCore) and monitoring.",
+  "ref": "Exam guide skills 3.1.6 and 5.1.1"
+ },
+ {
+  "id": "3.1-26",
+  "task": "3.1",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A RAG assistant often answers from the wrong documents. Retrieval logs show that the chunks returned are rarely relevant to the questions. Which change is most likely to help?",
+  "options": [
+   "Improve retrieval with better chunking, a stronger embedding model, or hybrid search",
+   "Increase the temperature of the generation model so it considers more possible answers",
+   "Switch to a larger generation model without changing retrieval",
+   "Remove the citations from the answers so that users do not notice the wrong sources"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. If retrieval returns poor chunks, the generator cannot answer well. Fix the retrieval stage first.",
+   "Temperature affects generation randomness, not which chunks are retrieved.",
+   "A bigger generator still receives the same irrelevant context.",
+   "Citations help users verify answers; removing them hides the problem."
+  ],
+  "explain": "RAG quality depends on both retrieval and generation. Diagnose which stage fails. Retrieval fixes include chunk size and strategy, embedding model choice, metadata filters, hybrid search, and reranking.",
+  "ref": "Exam guide skills 3.1.3 and 3.4.4"
+ }
+]

@@ -1,0 +1,361 @@
+[
+ {
+  "id": "5.2-01",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An auditor asks for AWS's SOC 2 report and ISO certifications covering the services a company uses for AI workloads. Where can the company download them?",
+  "options": [
+   "AWS Artifact",
+   "AWS Config",
+   "Amazon Inspector",
+   "Amazon SageMaker Model Cards"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AWS Artifact is a self-service portal for AWS compliance reports and agreements, such as a business associate agreement (BAA).",
+   "Config records your resource configurations; it does not hold AWS's audit reports.",
+   "Inspector scans your workloads for vulnerabilities.",
+   "Model Cards document your own models, not AWS's certifications."
+  ],
+  "explain": "Artifact provides evidence of AWS's compliance with security standards. Customers still need to show compliance for their own applications.",
+  "ref": "Exam guide skill 5.2.1 (AWS Artifact)"
+ },
+ {
+  "id": "5.2-02",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company's policy says every S3 bucket holding training data must be encrypted and must not be public. It wants continuous checks and a history of configuration changes. Which service fits?",
+  "options": [
+   "AWS Config",
+   "Amazon Polly",
+   "AWS Artifact",
+   "Amazon Translate"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. AWS Config records resource configurations over time and evaluates them against rules, flagging non-compliant resources.",
+   "Polly converts text to speech.",
+   "Artifact provides AWS's own compliance reports.",
+   "Translate converts text between languages."
+  ],
+  "explain": "Config is the governance tool for 'is my environment configured the way our policies require, and what changed?'. Rules can trigger automatic remediation.",
+  "ref": "Exam guide skill 5.2.1 (AWS Config)"
+ },
+ {
+  "id": "5.2-03",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team runs its model-serving application on Amazon EC2 and in container images. It wants continuous scanning for software vulnerabilities and unintended network exposure. Which service fits?",
+  "options": [
+   "Amazon Inspector",
+   "AWS Artifact",
+   "Amazon Bedrock Guardrails",
+   "AWS Glue DataBrew"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Inspector automatically scans EC2 instances, container images in Amazon ECR, and Lambda functions for vulnerabilities and exposure.",
+   "Artifact provides compliance reports.",
+   "Guardrails filter model inputs and outputs, not software vulnerabilities.",
+   "DataBrew prepares data."
+  ],
+  "explain": "Inspector covers the infrastructure and software layer of an AI application, which still needs patching and hardening.",
+  "ref": "Exam guide skill 5.2.1 (Amazon Inspector)"
+ },
+ {
+  "id": "5.2-04",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Which AWS service inspects an account and recommends improvements across cost optimization, security, fault tolerance, performance, and service limits?",
+  "options": [
+   "AWS Trusted Advisor",
+   "Amazon Comprehend",
+   "Amazon Bedrock Knowledge Bases",
+   "Amazon Lex"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Trusted Advisor runs best-practice checks and gives recommendations, such as finding open security groups or idle resources.",
+   "Comprehend analyzes text.",
+   "Knowledge Bases provide RAG.",
+   "Lex builds chatbots."
+  ],
+  "explain": "Trusted Advisor is a governance aid that surfaces risky or wasteful configurations across the account.",
+  "ref": "Exam guide skill 5.2.1 (AWS Trusted Advisor)"
+ },
+ {
+  "id": "5.2-05",
+  "task": "5.2",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each governance need to the AWS service that meets it.",
+  "prompts": [
+   "Download AWS compliance reports and agreements",
+   "Track resource configuration changes and check them against rules",
+   "Scan workloads for software vulnerabilities",
+   "Record API activity for audits",
+   "Get best-practice recommendations for the account"
+  ],
+  "options": [
+   "AWS Artifact",
+   "AWS Config",
+   "Amazon Inspector",
+   "AWS CloudTrail",
+   "AWS Trusted Advisor"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "These are the five governance services named in skill 5.2.1. Expect scenario questions that hinge on telling them apart.",
+  "ref": "Exam guide skill 5.2.1"
+ },
+ {
+  "id": "5.2-06",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A German insurer must keep all customer data, including prompts sent to foundation models, within the EU. What should it do?",
+  "options": [
+   "Use an EU Region and keep any cross-Region inference within the EU geography",
+   "Use whichever AWS Region offers the lowest on-demand price for the model it wants",
+   "Store all prompts in a global CDN cache so they load quickly for users anywhere",
+   "Copy all of its data to every AWS Region worldwide for maximum redundancy"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Data residency is met by choosing the Region and controlling features that may process data elsewhere.",
+   "The cheapest Region may be outside the EU.",
+   "A global CDN distributes data worldwide.",
+   "Copying to all Regions breaks residency rules."
+  ],
+  "explain": "Data residency is a data governance strategy in skill 5.2.2. On AWS, customers choose the Regions where their data is stored and processed.",
+  "ref": "Exam guide skill 5.2.2 (data residency)"
+ },
+ {
+  "id": "5.2-07",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Policy says prompt logs must be kept for one year and then deleted automatically. How can this be implemented for logs stored in Amazon S3?",
+  "options": [
+   "An S3 Lifecycle configuration that expires objects after 365 days",
+   "Manually delete log files whenever someone on the team remembers to do it",
+   "Store the logs inside the system prompt instead of in S3",
+   "Turn off model invocation logging completely once the first year has passed"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. S3 Lifecycle rules can transition objects to cheaper storage (such as S3 Glacier) and expire them on schedule.",
+   "Manual deletion is unreliable and hard to audit.",
+   "Prompts are not a storage system.",
+   "Turning off logging stops new logs but does not delete old ones on schedule."
+  ],
+  "explain": "Data retention and lifecycle management are part of data governance. Automate them to make sure policies are followed consistently.",
+  "ref": "Exam guide skill 5.2.2 (retention, data lifecycles)"
+ },
+ {
+  "id": "5.2-08",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A company must keep old training datasets for seven years for audits but will rarely access them. Which storage option is most cost-effective?",
+  "options": [
+   "Amazon S3 Glacier storage classes",
+   "Amazon S3 Standard with no lifecycle rules",
+   "Amazon ElastiCache in-memory clusters",
+   "Provisioned IOPS EBS volumes kept attached to running instances"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. S3 Glacier storage classes are designed for low-cost, long-term archival of rarely accessed data.",
+   "S3 Standard costs more for data that is rarely read.",
+   "In-memory caches are expensive and not for archives.",
+   "High-performance block storage is costly for archival use."
+  ],
+  "explain": "Lifecycle policies can move data to Glacier after a period and delete it when the retention period ends.",
+  "ref": "Exam guide skill 5.2.2 (data lifecycles, retention)"
+ },
+ {
+  "id": "5.2-09",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An operations team wants alarms when error rates or latency for its Amazon Bedrock calls rise above normal. Which service provides metrics and alarms?",
+  "options": [
+   "Amazon CloudWatch",
+   "AWS Artifact",
+   "AWS Glue DataBrew",
+   "Amazon Polly"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Bedrock publishes metrics such as invocations, latency, and errors to CloudWatch, where you can create dashboards and alarms.",
+   "Artifact provides compliance reports.",
+   "DataBrew prepares data.",
+   "Polly converts text to speech."
+  ],
+  "explain": "Monitoring is a data governance and operations practice. Combine CloudWatch metrics with model invocation logging and CloudTrail for full visibility.",
+  "ref": "Exam guide skill 5.2.2 (monitoring)"
+ },
+ {
+  "id": "5.2-10",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "Using the Generative AI Security Scoping Matrix, which scope describes a company building its own application that calls a pretrained foundation model through Amazon Bedrock, without fine-tuning it?",
+  "options": [
+   "Scope 3: pretrained models",
+   "Scope 1: consumer app",
+   "Scope 4: fine-tuned models",
+   "Scope 5: self-trained models"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Building on an existing FM through an API, with no change to its weights, is Scope 3.",
+   "Scope 1 is employees using a public consumer GenAI app.",
+   "Scope 4 applies when you fine-tune an FM with your own data.",
+   "Scope 5 applies when you train a model from scratch."
+  ],
+  "explain": "The matrix has five scopes: 1 consumer app, 2 enterprise app (a SaaS product with GenAI features), 3 pretrained models, 4 fine-tuned models, and 5 self-trained models. Customer responsibility grows with each scope.",
+  "ref": "Exam guide skill 5.2.3 (Generative AI Security Scoping Matrix)"
+ },
+ {
+  "id": "5.2-11",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A company fine-tunes a foundation model on its proprietary data and serves it in its own application. Which scope of the Generative AI Security Scoping Matrix applies?",
+  "options": [
+   "Scope 4: fine-tuned models",
+   "Scope 2: enterprise app",
+   "Scope 3: pretrained models",
+   "Scope 1: consumer app"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Customizing a model's weights with your data moves you to Scope 4, with added responsibility for training data and the resulting model.",
+   "Scope 2 is using a third-party enterprise application that has GenAI features.",
+   "Scope 3 uses a pretrained model as-is.",
+   "Scope 1 is a public consumer app."
+  ],
+  "explain": "Higher scopes mean more control and more responsibility: for training data governance, model access, and the security of the customized model itself.",
+  "ref": "Exam guide skill 5.2.3"
+ },
+ {
+  "id": "5.2-12",
+  "task": "5.2",
+  "type": "order",
+  "difficulty": "hard",
+  "q": "Order the scopes of the Generative AI Security Scoping Matrix from LEAST to MOST customer ownership and control.",
+  "options": [
+   "Consumer app",
+   "Enterprise app",
+   "Pretrained models",
+   "Fine-tuned models",
+   "Self-trained models"
+  ],
+  "explain": "Scopes 1 and 2 are buying (using someone else's GenAI application). Scopes 3 to 5 are building (with a pretrained model, a fine-tuned model, or a model you trained yourself). Security and governance responsibilities increase from scope 1 to scope 5.",
+  "ref": "Exam guide skill 5.2.3"
+ },
+ {
+  "id": "5.2-13",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An AI governance board wants to make sure its deployed AI systems are reassessed for risk, performance, and compliance on a regular basis. Which governance process element does this describe?",
+  "options": [
+   "A defined review cadence",
+   "Prompt caching",
+   "Provisioned Throughput",
+   "Chunk overlap"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A review cadence (for example, quarterly reviews) keeps AI systems under ongoing oversight as data, models, and regulations change.",
+   "Prompt caching is a cost feature.",
+   "Provisioned Throughput is a capacity option.",
+   "Chunk overlap is a RAG setting."
+  ],
+  "explain": "Governance processes in skill 5.2.3 include policies, review cadence, review strategies, frameworks such as the Generative AI Security Scoping Matrix, transparency standards, and team training.",
+  "ref": "Exam guide skill 5.2.3 (review cadence)"
+ },
+ {
+  "id": "5.2-14",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Employees are pasting confidential documents into public AI chatbots. Which governance measures address this most directly?",
+  "options": [
+   "An acceptable-use policy for AI tools, backed by employee training",
+   "A larger model with more parameters",
+   "Higher temperature settings in the approved AI tools employees use at work",
+   "Removing all logging from company laptops"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Clear policies on approved tools and data handling, plus training so staff understand them, reduce risky behavior.",
+   "Model size does not change employee behavior.",
+   "Temperature has nothing to do with data handling.",
+   "Removing logging reduces visibility and makes the problem harder to detect."
+  ],
+  "explain": "Policies and team training are core governance processes. Technical controls, such as approved enterprise tools and data loss prevention, reinforce them.",
+  "ref": "Exam guide skill 5.2.3 (policies, team training)"
+ },
+ {
+  "id": "5.2-15",
+  "task": "5.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company commits to documenting where AI is used in its products, what data it uses, and its known limitations, and to sharing this with customers. Which governance element is this?",
+  "options": [
+   "Transparency standards",
+   "Model distillation",
+   "Batch inference",
+   "Hyperparameter tuning"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Transparency standards define what the organization documents and discloses about its AI systems.",
+   "Distillation is a training technique.",
+   "Batch inference is a way to run predictions.",
+   "Hyperparameter tuning optimizes training."
+  ],
+  "explain": "Transparency standards connect governance (5.2.3) with responsible AI (4.2). Tools such as SageMaker Model Cards help put them into practice.",
+  "ref": "Exam guide skill 5.2.3 (transparency standards)"
+ },
+ {
+  "id": "5.2-16",
+  "task": "5.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which are data governance strategies listed for AI systems? Select TWO.",
+  "options": [
+   "Defining data retention periods and automating deletion",
+   "Logging and monitoring access to data and models",
+   "Raising the model temperature for creativity",
+   "Choosing the model with the most parameters",
+   "Removing the system prompt"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Retention and lifecycle management are core data governance strategies.",
+   "Correct. Logging and monitoring provide oversight and audit evidence.",
+   "Temperature is an inference setting.",
+   "Model size is a design choice, not data governance.",
+   "System prompts are an application design element."
+  ],
+  "explain": "Skill 5.2.2 covers data lifecycles, logging, residency, monitoring, observation, and retention.",
+  "ref": "Exam guide skill 5.2.2"
+ }
+]

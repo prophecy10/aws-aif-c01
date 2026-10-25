@@ -1,0 +1,463 @@
+[
+ {
+  "id": "1.2-01",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A payroll team wants software that calculates each employee's income tax using the exact formula set by law. Every result must be identical for identical inputs. What is the best approach?",
+  "options": [
+   "Train a regression model on past payslips",
+   "Use a generative AI model to estimate the tax for each employee",
+   "Implement the formula as deterministic rules in code",
+   "Cluster employees by salary band and use averages"
+  ],
+  "answer": 2,
+  "notes": [
+   "A regression model only approximates past results and can be wrong for edge cases.",
+   "Generative models are probabilistic and can give different answers to the same input.",
+   "Correct. When the rules are known and an exact, repeatable outcome is required, ML adds cost and risk without benefit.",
+   "Averages per cluster would give wrong amounts for individuals."
+  ],
+  "explain": "AI/ML is not appropriate when a problem has a known, exact solution or must produce one deterministic answer. ML predictions are probabilistic, so a rules-based program is cheaper and more reliable for fixed formulas.",
+  "ref": "Exam guide skill 1.2.2"
+ },
+ {
+  "id": "1.2-02",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company has 2,000 policy documents. Employees want to ask questions in plain language and get answers that cite the right document. Which AI application best fits?",
+  "options": [
+   "An image classification model trained on scans of every document page",
+   "A knowledge base that retrieves relevant passages for an LLM to answer from",
+   "A clustering model that groups the documents by their length and age",
+   "A reinforcement learning agent that is rewarded each time it gives a short answer"
+  ],
+  "answer": 1,
+  "notes": [
+   "The documents are text; image classification would not answer questions.",
+   "Correct. A knowledge base with retrieval-augmented generation (RAG), such as Amazon Bedrock Knowledge Bases, finds relevant passages and lets the model answer with citations.",
+   "Grouping by length does nothing to answer employees' questions.",
+   "Rewarding short answers would not make them accurate or grounded in the documents."
+  ],
+  "explain": "Question answering over company documents is one of the most common generative AI applications. A knowledge base stores document chunks as embeddings, retrieves the most relevant ones for each question, and passes them to an FM so the answer is grounded and can cite sources.",
+  "ref": "Exam guide skills 1.2.4 (knowledge bases) and 3.1.3"
+ },
+ {
+  "id": "1.2-03",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An insurer receives 40,000 claims a day and wants to flag the ones that need a human adjuster. What main value does ML add here?",
+  "options": [
+   "It removes the need for any human to review claims at all",
+   "It guarantees that every single flag it raises is correct",
+   "It scales decision support to a volume people cannot review quickly",
+   "It makes the whole claims process fully deterministic and rule-based"
+  ],
+  "answer": 2,
+  "notes": [
+   "ML helps prioritize; humans still review flagged and borderline cases.",
+   "ML predictions are probabilistic and will sometimes be wrong.",
+   "Correct. ML can triage huge volumes consistently and quickly, so adjusters focus on the claims that need them.",
+   "ML outputs are probabilistic, not deterministic rules."
+  ],
+  "explain": "AI/ML adds value through decision support, scalability, and automation, for example by triaging large volumes so people can focus on high-value work. It does not guarantee correctness, so human oversight remains important.",
+  "ref": "Exam guide skill 1.2.1"
+ },
+ {
+  "id": "1.2-04",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A subscription business wants to predict whether each customer will cancel in the next 30 days (yes or no). Which ML technique fits?",
+  "options": [
+   "Regression",
+   "Binary classification",
+   "Clustering",
+   "Dimensionality reduction"
+  ],
+  "answer": 1,
+  "notes": [
+   "Regression predicts a continuous number, not a yes/no outcome.",
+   "Correct. Predicting one of two categories (will cancel / will not) is binary classification.",
+   "Clustering groups unlabeled data; it does not predict a known outcome.",
+   "Dimensionality reduction compresses features; it does not make the prediction itself."
+  ],
+  "explain": "Classification predicts a category (binary for two classes, multiclass for more). Regression predicts a number. Clustering finds groups without labels. Churn prediction is a textbook binary classification problem.",
+  "ref": "Exam guide skill 1.2.3"
+ },
+ {
+  "id": "1.2-05",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A food delivery app wants to predict how many minutes each order will take to arrive. Which technique should it use?",
+  "options": [
+   "Classification",
+   "Clustering",
+   "Regression",
+   "Topic modeling"
+  ],
+  "answer": 2,
+  "notes": [
+   "Classification picks a category; delivery time is a continuous number.",
+   "Clustering finds groups and does not predict a target value.",
+   "Correct. Predicting a continuous numeric value such as minutes is regression.",
+   "Topic modeling finds themes in text documents."
+  ],
+  "explain": "Use regression when the target is a quantity: price, time, temperature, demand. Linear regression and gradient-boosted trees (such as XGBoost) are common choices.",
+  "ref": "Exam guide skill 1.2.3"
+ },
+ {
+  "id": "1.2-06",
+  "task": "1.2",
+  "type": "match",
+  "difficulty": "easy",
+  "q": "Match each business problem to the ML technique that fits it.",
+  "prompts": [
+   "Estimate the monthly electricity bill for a household",
+   "Decide whether a loan application is high risk or low risk",
+   "Group 10,000 news articles by theme with no labels"
+  ],
+  "options": [
+   "Regression",
+   "Classification",
+   "Clustering",
+   "Reinforcement learning"
+  ],
+  "answer": [
+   0,
+   1,
+   2
+  ],
+  "explain": "A numeric target means regression; a category means classification; finding groups without labels means clustering. Reinforcement learning is for learning actions through rewards, which none of these problems need.",
+  "ref": "Exam guide skill 1.2.3"
+ },
+ {
+  "id": "1.2-07",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A call center wants written transcripts of every recorded customer call. Which AWS service should it use?",
+  "options": [
+   "Amazon Polly",
+   "Amazon Transcribe",
+   "Amazon Translate",
+   "Amazon Lex"
+  ],
+  "answer": 1,
+  "notes": [
+   "Polly does the opposite: it turns text into speech.",
+   "Correct. Amazon Transcribe converts speech to text and offers features such as speaker identification, custom vocabulary, and PII redaction.",
+   "Translate converts text from one language to another; it does not process audio.",
+   "Lex builds conversational bots; it is not a batch transcription service."
+  ],
+  "explain": "Amazon Transcribe is automatic speech recognition (ASR) as a managed service. Transcribe Call Analytics adds call-center insights such as sentiment and call summaries.",
+  "ref": "Exam guide skill 1.2.5; Amazon Transcribe overview"
+ },
+ {
+  "id": "1.2-08",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A hotel chain wants a chatbot on its website that understands requests such as 'book a room for two nights' and asks follow-up questions for missing details. Which AWS service is designed for this?",
+  "options": [
+   "Amazon Comprehend",
+   "Amazon Polly",
+   "Amazon Lex",
+   "Amazon Textract"
+  ],
+  "answer": 2,
+  "notes": [
+   "Comprehend analyzes text (sentiment, entities) but does not manage a conversation.",
+   "Polly only converts text to speech.",
+   "Correct. Amazon Lex builds voice and text chatbots using intents, sample utterances, and slots, and prompts users for missing slot values.",
+   "Textract extracts text and data from documents."
+  ],
+  "explain": "Amazon Lex provides conversational interfaces. An intent is what the user wants (BookRoom); slots are the details needed (dates, guests). Lex can fulfill the request by calling AWS Lambda.",
+  "ref": "Exam guide skill 1.2.5; Amazon Lex overview"
+ },
+ {
+  "id": "1.2-09",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A news app wants to offer an audio version of every article, read in a natural-sounding voice. Which AWS service should it use?",
+  "options": [
+   "Amazon Transcribe",
+   "Amazon Polly",
+   "Amazon Rekognition",
+   "Amazon Comprehend"
+  ],
+  "answer": 1,
+  "notes": [
+   "Transcribe converts speech into text, the opposite direction.",
+   "Correct. Amazon Polly is text-to-speech with lifelike neural voices and SSML for controlling pronunciation and pauses.",
+   "Rekognition analyzes images and video.",
+   "Comprehend analyzes the meaning of text but does not produce audio."
+  ],
+  "explain": "Polly turns text into speech. Remember the pair: Transcribe = speech to text, Polly = text to speech.",
+  "ref": "Exam guide skill 1.2.5; Amazon Polly overview"
+ },
+ {
+  "id": "1.2-10",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An online store wants its product catalog available in 12 languages, using its own approved terms for brand and product names. Which service fits best?",
+  "options": [
+   "Amazon Translate with custom terminology",
+   "Amazon Transcribe with custom vocabulary",
+   "Amazon Polly with lexicons",
+   "Amazon Comprehend with custom entities"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Translate does neural machine translation, and custom terminology keeps brand and product names consistent.",
+   "Transcribe works on audio; custom vocabulary improves speech recognition, not translation.",
+   "Polly lexicons control pronunciation in speech; they do not translate text.",
+   "Comprehend custom entities find terms in text; they do not translate it."
+  ],
+  "explain": "Amazon Translate handles real-time and batch translation. Custom terminology tells it exactly how to translate (or not translate) specific terms such as brand names.",
+  "ref": "Exam guide skill 1.2.5; Amazon Translate custom terminology"
+ },
+ {
+  "id": "1.2-11",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A product team wants to know which product features customers mention most in 100,000 reviews and whether each review is positive or negative. Which managed service provides this with no ML expertise?",
+  "options": [
+   "Amazon Rekognition",
+   "Amazon Comprehend",
+   "Amazon Personalize",
+   "Amazon Textract"
+  ],
+  "answer": 1,
+  "notes": [
+   "Rekognition analyzes images and video, not review text.",
+   "Correct. Amazon Comprehend detects sentiment, key phrases, entities, and language in text, and can run topic modeling over a collection of documents.",
+   "Personalize generates recommendations from user behavior.",
+   "Textract extracts text from scanned documents; it does not judge sentiment."
+  ],
+  "explain": "Amazon Comprehend is the managed NLP service for insights from text. Typical uses are sentiment analysis, entity recognition, key phrase extraction, PII detection, and custom classification.",
+  "ref": "Exam guide skill 1.2.5; Amazon Comprehend features"
+ },
+ {
+  "id": "1.2-12",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An accounts payable team receives thousands of scanned invoices. It needs the vendor name, the totals, and every line-item table extracted automatically. Which service fits best?",
+  "options": [
+   "Amazon Comprehend",
+   "Amazon Rekognition",
+   "Amazon Textract",
+   "Amazon Translate"
+  ],
+  "answer": 2,
+  "notes": [
+   "Comprehend analyzes text that already exists; it does not read scanned images.",
+   "Rekognition can find text in images but does not understand forms and tables.",
+   "Correct. Amazon Textract extracts printed and handwritten text, form key-value pairs, and tables from documents, and has a dedicated invoice and receipt analysis API.",
+   "Translate converts text between languages."
+  ],
+  "explain": "Textract goes beyond simple OCR: it understands document structure such as forms, tables, and queries, which is what invoice processing needs.",
+  "ref": "Amazon Textract overview (AnalyzeDocument, AnalyzeExpense)"
+ },
+ {
+  "id": "1.2-13",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A video streaming service wants to show each viewer 'recommended for you' titles based on their viewing history, without building ML models itself. Which service should it use?",
+  "options": [
+   "Amazon Personalize",
+   "Amazon Comprehend",
+   "Amazon Lex",
+   "Amazon SageMaker Ground Truth"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Amazon Personalize builds real-time recommendation models from interaction data, using the same kind of technology Amazon.com uses.",
+   "Comprehend analyzes text; it does not recommend items.",
+   "Lex builds chatbots.",
+   "Ground Truth labels training data; it does not make recommendations."
+  ],
+  "explain": "Amazon Personalize is a managed recommender service. You provide users, items, and interactions; it trains models for use cases such as personalized recommendations, similar items, and personalized ranking.",
+  "ref": "Amazon Personalize overview"
+ },
+ {
+  "id": "1.2-14",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A social media startup must automatically detect explicit or violent images before they are published. Which AWS service provides this as a ready-made API?",
+  "options": [
+   "Amazon Textract",
+   "Amazon Rekognition",
+   "Amazon Polly",
+   "Amazon Comprehend"
+  ],
+  "answer": 1,
+  "notes": [
+   "Textract extracts text and data from documents.",
+   "Correct. Amazon Rekognition content moderation detects inappropriate, unwanted, or offensive content in images and videos.",
+   "Polly converts text to speech.",
+   "Comprehend analyzes text, not images."
+  ],
+  "explain": "Amazon Rekognition offers pretrained computer vision APIs: object and scene detection, face analysis, text in images, and content moderation. Uncertain results can be routed to human reviewers with Amazon Augmented AI (A2I).",
+  "ref": "Amazon Rekognition content moderation"
+ },
+ {
+  "id": "1.2-15",
+  "task": "1.2",
+  "type": "match",
+  "difficulty": "easy",
+  "q": "Match each requirement to the AWS AI service built for it.",
+  "prompts": [
+   "Turn recorded meetings into text",
+   "Read an article aloud in a lifelike voice",
+   "Convert support articles from English to Japanese",
+   "Find the people, places, and sentiment in customer emails",
+   "Build a chatbot that books appointments"
+  ],
+  "options": [
+   "Amazon Transcribe",
+   "Amazon Polly",
+   "Amazon Translate",
+   "Amazon Comprehend",
+   "Amazon Lex"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "Transcribe: speech to text. Polly: text to speech. Translate: language to language. Comprehend: insights from text. Lex: conversational bots. These task-specific services need no ML expertise.",
+  "ref": "Exam guide skill 1.2.5"
+ },
+ {
+  "id": "1.2-16",
+  "task": "1.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A company wants to analyze the sentiment of its recorded support calls with as little custom development as possible. Which two AWS services should it combine? Select TWO.",
+  "options": [
+   "Amazon Transcribe",
+   "Amazon Comprehend",
+   "Amazon Polly",
+   "Amazon Rekognition",
+   "Amazon Personalize"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Transcribe turns the call audio into text first.",
+   "Correct. Comprehend then detects sentiment in the transcribed text.",
+   "Polly generates speech; this pipeline needs to understand speech.",
+   "Rekognition analyzes images and video, not audio.",
+   "Personalize makes recommendations; it does not analyze sentiment."
+  ],
+  "explain": "A common pattern chains managed services: Transcribe (speech to text), then Comprehend (sentiment, entities, key phrases). Transcribe Call Analytics can also report sentiment directly for call-center audio.",
+  "ref": "Exam guide skill 1.2.5"
+ },
+ {
+  "id": "1.2-17",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A bank builds a credit-approval model. Regulators require the bank to explain the main reasons behind every individual decision, and the inputs are structured application data. Which approach is most appropriate?",
+  "options": [
+   "A general-purpose LLM that reads each application and decides",
+   "A traditional ML model on the tabular data, with feature-attribution explanations",
+   "A diffusion model that generates a personalized approval letter",
+   "A chatbot that asks each applicant to rate their own credit risk on a scale of one to ten"
+  ],
+  "answer": 1,
+  "notes": [
+   "LLM decisions are harder to explain and less consistent, which is a problem under strict regulation.",
+   "Correct. Traditional ML (for example, gradient-boosted trees or logistic regression) works well on tabular data, is cheaper, and can be explained per decision, for example with SageMaker Clarify SHAP values.",
+   "Generating a letter does not make or justify the credit decision.",
+   "Self-rated risk is neither reliable nor a model-based decision."
+  ],
+  "explain": "Version 1.1 of the guide asks when traditional ML beats a foundation model. Regulatory, explainability, and operational constraints (cost, latency, consistency) often favor traditional ML for structured prediction tasks. FMs shine on open-ended language and content tasks.",
+  "ref": "Exam guide skill 1.2.6 (new in v1.1)"
+ },
+ {
+  "id": "1.2-18",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A support team wants to summarize long, free-text customer tickets and draft a suggested reply for each. Which approach fits best?",
+  "options": [
+   "A foundation model accessed through a managed service such as Amazon Bedrock",
+   "A linear regression model trained on the length of past tickets",
+   "A k-means clustering model that sorts the tickets into five groups",
+   "A rules engine that returns one fixed, pre-written reply for each keyword it detects"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Summarization and drafting replies are open-ended language generation tasks that FMs handle well without training a custom model.",
+   "Regression predicts numbers; it cannot write summaries.",
+   "Clustering could group tickets but cannot summarize or draft replies.",
+   "Fixed keyword replies cannot adapt to the details of each ticket."
+  ],
+  "explain": "Foundation models are the right tool for unstructured, open-ended tasks such as summarization, drafting, and question answering. Amazon Bedrock offers FMs through an API, so there is no infrastructure to manage.",
+  "ref": "Exam guide skills 1.2.6 and 2.1.2"
+ },
+ {
+  "id": "1.2-19",
+  "task": "1.2",
+  "type": "multi",
+  "difficulty": "hard",
+  "q": "In which situations is a traditional ML model usually a better choice than a foundation model? Select TWO.",
+  "options": [
+   "Each decision must be explainable to a regulator in terms of input features",
+   "Millions of low-latency predictions per day on structured tabular data at minimal cost",
+   "The task is to write personalized marketing emails in several languages",
+   "Users ask open-ended questions about a large set of unstructured documents",
+   "The team needs one model to handle many different language tasks with no training"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Simpler models on tabular features are far easier to explain decision by decision.",
+   "Correct. A small purpose-built model is cheaper, faster, and more predictable at high volume than calling a large FM.",
+   "Writing varied, multilingual emails is a generative language task suited to an FM.",
+   "Open-ended questions over documents suit an FM with RAG.",
+   "Handling many tasks with no training is a key strength of foundation models."
+  ],
+  "explain": "Choose traditional ML when you need explainability, regulatory comfort, low cost per prediction, low latency, and consistent outputs on structured data. Choose FMs for unstructured content, generation, and flexibility across many tasks.",
+  "ref": "Exam guide skill 1.2.6 (new in v1.1)"
+ },
+ {
+  "id": "1.2-20",
+  "task": "1.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A small bakery gets about 20 online orders a week and wants to 'use AI' to forecast demand. It has three months of sales history. What is the most reasonable advice?",
+  "options": [
+   "Train a large custom deep learning model on SageMaker AI right away",
+   "Fine-tune a foundation model on the three months of sales records",
+   "Weigh the cost and data needs first; simple averages or spreadsheet trends may be enough",
+   "Skip collecting any data and let a generative model guess each week's demand from scratch"
+  ],
+  "answer": 2,
+  "notes": [
+   "Very little data and low volume make a custom deep learning model expensive overkill.",
+   "Fine-tuning an FM on a tiny sales table adds cost without giving a reliable forecast.",
+   "Correct. A cost-benefit check comes first. With little data and low stakes, a simple method may beat an ML project on value.",
+   "Guessing without data gives no reliable basis for decisions."
+  ],
+  "explain": "AI/ML is not always appropriate. Consider cost versus benefit, whether you have enough quality data, and whether a simpler non-ML solution meets the need. Sometimes the right answer is not to use ML.",
+  "ref": "Exam guide skill 1.2.2 (cost-benefit analysis)"
+ }
+]

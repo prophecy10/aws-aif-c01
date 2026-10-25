@@ -1,0 +1,449 @@
+[
+ {
+  "id": "1.3-01",
+  "task": "1.3",
+  "type": "order",
+  "difficulty": "easy",
+  "q": "Put these stages of a typical ML pipeline in the right order.",
+  "options": [
+   "Collect the data",
+   "Clean the data and engineer features",
+   "Train and tune the model",
+   "Evaluate the model on held-out data",
+   "Deploy the model and monitor it in production"
+  ],
+  "explain": "A typical pipeline runs: data collection, then preparation (exploratory analysis, cleaning, feature engineering), then training and hyperparameter tuning, then evaluation on data the model has not seen, then deployment with ongoing monitoring. Monitoring results often feed back into retraining.",
+  "ref": "Exam guide skill 1.3.1 (components of an AI/ML pipeline)"
+ },
+ {
+  "id": "1.3-02",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "What is the main purpose of exploratory data analysis (EDA) in an ML project?",
+  "options": [
+   "To deploy a first version of the model to a production endpoint as early as possible, then improve it",
+   "To understand the data's distributions, missing values, outliers, and correlations before modeling",
+   "To choose the instance type that will host the final model endpoint",
+   "To measure the trained model's accuracy, precision, and recall on the test set after training finishes"
+  ],
+  "answer": 1,
+  "notes": [
+   "Deployment happens much later, after training and evaluation.",
+   "Correct. EDA uses statistics and charts to understand the data and spot quality problems before you build features and train.",
+   "Instance selection is a deployment concern, not part of EDA.",
+   "Measuring accuracy is model evaluation, which comes after training."
+  ],
+  "explain": "EDA is an early pipeline stage. It reveals data quality issues (missing values, outliers, class imbalance) and relationships between variables that guide cleaning and feature engineering.",
+  "ref": "Exam guide skill 1.3.1"
+ },
+ {
+  "id": "1.3-03",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team turns a raw 'signup_timestamp' column into new inputs such as 'day of week' and 'days since signup' to help a churn model. What is this step called?",
+  "options": [
+   "Hyperparameter tuning",
+   "Feature engineering",
+   "Model monitoring",
+   "Inference"
+  ],
+  "answer": 1,
+  "notes": [
+   "Hyperparameter tuning adjusts training settings such as learning rate, not the input columns.",
+   "Correct. Feature engineering creates, transforms, or selects input variables so the model can learn more easily.",
+   "Monitoring watches a deployed model's behavior over time.",
+   "Inference is using a trained model to make predictions."
+  ],
+  "explain": "Features are the inputs a model learns from. Good feature engineering, such as extracting date parts, scaling numbers, or encoding categories, often improves a model more than changing the algorithm.",
+  "ref": "Exam guide skill 1.3.1"
+ },
+ {
+  "id": "1.3-04",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Which of the following is a hyperparameter rather than a model parameter?",
+  "options": [
+   "The learning rate chosen before training starts",
+   "The weights a neural network learns during training",
+   "The coefficients a linear regression model learns from data",
+   "The bias terms that are adjusted on every training step"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Hyperparameters, such as learning rate, number of epochs, or tree depth, are set before training and control how learning happens.",
+   "Weights are parameters the model learns from the data.",
+   "Coefficients are learned parameters.",
+   "Bias terms are learned parameters, updated during training."
+  ],
+  "explain": "Parameters are learned from data during training. Hyperparameters are chosen by people (or by automated tuning, such as SageMaker AI automatic model tuning) before training. Tuning searches for the hyperparameters that give the best validation performance.",
+  "ref": "Exam guide skill 1.3.1 (training, hyperparameter tuning)"
+ },
+ {
+  "id": "1.3-05",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company wants to add text summarization to its app quickly, with minimal ML expertise and no infrastructure to manage. Which way of getting a foundation model fits best?",
+  "options": [
+   "Train a new foundation model from scratch on company data",
+   "Call a pretrained foundation model through a managed API such as Amazon Bedrock",
+   "Collect and label a million example summaries, then train a custom summarization model on them",
+   "Hire a research team to design a new model architecture"
+  ],
+  "answer": 1,
+  "notes": [
+   "Training an FM from scratch takes huge datasets, specialist skills, and a large budget.",
+   "Correct. A managed API gives immediate access to pretrained FMs with no servers to run.",
+   "Building a labeled dataset and training a custom model is slow and costly compared with using an existing FM.",
+   "Designing a new architecture is research work that is unnecessary for summarization."
+  ],
+  "explain": "FMs can come from pretrained models (proprietary or open source, available through Amazon Bedrock or SageMaker JumpStart) or from custom training. For most business needs, starting from a pretrained model is far faster and cheaper.",
+  "ref": "Exam guide skills 1.3.2 and 1.3.3"
+ },
+ {
+  "id": "1.3-06",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A regulated company wants to run an open-source LLM. It must control the exact model weights, the instance type, and the network the endpoint runs in. Which production approach fits?",
+  "options": [
+   "Use a consumer chatbot website in a browser",
+   "Self-host the model on an Amazon SageMaker AI endpoint inside its own VPC",
+   "Copy the model weights to an Amazon S3 Glacier archive",
+   "Call a third-party API that gives no control over where its data is processed or stored"
+  ],
+  "answer": 1,
+  "notes": [
+   "A consumer website gives no control over weights, infrastructure, or data handling.",
+   "Correct. Self-hosting, for example by deploying from SageMaker JumpStart to a SageMaker AI endpoint, gives control over the model version, compute, and networking, at the cost of more operational work.",
+   "Glacier is archival storage; it cannot serve inference.",
+   "A third-party API removes the control the company needs."
+  ],
+  "explain": "There are two main ways to use a model in production: a managed API (least effort, less control, such as Amazon Bedrock) or a self-hosted API (more control and more operational responsibility, such as a SageMaker AI endpoint).",
+  "ref": "Exam guide skill 1.3.3 (managed API vs self-hosted API)"
+ },
+ {
+  "id": "1.3-07",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A developer wants an AI-powered IDE that turns a feature request into requirements, a design, and a task list, and then helps implement the code. Which AWS offering is built for this spec-driven style of development?",
+  "options": [
+   "Amazon Quick",
+   "Kiro",
+   "Amazon Polly",
+   "AWS Glue DataBrew"
+  ],
+  "answer": 1,
+  "notes": [
+   "Amazon Quick is an agentic workspace for business users, covering analytics, research, and automation.",
+   "Correct. Kiro is an agentic IDE that supports spec-driven development: requirements, design, and tasks, then implementation with AI agents.",
+   "Polly converts text to speech.",
+   "Glue DataBrew is a visual data-preparation tool."
+  ],
+  "explain": "Kiro, added to the exam guide in v1.1, is an AI development environment. It uses specs, steering files, and agent hooks to help developers go from prompt to production code in a structured way.",
+  "ref": "Exam guide skills 1.3.4 and 2.3.1 (v1.1); Kiro documentation"
+ },
+ {
+  "id": "1.3-08",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Business analysts want to build dashboards, ask questions about their data in natural language, and automate simple research tasks, without writing code. Which AWS service is designed for this?",
+  "options": [
+   "Amazon SageMaker AI",
+   "Amazon Quick",
+   "AWS Lambda",
+   "Amazon EMR"
+  ],
+  "answer": 1,
+  "notes": [
+   "SageMaker AI is a platform for data scientists to build, train, and deploy models.",
+   "Correct. Amazon Quick (Quick Suite) brings BI dashboards (Quick Sight), natural-language Q&A, research, and workflow automation together for business users.",
+   "Lambda runs code; it is not an analytics tool for business users.",
+   "EMR runs big-data frameworks such as Spark and needs engineering skills."
+  ],
+  "explain": "Amazon Quick is the agentic workspace for business users, building on what was Amazon QuickSight. In the v1.1 guide it appears as an AWS service for AI-powered analytics and generative AI applications.",
+  "ref": "Exam guide skills 1.3.4 and 2.3.1 (v1.1)"
+ },
+ {
+  "id": "1.3-09",
+  "task": "1.3",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each AWS service to its main role in building AI solutions.",
+  "prompts": [
+   "Access many foundation models through one managed API",
+   "Build, train, and deploy custom ML models with full control",
+   "Agentic IDE that helps developers write code from specs",
+   "Analytics, dashboards, and AI agents for business users",
+   "Generative AI assistant for answering questions and helping with code"
+  ],
+  "options": [
+   "Amazon Bedrock",
+   "Amazon SageMaker AI",
+   "Kiro",
+   "Amazon Quick",
+   "Amazon Q"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "explain": "These are the services the v1.1 guide lists for the AI/ML pipeline: Bedrock (FMs as a service), SageMaker AI (the full ML platform), Kiro (AI-assisted development), Amazon Quick (business analytics and agents), and Amazon Q (generative AI assistants, such as Q Developer for coding).",
+  "ref": "Exam guide skill 1.3.4 (v1.1 service list)"
+ },
+ {
+  "id": "1.3-10",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Six months after launch, a team cannot reproduce how its current model was trained, because the data, code, and settings were never recorded. Which MLOps practice would have prevented this?",
+  "options": [
+   "Using a larger instance type for training jobs",
+   "Versioning data, code, and models and tracking experiments in an automated pipeline",
+   "Increasing the number of training epochs on every run",
+   "Deploying the model to more AWS Regions at the same time so that copies of it always exist somewhere"
+  ],
+  "answer": 1,
+  "notes": [
+   "Bigger instances make training faster, not reproducible.",
+   "Correct. Repeatability comes from versioning everything and running training in tracked, automated pipelines (for example, SageMaker Pipelines, experiment tracking, and a model registry).",
+   "More epochs change training results; they do not record how a model was built.",
+   "Multi-Region deployment is about availability, not reproducibility."
+  ],
+  "explain": "MLOps applies DevOps ideas to ML: experimentation tracking, repeatability, scalability, managing technical debt, production readiness, monitoring, and retraining. Versioned, automated pipelines make every model traceable and reproducible.",
+  "ref": "Exam guide skill 1.3.5 (MLOps fundamentals)"
+ },
+ {
+  "id": "1.3-11",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A demand-forecasting model was accurate at launch, but its errors have grown steadily over a year as customer habits changed. What should the team put in place?",
+  "options": [
+   "Stop collecting new data to keep the model stable",
+   "Monitor the model in production for drift and retrain it on recent data",
+   "Lower the model's temperature parameter to reduce errors",
+   "Delete the old evaluation dataset and then redeploy exactly the same model to a new endpoint"
+  ],
+  "answer": 1,
+  "notes": [
+   "Without new data the model cannot learn the changed patterns.",
+   "Correct. Real-world data changes (data and concept drift). Monitoring catches the decline, and retraining on recent data restores accuracy.",
+   "Temperature is a generation setting for foundation models; it does not fix a drifting forecast model.",
+   "Redeploying the same model does nothing about the change in the data."
+  ],
+  "explain": "Models degrade as the world changes. Monitoring and retraining are core MLOps practices. On AWS, model monitoring can detect drift in data quality, model quality, and bias, and pipelines can automate retraining.",
+  "ref": "Exam guide skill 1.3.5 (monitoring, model retraining)"
+ },
+ {
+  "id": "1.3-12",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team's ML system relies on manual notebook steps, copied code, and undocumented data fixes that only one engineer understands. Which MLOps concept does this describe?",
+  "options": [
+   "Technical debt",
+   "Production readiness",
+   "Hyperparameter optimization",
+   "Transfer learning"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Shortcuts that make a system hard to maintain, reproduce, or change are technical debt; ML systems pile it up quickly.",
+   "Production readiness is the goal this system falls short of: reliable, automated, monitored, and secure.",
+   "Hyperparameter optimization tunes training settings.",
+   "Transfer learning reuses a pretrained model for a new task."
+  ],
+  "explain": "ML technical debt comes from fragile pipelines, hidden dependencies, and manual steps. MLOps reduces it with automation, versioning, testing, and documentation, so systems become production ready and easier to scale.",
+  "ref": "Exam guide skill 1.3.5 (technical debt)"
+ },
+ {
+  "id": "1.3-13",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A fraud model is tested on 1,000 transactions. It flags 100 as fraud, and 80 of those really are fraud. There are 120 fraudulent transactions in total. What is the model's precision?",
+  "options": [
+   "0.67",
+   "0.80",
+   "0.94",
+   "0.20"
+  ],
+  "answer": 1,
+  "notes": [
+   "0.67 is the recall: 80 caught out of 120 actual frauds.",
+   "Correct. Precision = true positives / everything flagged = 80 / 100 = 0.80.",
+   "0.94 is the accuracy: (80 true positives + 860 true negatives) / 1,000.",
+   "0.20 is the share of flags that were wrong (20 false positives out of 100 flagged), the opposite of precision."
+  ],
+  "explain": "Precision = TP / (TP + FP) answers: of the items flagged, how many were right? Here TP = 80 and FP = 20, so precision is 0.80. Recall = TP / (TP + FN) = 80 / 120 ≈ 0.67 answers: of the real frauds, how many were caught?",
+  "ref": "Exam guide skill 1.3.6 (precision, recall)"
+ },
+ {
+  "id": "1.3-14",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A hospital uses a model to screen scans for a serious disease. Missing a sick patient is far worse than sending a healthy patient for a follow-up test. Which metric should the team prioritize?",
+  "options": [
+   "Precision",
+   "Recall",
+   "Accuracy",
+   "Latency"
+  ],
+  "answer": 1,
+  "notes": [
+   "Precision limits false alarms, but false alarms are the cheaper mistake here.",
+   "Correct. Recall measures how many actual positive cases the model catches. High recall means few missed patients (false negatives).",
+   "Accuracy can look high even when many sick patients are missed, especially if the disease is rare.",
+   "Latency is about speed, not about missed diagnoses."
+  ],
+  "explain": "Prioritize recall when false negatives are costly (disease screening, fraud you must not miss). Prioritize precision when false positives are costly (blocking legitimate emails or payments). F1 balances the two.",
+  "ref": "Exam guide skill 1.3.6"
+ },
+ {
+  "id": "1.3-15",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "An email provider's spam filter must almost never send a legitimate message to the spam folder, even if some spam gets through. Which metric matters most?",
+  "options": [
+   "Recall",
+   "Precision",
+   "Mean squared error",
+   "Perplexity"
+  ],
+  "answer": 1,
+  "notes": [
+   "High recall catches more spam but would accept more legitimate emails wrongly flagged.",
+   "Correct. Precision = TP / (TP + FP). High precision means that what gets flagged as spam really is spam, so few legitimate emails are lost.",
+   "Mean squared error measures regression error, not classification.",
+   "Perplexity measures how well a language model predicts text."
+  ],
+  "explain": "When false positives are expensive, optimize precision. Here a false positive is a real email hidden in the spam folder.",
+  "ref": "Exam guide skill 1.3.6"
+ },
+ {
+  "id": "1.3-16",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A classifier has a precision of 0.6 and a recall of 0.9. What is its F1 score?",
+  "options": [
+   "0.54",
+   "0.72",
+   "0.75",
+   "0.90"
+  ],
+  "answer": 1,
+  "notes": [
+   "0.54 is precision × recall, not F1.",
+   "Correct. F1 = 2 × (0.6 × 0.9) / (0.6 + 0.9) = 1.08 / 1.5 = 0.72.",
+   "0.75 is the simple average of 0.6 and 0.9; F1 uses the harmonic mean.",
+   "0.90 is just the recall."
+  ],
+  "explain": "F1 is the harmonic mean of precision and recall: 2PR / (P + R). It is pulled towards the lower of the two values, so a model cannot score well by maximizing only one of them.",
+  "ref": "Exam guide skill 1.3.6 (F1 score)"
+ },
+ {
+  "id": "1.3-17",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Only 1% of a bank's transactions are fraudulent. A model that predicts 'not fraud' for every transaction scores 99% accuracy. Why is accuracy misleading here?",
+  "options": [
+   "Because accuracy cannot be computed for classification problems",
+   "Because with imbalanced classes the model catches no fraud at all, so recall for fraud is zero",
+   "Because 99% accuracy always means the model has overfit its training data",
+   "Because accuracy only works for regression problems with continuous outputs, not for classes like fraud"
+  ],
+  "answer": 1,
+  "notes": [
+   "Accuracy is a standard classification metric; it is just uninformative on imbalanced data.",
+   "Correct. The model never finds the minority class. Precision, recall, and F1 for the fraud class reveal the problem.",
+   "High accuracy does not by itself indicate overfitting; here the model is simply trivial.",
+   "Accuracy is a classification metric; regression uses errors such as RMSE."
+  ],
+  "explain": "With class imbalance, accuracy is dominated by the majority class. Evaluate the minority class with precision, recall, and F1, and consider rebalancing the data.",
+  "ref": "Exam guide skills 1.3.6 and 4.1.5"
+ },
+ {
+  "id": "1.3-18",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "Leadership asks whether a new AI customer-service assistant is worth its cost. Which metric answers that business question most directly?",
+  "options": [
+   "F1 score of the intent classifier",
+   "Return on investment (ROI)",
+   "Training loss on the final epoch",
+   "Number of model parameters"
+  ],
+  "answer": 1,
+  "notes": [
+   "F1 measures model quality, not business value.",
+   "Correct. ROI compares the value delivered (savings, extra revenue) with the total cost of building and running the solution.",
+   "Training loss is a technical signal used during training.",
+   "Parameter count describes model size, not value to the business."
+  ],
+  "explain": "The guide separates model metrics (accuracy, precision, recall, F1) from business metrics (cost per user, development cost, customer feedback, ROI). Executives decide on business metrics.",
+  "ref": "Exam guide skill 1.3.6 (business metrics)"
+ },
+ {
+  "id": "1.3-19",
+  "task": "1.3",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "Which of these are business metrics for an AI solution, rather than model performance metrics? Select TWO.",
+  "options": [
+   "Cost per user",
+   "Customer feedback scores",
+   "Recall",
+   "Precision",
+   "F1 score"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Cost per user tracks the economics of running the solution.",
+   "Correct. Customer feedback reflects how users experience the solution.",
+   "Recall is a model metric.",
+   "Precision is a model metric.",
+   "F1 is a model metric."
+  ],
+  "explain": "Model metrics tell you how well the model predicts. Business metrics tell you whether the solution creates value: cost per user, development cost, customer feedback, and ROI.",
+  "ref": "Exam guide skill 1.3.6"
+ },
+ {
+  "id": "1.3-20",
+  "task": "1.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A data science team needs managed notebooks, distributed training jobs, automatic model tuning, and one-click deployment of its own custom models. Which AWS service provides all of these?",
+  "options": [
+   "Amazon Comprehend",
+   "Amazon SageMaker AI",
+   "Amazon Lex",
+   "AWS Artifact"
+  ],
+  "answer": 1,
+  "notes": [
+   "Comprehend is a pretrained NLP service; you cannot train arbitrary custom models with it.",
+   "Correct. SageMaker AI covers the whole ML lifecycle: data preparation, notebooks, training, tuning, deployment, and MLOps.",
+   "Lex builds chatbots.",
+   "Artifact provides AWS compliance reports."
+  ],
+  "explain": "Amazon SageMaker AI is AWS's end-to-end platform for building, training, and deploying ML models. It also hosts foundation models (SageMaker JumpStart) and tools for responsible AI such as Clarify and Model Cards.",
+  "ref": "Exam guide skills 1.2.5 and 1.3.4"
+ }
+]

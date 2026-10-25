@@ -1,0 +1,314 @@
+[
+ {
+  "id": "3.3-01",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A medical publisher has millions of unlabeled journal articles. It wants a foundation model to better understand medical terminology in general, without task-specific examples. Which customization method fits?",
+  "options": [
+   "Continued pretraining on the unlabeled articles",
+   "Instruction fine-tuning on labeled question-answer pairs",
+   "Few-shot prompting with three example articles",
+   "Reinforcement learning from human feedback alone"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Continued (continuous) pretraining keeps training the model on unlabeled domain text, which deepens its domain knowledge.",
+   "Instruction tuning needs labeled prompt and response pairs, which the publisher does not have.",
+   "Three examples in a prompt cannot teach broad domain vocabulary.",
+   "RLHF aligns behavior to human preferences; it is not how a model absorbs a large domain corpus."
+  ],
+  "explain": "In Amazon Bedrock, continued pretraining uses unlabeled data to adapt a model to a domain. Fine-tuning uses labeled examples to teach a specific task or behavior.",
+  "ref": "Exam guide skills 3.3.1 and 3.3.2 (continuous pretraining, domain adaptation)"
+ },
+ {
+  "id": "3.3-02",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team trains a base model on thousands of examples, each made of an instruction (such as 'Summarize this email in one sentence') and the ideal response. What is this method called?",
+  "options": [
+   "Instruction tuning",
+   "Continued pretraining",
+   "Model distillation",
+   "Unsupervised clustering"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Instruction tuning is fine-tuning on instruction and response pairs, so the model follows instructions better.",
+   "Continued pretraining uses unlabeled text, not instruction pairs.",
+   "Distillation trains a smaller model on a larger model's outputs.",
+   "Clustering groups data and does not train an FM."
+  ],
+  "explain": "Instruction tuning is a form of supervised fine-tuning. It is why chat models follow instructions well. Companies use it to teach task-specific behaviors and formats.",
+  "ref": "Exam guide skill 3.3.2 (instruction tuning)"
+ },
+ {
+  "id": "3.3-03",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A law firm adapts a general foundation model so that it handles legal language and conventions more accurately, using a corpus of legal documents. What is this broader goal called?",
+  "options": [
+   "Domain adaptation",
+   "Prompt hijacking",
+   "Batch inference",
+   "Data drift"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Domain adaptation tailors a general model to a specific field such as law, medicine, or finance.",
+   "Hijacking is an attack, not a training method.",
+   "Batch inference is a way of running predictions.",
+   "Data drift is a change in production data over time."
+  ],
+  "explain": "Domain adaptation can use continued pretraining (unlabeled domain text) and fine-tuning (labeled domain tasks). Consider RAG first if the need is mainly access to domain documents rather than domain language skills.",
+  "ref": "Exam guide skill 3.3.2 (domain adaptation)"
+ },
+ {
+  "id": "3.3-04",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A team starts from a model pretrained on millions of general images and trains it further on 2,000 labeled photos of its own products. Which concept does this use?",
+  "options": [
+   "Transfer learning",
+   "Training a model from scratch",
+   "Unsupervised clustering",
+   "Prompt caching"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Transfer learning reuses what a pretrained model already knows, so a small dataset is enough for the new task.",
+   "Training from scratch would ignore the pretrained knowledge and need far more data.",
+   "Clustering groups unlabeled data; these photos are labeled for a task.",
+   "Prompt caching is a cost optimization for FM requests."
+  ],
+  "explain": "Transfer learning is the idea behind fine-tuning: knowledge learned on a large, general task transfers to a related, narrower task, which saves data, time, and cost.",
+  "ref": "Exam guide skill 3.3.2 (transfer learning)"
+ },
+ {
+  "id": "3.3-05",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "People compare pairs of model responses and pick the better one. Their choices train a reward model, which is then used to tune the FM toward preferred answers. What is this technique?",
+  "options": [
+   "Reinforcement learning from human feedback (RLHF)",
+   "Continued pretraining on web text",
+   "Retrieval-augmented generation",
+   "K-fold cross-validation with human-labeled test folds"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. RLHF uses human preference judgments to align a model's behavior with what people consider helpful and safe.",
+   "Continued pretraining uses unlabeled text, with no human preference signal.",
+   "RAG retrieves documents at question time and does not change the model.",
+   "Cross-validation is a model evaluation technique."
+  ],
+  "explain": "RLHF is part of data preparation and alignment in the guide (skill 3.3.3). Human preference data is collected, a reward model learns from it, and reinforcement learning optimizes the FM against that reward. SageMaker Ground Truth can help collect human feedback.",
+  "ref": "Exam guide skill 3.3.3 (RLHF)"
+ },
+ {
+  "id": "3.3-06",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What kind of training data does fine-tuning a model in Amazon Bedrock typically require?",
+  "options": [
+   "Labeled prompt-and-response examples, stored in Amazon S3",
+   "Only unlabeled raw text, with no examples of desired outputs",
+   "A live connection to the company's production database",
+   "Images only, regardless of the model type"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Fine-tuning uses labeled examples (an input and the desired output), uploaded to Amazon S3 in the format the model requires, typically JSON Lines.",
+   "Unlabeled text is used for continued pretraining, not fine-tuning.",
+   "Customization jobs read prepared training files, not live databases.",
+   "Text models are fine-tuned on text examples; image data applies only to models that take images."
+  ],
+  "explain": "Fine-tuning is supervised: each example shows the model what a good response looks like. Continued pretraining is unsupervised and uses unlabeled domain text.",
+  "ref": "Exam guide skills 3.3.1 and 3.3.3; Amazon Bedrock model customization"
+ },
+ {
+  "id": "3.3-07",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Before fine-tuning, a team finds that its 20,000 examples contain duplicates, contradictory answers, and some offensive language. What should it do first?",
+  "options": [
+   "Curate the data: remove duplicates, fix errors, and filter harmful content",
+   "Fine-tune immediately; the model will ignore the bad examples",
+   "Double the dataset by copying every example twice",
+   "Increase the learning rate so that the training job finishes much sooner"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Data curation is a key preparation step; models learn whatever is in the data, including errors and toxic content.",
+   "Models do not reliably ignore bad examples; they learn from them.",
+   "Duplicating data adds no new information and worsens imbalance.",
+   "A higher learning rate does nothing to fix data quality."
+  ],
+  "explain": "High-quality, curated data matters more than sheer volume for fine-tuning. Curation, governance, appropriate size, accurate labels, and representativeness are all listed in skill 3.3.3.",
+  "ref": "Exam guide skill 3.3.3 (data curation)"
+ },
+ {
+  "id": "3.3-08",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company fine-tunes a support model using only tickets from its US customers. After launch, it performs poorly for customers in India and the UK. Which data preparation issue is most likely?",
+  "options": [
+   "The training data was not representative of all users",
+   "The model's temperature was too low",
+   "The training data was stored in Amazon S3",
+   "The model used too few GPUs during inference, which slowed every response"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. If training data does not reflect the people and situations the model will serve, performance suffers for under-represented groups.",
+   "Temperature does not explain a gap between regions.",
+   "Storing data in S3 is normal and does not cause bias.",
+   "Inference hardware affects speed, not regional quality."
+  ],
+  "explain": "Representativeness is a key data preparation concern for both quality and fairness. Collect data that covers the full range of users, languages, and cases.",
+  "ref": "Exam guide skills 3.3.3 (representativeness) and 4.1.5"
+ },
+ {
+  "id": "3.3-09",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A team believes it needs millions of examples to fine-tune a model for a narrow formatting task. What is the most accurate guidance?",
+  "options": [
+   "A smaller set of high-quality, relevant examples is often enough; quality matters more than volume",
+   "Fine-tuning always needs at least one billion tokens of examples before it has any measurable effect",
+   "Any amount of data works equally well, whatever its quality",
+   "Fine-tuning cannot be done with fewer examples than were used to pretrain the original model"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Narrow tasks can often be learned from hundreds to a few thousand good examples, because the model starts from pretrained knowledge.",
+   "Billions of tokens are typical of pretraining, not fine-tuning.",
+   "Low-quality data can make a model worse.",
+   "Fine-tuning uses far less data than pretraining; that is its main advantage."
+  ],
+  "explain": "Data size is a factor in skill 3.3.3. Start with a modest, curated dataset, evaluate, then add data where the model is weak.",
+  "ref": "Exam guide skill 3.3.3 (size)"
+ },
+ {
+  "id": "3.3-10",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A team needs thousands of support conversations labeled by human reviewers, with a managed workflow and the option of a private workforce. Which AWS service helps?",
+  "options": [
+   "Amazon SageMaker Ground Truth",
+   "Amazon Polly",
+   "AWS CloudTrail",
+   "Amazon CloudFront with signed URLs"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Ground Truth provides managed data labeling workflows using your own workers, vendors, or a public workforce.",
+   "Polly is text-to-speech.",
+   "CloudTrail records API activity.",
+   "CloudFront delivers content."
+  ],
+  "explain": "Accurate labels are essential for fine-tuning and supervised learning. Ground Truth also supports collecting human feedback for generative AI, such as ranking model responses.",
+  "ref": "Exam guide skill 3.3.3 (labeling)"
+ },
+ {
+  "id": "3.3-11",
+  "task": "3.3",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "Before fine-tuning on customer emails, the legal team asks whether the company has the right to use the data and how personal information will be handled. Which data preparation area does this concern?",
+  "options": [
+   "Data governance",
+   "Hyperparameter tuning",
+   "Inference latency",
+   "Chunk overlap"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Data governance covers ownership, consent, privacy, retention, and approved use of training data.",
+   "Hyperparameter tuning concerns training settings.",
+   "Latency concerns response speed.",
+   "Chunk overlap is a RAG design detail."
+  ],
+  "explain": "Governance is a listed data preparation factor. Confirm usage rights, remove or mask PII (Amazon Macie or Amazon Comprehend can help find it), and document data lineage.",
+  "ref": "Exam guide skills 3.3.3 (governance) and 5.2.2"
+ },
+ {
+  "id": "3.3-12",
+  "task": "3.3",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each training approach to its description.",
+  "prompts": [
+   "Training a model on a huge, broad dataset to create a foundation model",
+   "Adjusting a pretrained model with labeled examples for a specific task",
+   "Further training a pretrained model on unlabeled domain text",
+   "Training a smaller model to imitate a larger model's outputs"
+  ],
+  "options": [
+   "Pretraining",
+   "Fine-tuning",
+   "Continued pretraining",
+   "Distillation"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Skill 3.3.1 lists pretraining, fine-tuning, continuous pretraining, and distillation. Remember: labeled data means fine-tuning; unlabeled domain data means continued pretraining; a teacher and a student model means distillation.",
+  "ref": "Exam guide skill 3.3.1"
+ },
+ {
+  "id": "3.3-13",
+  "task": "3.3",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "How does fine-tuning differ from pretraining? Select TWO.",
+  "options": [
+   "Fine-tuning uses a much smaller, task-specific dataset",
+   "Fine-tuning starts from an existing pretrained model's weights",
+   "Fine-tuning needs trillions of tokens of general text",
+   "Fine-tuning always costs less than prompt engineering",
+   "Fine-tuning starts from randomly initialized weights"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Fine-tuning needs far less data because the model already has broad knowledge.",
+   "Correct. Fine-tuning adjusts weights that pretraining already learned.",
+   "Trillions of tokens describes pretraining.",
+   "Prompt engineering needs no training, so it is usually cheaper than fine-tuning.",
+   "Random initialization describes training from scratch."
+  ],
+  "explain": "Pretraining builds general capability from massive data. Fine-tuning specializes that capability with a small, focused dataset.",
+  "ref": "Exam guide skills 3.3.1 and 3.3.2"
+ },
+ {
+  "id": "3.3-14",
+  "task": "3.3",
+  "type": "order",
+  "difficulty": "medium",
+  "q": "Put these steps of a fine-tuning project in order.",
+  "options": [
+   "Collect and curate relevant examples",
+   "Format them as labeled prompt-and-response pairs",
+   "Run the fine-tuning job on the base model",
+   "Evaluate the fine-tuned model against the base model",
+   "Deploy the fine-tuned model for inference"
+  ],
+  "explain": "Data quality work comes first, then formatting and training, then evaluation against a baseline to prove the fine-tuned model is actually better, and only then deployment.",
+  "ref": "Exam guide skills 3.3.1 and 3.3.3"
+ }
+]

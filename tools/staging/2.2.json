@@ -1,0 +1,413 @@
+[
+ {
+  "id": "2.2-01",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A lawyer asks an LLM for case law. The model confidently cites a court case, with a name and year, that does not exist. What is this called?",
+  "options": [
+   "Hallucination",
+   "Overfitting during training",
+   "Prompt caching",
+   "Model drift after deployment over several months"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. A hallucination is fluent, plausible output that is false or not supported by any source.",
+   "Overfitting describes a model that memorizes training data and generalizes poorly; it is not the term for invented facts.",
+   "Prompt caching reuses repeated prompt prefixes to save cost.",
+   "Drift is gradual change in data or performance over time, not a single invented fact."
+  ],
+  "explain": "LLMs predict likely text, not verified truth, so they can invent facts, citations, and numbers. Mitigations include grounding answers with RAG, asking for citations, contextual grounding checks in Amazon Bedrock Guardrails, and human review for high-stakes use.",
+  "ref": "Exam guide skill 2.2.2 (hallucinations)"
+ },
+ {
+  "id": "2.2-02",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A team notices that sending the exact same prompt to its model twice often gives two differently worded answers. Which limitation of generative AI is this, and what reduces it?",
+  "options": [
+   "Nondeterminism; lowering the temperature makes outputs more consistent",
+   "Hallucination; raising the temperature makes outputs more factual",
+   "Bias; adding more GPUs to the endpoint makes outputs fairer",
+   "Overfitting; training the model for more epochs makes outputs repeatable"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Generation samples from probabilities, so outputs vary. Lower temperature (and top-p) makes the model pick the most likely tokens more often.",
+   "Different wording is not the same as false content, and higher temperature increases variation.",
+   "Bias concerns unfair outcomes, and GPU count does not affect it.",
+   "Training more epochs does not make sampling deterministic and can cause overfitting."
+  ],
+  "explain": "Nondeterminism is a listed GenAI disadvantage. It matters for testing, auditing, and consistency. Lower temperature, fixed output formats, and validation of outputs reduce its impact.",
+  "ref": "Exam guide skill 2.2.2 (nondeterminism)"
+ },
+ {
+  "id": "2.2-03",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A compliance officer asks exactly why an LLM recommended one insurance plan over another. The team cannot trace the decision to specific inputs. Which limitation does this show?",
+  "options": [
+   "Poor interpretability",
+   "Low throughput under heavy load",
+   "Insufficient context window size for long documents",
+   "High training data quality"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Large neural models with billions of parameters are hard to interpret; it is difficult to say why a specific output was produced.",
+   "Throughput concerns speed, not explaining decisions.",
+   "Context size limits input length; it does not explain why the decision cannot be traced.",
+   "High data quality would be an advantage, not a limitation."
+  ],
+  "explain": "Interpretability is a key GenAI disadvantage, and it drives the v1.1 objective about choosing traditional ML when explainability is required. Documenting models (SageMaker Model Cards) and evaluating outputs help, but they do not make an LLM fully transparent.",
+  "ref": "Exam guide skills 2.2.2 and 1.2.6"
+ },
+ {
+  "id": "2.2-04",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A company uses one foundation model to summarize reports, translate emails, draft product descriptions, and answer HR questions, without training a separate model for each. Which advantage of generative AI does this show?",
+  "options": [
+   "Adaptability",
+   "Determinism",
+   "Low interpretability",
+   "Perfect factual accuracy on every topic"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. One FM can adapt to many tasks through prompting, which is a major advantage.",
+   "GenAI outputs are not deterministic.",
+   "Low interpretability is a disadvantage, not an advantage.",
+   "FMs can make mistakes and hallucinate; accuracy is not guaranteed."
+  ],
+  "explain": "The v1.1 guide lists adaptability, responsiveness, conversational capabilities, and the ability to generate content as GenAI advantages.",
+  "ref": "Exam guide skill 2.2.1"
+ },
+ {
+  "id": "2.2-05",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An airline replaces its menu-based phone system with an assistant that understands free-form questions and replies naturally, 24 hours a day. Which GenAI advantage is most evident?",
+  "options": [
+   "Conversational capabilities and responsiveness",
+   "Guaranteed deterministic outputs for audits",
+   "Easier explanation of every decision to regulators",
+   "Zero risk of incorrect answers"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. FMs hold natural, flexible conversations and respond instantly at any hour.",
+   "GenAI outputs vary; determinism is not a strength.",
+   "Explaining decisions is a weakness of large models.",
+   "GenAI can be wrong; risk must be managed, not assumed away."
+  ],
+  "explain": "Conversational ability and responsiveness are why GenAI is popular for customer service. The trade-off is managing hallucinations and inconsistency, for example with guardrails, RAG, and human handoff.",
+  "ref": "Exam guide skill 2.2.1"
+ },
+ {
+  "id": "2.2-06",
+  "task": "2.2",
+  "type": "multi",
+  "difficulty": "easy",
+  "q": "Which of these are disadvantages of generative AI that a business must plan for? Select TWO.",
+  "options": [
+   "Hallucinations",
+   "Nondeterministic outputs",
+   "Adaptability across many tasks",
+   "Natural conversational ability",
+   "The ability to generate new content"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. Models can produce confident but false statements.",
+   "Correct. The same input can give different outputs, which complicates testing and consistency.",
+   "Adaptability is an advantage.",
+   "Conversational ability is an advantage.",
+   "Content generation is an advantage."
+  ],
+  "explain": "The guide's GenAI disadvantages are hallucinations, poor interpretability, inaccuracy, and nondeterminism. Its advantages are adaptability, responsiveness, conversational capabilities, and content generation.",
+  "ref": "Exam guide skills 2.2.1 and 2.2.2"
+ },
+ {
+  "id": "2.2-07",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A voice assistant must start answering within a fraction of a second. Answers are short and simple. Which model choice fits best?",
+  "options": [
+   "A smaller, faster model that meets the quality bar for the task",
+   "The largest available model, regardless of how long it takes to respond",
+   "A model with the biggest context window, even if it is slow",
+   "An image generation model tuned for photorealism"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. For latency-critical, simple tasks, a smaller model is usually faster and cheaper while still good enough.",
+   "The largest models are typically slower and more expensive; size is not the goal in itself.",
+   "A big context window is not needed for short answers and can add latency and cost.",
+   "Image generation models do not produce spoken answers."
+  ],
+  "explain": "Model selection weighs model type, performance, capabilities, constraints, compliance, cost, latency, and complexity (v1.1 adds cost, latency, and complexity). Pick the smallest model that meets the requirement.",
+  "ref": "Exam guide skill 2.2.3"
+ },
+ {
+  "id": "2.2-08",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A European bank must keep all customer data processed by its AI assistant inside the EU. Which model selection factor is most important here?",
+  "options": [
+   "Compliance, including the Regions where the model is available",
+   "The number of languages the model's marketing site supports",
+   "How many parameters the model has",
+   "Whether the model can generate images"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Regulatory requirements limit which models and Regions can be used. Check that the model is offered in an EU Region and how any cross-Region inference is configured.",
+   "Marketing language support is irrelevant to data residency.",
+   "Parameter count does not determine where data is processed.",
+   "Image generation is not a requirement in this scenario."
+  ],
+  "explain": "Compliance constraints such as data residency, industry regulations, and licensing often rule models in or out before quality is even compared. In Amazon Bedrock, model availability varies by Region.",
+  "ref": "Exam guide skills 2.2.3 and 5.2.2 (data residency)"
+ },
+ {
+  "id": "2.2-09",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A company must classify 50 million short customer messages a month into five categories. A small model already achieves the needed accuracy in tests. What is the best choice?",
+  "options": [
+   "Use the small model, because it meets the requirement at much lower cost and latency",
+   "Use the largest model available, because bigger always means better business value",
+   "Fine-tune the largest available model on all historical messages before testing anything else",
+   "Avoid AI and have people read all 50 million messages"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. When a smaller model is good enough, it wins on cost, speed, and simplicity, which matters a lot at this volume.",
+   "Bigger models cost more per token; the extra capability is wasted on a simple task.",
+   "Fine-tuning a large model adds cost and effort, and it is unnecessary when a small model already meets the bar.",
+   "Manual review of 50 million messages a month is impractical."
+  ],
+  "explain": "Right-size the model: match capability to the task's complexity, then optimize for cost and latency. At high volume, small differences in per-token price add up to large differences in total cost.",
+  "ref": "Exam guide skill 2.2.3 (cost, latency, model complexity)"
+ },
+ {
+  "id": "2.2-10",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "A field-service app needs a model that can look at a photo of a broken machine part and describe the fault in words. Which selection factor rules out many models?",
+  "options": [
+   "Model capabilities, specifically multimodal image input",
+   "The model's knowledge cutoff date for current events",
+   "Whether the model supports streaming text output",
+   "The maximum output length allowed per request"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Only models that accept image input (multimodal models) can do this task at all.",
+   "Knowledge cutoff matters for current events, not for describing a photo.",
+   "Streaming affects how output is delivered, not whether the model can see images.",
+   "Output length is not the deciding factor here."
+  ],
+  "explain": "Start model selection with hard requirements: modality (text, image, audio), context length, languages, and compliance. Then compare quality, cost, and latency among the models that qualify.",
+  "ref": "Exam guide skills 2.2.3 and 3.1.1"
+ },
+ {
+  "id": "2.2-11",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "An online store uses generative AI to write better product descriptions. Which business metric best shows whether the descriptions help sales?",
+  "options": [
+   "Conversion rate",
+   "Training loss",
+   "Token count per description",
+   "Model parameter count"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Conversion rate, the share of visitors who buy, directly reflects whether better descriptions lead to purchases.",
+   "Training loss is a technical metric used while training models.",
+   "Token count measures length and cost, not sales impact.",
+   "Parameter count describes the model, not business results."
+  ],
+  "explain": "Tie GenAI projects to business outcomes. Typical metrics are conversion rate, average revenue per user (ARPU), customer lifetime value (CLV), efficiency, accuracy, and ROI.",
+  "ref": "Exam guide skill 2.2.4"
+ },
+ {
+  "id": "2.2-12",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "What does ARPU measure?",
+  "options": [
+   "Average revenue per user over a period",
+   "Accuracy rate per uploaded file",
+   "Annual requests per unit of compute",
+   "Average response time per user query"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. ARPU = total revenue / number of users for a period. GenAI features such as personalization aim to raise it.",
+   "This is not a standard business metric.",
+   "This is not what ARPU stands for.",
+   "Response time is a latency metric, not ARPU."
+  ],
+  "explain": "Average revenue per user is a common way to judge whether AI-driven features, such as recommendations or upsell assistants, increase how much each customer spends.",
+  "ref": "Exam guide skill 2.2.4 (average revenue per user)"
+ },
+ {
+  "id": "2.2-13",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "medium",
+  "q": "A subscription service adds AI-personalized recommendations to keep customers engaged and subscribed for longer. Which metric best captures this long-term goal?",
+  "options": [
+   "Customer lifetime value (CLV)",
+   "Words generated per minute",
+   "Embedding dimension of the recommender",
+   "Number of prompts tested in development"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. CLV estimates the total revenue a customer brings over the whole relationship, so it rises when customers stay longer.",
+   "Generation speed is a technical measure, not a business outcome.",
+   "Embedding dimension is an implementation detail.",
+   "Prompts tested is a development activity measure."
+  ],
+  "explain": "CLV is the right metric when the goal is retention and long-term value rather than one-off conversions.",
+  "ref": "Exam guide skill 2.2.4 (customer lifetime value)"
+ },
+ {
+  "id": "2.2-14",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "easy",
+  "q": "After deploying a GenAI tool that drafts replies, support agents close 35% more tickets per hour. Which type of business value does this show?",
+  "options": [
+   "Efficiency (productivity)",
+   "Model accuracy on a benchmark",
+   "Lower model latency",
+   "Higher model temperature"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. More output per hour of human work is an efficiency gain.",
+   "Benchmark accuracy is a model metric, not observed business value.",
+   "Latency is a technical property of the model.",
+   "Temperature is a generation setting."
+  ],
+  "explain": "Efficiency gains, meaning time saved or output per employee, are among the most common and measurable benefits of GenAI.",
+  "ref": "Exam guide skill 2.2.4 (efficiency)"
+ },
+ {
+  "id": "2.2-15",
+  "task": "2.2",
+  "type": "match",
+  "difficulty": "medium",
+  "q": "Match each business goal to the metric that measures it best.",
+  "prompts": [
+   "More website visitors complete a purchase",
+   "Each customer spends more per month",
+   "Customers stay subscribed for more years",
+   "The project's gains exceed what it cost to build and run"
+  ],
+  "options": [
+   "Conversion rate",
+   "Average revenue per user (ARPU)",
+   "Customer lifetime value (CLV)",
+   "Return on investment (ROI)"
+  ],
+  "answer": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "explain": "Conversion rate tracks purchases per visit, ARPU tracks revenue per user per period, CLV tracks revenue over the whole relationship, and ROI compares benefit with total cost.",
+  "ref": "Exam guide skill 2.2.4"
+ },
+ {
+  "id": "2.2-16",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "A law firm wants a public FAQ assistant that answers questions about its services. A wrong answer could create legal risk. Which approach best manages the hallucination risk?",
+  "options": [
+   "Ground answers in approved documents with RAG, require citations, and route sensitive questions to a human",
+   "Use the largest model available, trust its answers without checks, and publish every reply immediately",
+   "Raise the temperature so the model gives more varied answers",
+   "Remove all instructions from the system prompt so the model answers freely in whatever style it prefers"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Grounding plus citations reduces invented answers, and human escalation covers high-risk cases.",
+   "No model is hallucination-free; trusting it blindly is risky.",
+   "Higher temperature increases randomness and the chance of errors.",
+   "Removing instructions removes control and makes errors more likely."
+  ],
+  "explain": "GenAI's limits do not rule it out for sensitive uses, but they require controls: grounding (RAG), clear instructions, guardrails, output validation, and human-in-the-loop review where stakes are high.",
+  "ref": "Exam guide skills 2.2.2 and 5.1.5"
+ },
+ {
+  "id": "2.2-17",
+  "task": "2.2",
+  "type": "single",
+  "difficulty": "hard",
+  "q": "One foundation model performs well on legal summaries, marketing copy, and code explanations alike. Which business value term describes this strength?",
+  "options": [
+   "Cross-domain performance",
+   "Low inference latency",
+   "Deterministic output",
+   "Small model size"
+  ],
+  "answer": 0,
+  "notes": [
+   "Correct. Strong results across many domains means one model can serve many teams, which increases its business value.",
+   "Latency is a separate property and is not described here.",
+   "GenAI outputs are not deterministic.",
+   "Strong cross-domain models are often large, not small."
+  ],
+  "explain": "The guide lists cross-domain performance among GenAI business value factors: a model that handles many domains reduces the number of separate solutions to build and maintain.",
+  "ref": "Exam guide skill 2.2.4 (cross-domain performance)"
+ },
+ {
+  "id": "2.2-18",
+  "task": "2.2",
+  "type": "multi",
+  "difficulty": "medium",
+  "q": "A startup is choosing a model for a mobile app that answers short questions. It has a tight budget, and users expect near-instant replies. Which selection factors matter most? Select TWO.",
+  "options": [
+   "Cost per token",
+   "Latency",
+   "Image generation quality",
+   "Maximum supported video length",
+   "Ability to write long novels"
+  ],
+  "answer": [
+   0,
+   1
+  ],
+  "notes": [
+   "Correct. A tight budget makes per-token cost a key factor.",
+   "Correct. Near-instant replies make latency a key factor.",
+   "The app does not generate images.",
+   "The app does not process video.",
+   "Long-form creative writing is not required here."
+  ],
+  "explain": "Let the requirements drive selection. For short, frequent answers, cost and latency usually dominate. Capabilities the app will never use should not drive the choice.",
+  "ref": "Exam guide skill 2.2.3"
+ }
+]
